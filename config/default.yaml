@@ -1,0 +1,9 @@
+server:
+  port: 8888
+index: 'index.html'
+database:
+  connection: mongodb://localhost:27017/bigScreen
+security:
+  user: test
+  password: test
+bigscreenChannel: 'http://localhost:8085'

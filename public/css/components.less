@@ -1,0 +1,224 @@
+@poll: #100d67;
+
+.vote {
+  position: relative;
+  button {
+    position: absolute;
+  }
+}
+
+body {
+  overflow: auto;
+}
+.screen--tychy {
+  top: 0;
+  left: 0;
+  position: absolute;
+  font-family: 'Oswald';
+  width: 256px;
+  height: 144px;
+  overflow: hidden;
+
+  .content {
+    max-height: 115px;
+    overflow: hidden;
+  }
+
+  img.participants {
+    max-width: 50px;
+    width:auto;
+    height: 50px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    box-shadow: 3px 3px 10px black;
+
+    &.participants--winner {
+      max-width: 65px;
+      width:auto;
+      height: 65px;
+    }
+  }
+
+  .poll_result__text {
+    text-align: left;
+  }
+
+  .poll_result {
+    height: 115px
+  }
+
+  .participant {
+    position: absolute;
+  }
+
+  .participant:nth-child(1) {
+    left: 105px;
+    top: 32px;
+  }
+
+  .participant:nth-child(2) {
+    top: -43px;
+    left: 196px;
+  }
+
+  .participant:nth-child(3) {
+    left: 191px;
+    top: 32px;
+  }
+
+  .winner {
+    position: absolute;
+    top: 12px;
+    left: 156px;
+    font-size: 12px;
+  }
+
+  .container--middle {
+    height: 100px;
+  }
+}
+
+.tychy__players {
+  width: 500px;overflow: hidden;
+
+  [roller] {
+    -webkit-transition: margin-left 1s ease-in-out;
+    -moz-transition: margin-left 1s ease-in-out;
+    -o-transition: margin-left 1s ease-in-out;
+    transition: margin-left 1s ease-in-out;
+  }
+
+  .tychy__player {
+    width: 500px;
+    height: 500px;
+  }
+}
+
+
+.toolbar__container--tychy {
+  height: 27px;
+
+  .toolbar--top--tychy {
+    .toolbar--top--tychy__title {
+      margin-left: -23px;
+    }
+
+    background-color: rgba(8, 6, 6, 0.66)
+  }
+}
+
+.tychy__logo--small {
+  margin-right: 10px;
+  height: 22px;
+  margin-top: 2px;
+}
+
+.screen--tychy__background {
+  background-image: url('/projector/partials/tychy/img/tlo-konkurs.jpg');
+  background-size: 256px 144px;
+}
+
+.screen-answer--tychy__avatar {
+  -ms-interpolation-mode: bicubic;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.screen-answer--tychy__avatar__user-firstname {
+  max-width: 60px;
+}
+
+.image--option1 {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.image--option2 {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.demo--font {
+  font-family: 'Nunito', sans-serif;
+  color: white;
+}
+
+.demo {
+  background-image: url('/img/demo/f1.png');
+  width: 800px;
+  height: 500px;
+
+  .poll_result {
+    margin-top: -40px;
+    margin-left: -62px;
+  }
+  .radio-question__percentage {
+    font-size: 40px;
+    color: white;
+    margin-top: -50px;
+  }
+
+  .radio-question__container {
+    .radio-question__displayName {
+      font-family: 'Nunito', sans-serif;
+      color: white;
+      text-transform: uppercase;
+      font-size: 20px;
+    }
+  }
+  .radio-question__container:first-of-type {
+    margin-left: 61px;
+    margin-top: 88px;
+
+    .poll__option {
+      margin-left: 226px;
+    }
+  }
+
+  .radio-question__container:nth-of-type(2) {
+    margin-right: 120px;
+    margin-top: 88px;
+  }
+
+  .radio-question__container:nth-of-type(2) .container  {
+    margin-right: 90px;
+  }
+  .poll__option {
+    font-weight: bold;
+    box-shadow: none;
+    width: 160px;
+    border: 2px white solid;
+    background-color: rgba(0,0,0,0);
+    min-height: 80px;
+    position: relative;
+
+    .radio-question__displayName {
+      position: absolute;;
+      bottom: 0;
+    }
+
+    .cool-gradient {
+      position: absolute;
+      top:0;
+      bottom: 55px;
+      left: 0;
+      right: 0;
+      background-color: rgba(255,255,255, 0.2);
+    }
+  }
+  .poll__option--first {
+    border-radius: 0;
+  }
+ }
+
+
+.demo-screen {
+  min-width: 1360px;
+  width: 100%;
+}
+
+.demo-background {
+  background-color: black;
+}
