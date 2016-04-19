@@ -1,0 +1,16 @@
+node_modules/**/*.*
+public/js/jspm_packages/**/*.*
+node_modules/**
+public/css/*.map
+public/js/projector.min.js
+public/js/lib/projector.bundle.js
+public/js/lib/main.bundle.js
+public/index-projector-production.html
+public/index-mobile-production.html
+public/img/users/**
+.idea/**
+public/css/base.css
+public/css/components.css
+public/css/dist/app.min.css
+public/css/dist/mobile.min.css
+public/css/theme.css
