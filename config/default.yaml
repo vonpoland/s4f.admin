@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8889
 index: 'index.html'
 database:
   connection: mongodb://localhost:27017/bigScreen

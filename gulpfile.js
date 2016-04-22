@@ -2,7 +2,6 @@ var browserSync = require('browser-sync').create();
 var gulp = require('gulp');
 var mocha = require('gulp-mocha');
 var less = require('gulp-less-sourcemap');
-var templateCache = require('gulp-angular-templatecache');
 var gulp_jspm = require('gulp-jspm');
 var minifyCss = require('gulp-minify-css');
 var concat = require('gulp-concat');
@@ -37,53 +36,44 @@ gulp.task('less', function () {
 		.pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('cssApp', function () {
+gulp.task('css', function () {
 	return gulp.src(['./public/css/*.css'])
 		.pipe(minifyCss())
 		.pipe(concat('app.min.css'))
 		.pipe(gulp.dest('./public/css/dist'));
 });
 
-gulp.task('cacheTemplates', function () {
-	return gulp.src('public/partials/**/*.html')
-		.pipe(templateCache({
-			root: 'partials',
-			standalone: true
-		}))
-		.pipe(gulp.dest('public/js/lib'));
-});
-
-gulp.task('bundleScriptsProjector', function () {
-	return gulp.src('./public/js/lib/projector.js')
+gulp.task('bundleScripts', function () {
+	return gulp.src('./public/js/lib/index.js')
 		.pipe(gulp_jspm({
-			minify: true,
+			minify: false,
 			mangle: false
 		}))
 		.pipe(gulp.dest('./public/js/lib'));
 });
 
-gulp.task('concatProjectorScripts', function () {
-	return gulp.src(['./public/js/external/lodash.min.js',
-			'./public/js/system-polyfills.js',
+gulp.task('concatScripts', function () {
+	return gulp.src(['./public/js/system-polyfills.js',
 			'./public/js/jspm_packages/system.js',
 			'./public/js/config.js',
-			'./public/js/lib/projector.bundle.js'])
-		.pipe(concat('projector.min.js'))
+			'./public/js/lib/index.bundle.js'])
+		.pipe(concat('admin.min.js'))
 		.pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('buildProjectorIndex', function () {
-	gulp.src('./public/index-projector.html')
+gulp.task('buildIndex', function () {
+	gulp.src('./public/partials/admin/index.html')
 		.pipe(htmlreplace({
-			'css': 'css/dist/app.min.css',
-			'js': 'js/projector.min.js'
+            'css': 'css/dist/app.min.css',
+			'js': 'js/admin.min.js',
+            'conf': {
+                src: [['Basic czRmOnM0ZkAyMDE1IQ==']],
+                tpl: '<script>window.auth = "%s"</script>'
+            }
+
 		}))
-		.pipe(rename('index-projector-production.html'))
-		.pipe(gulp.dest('./public'));
+		.pipe(rename('index-production.html'))
+		.pipe(gulp.dest('./public/partials/admin'));
 });
 
-gulp.task('css', ['cssApp']);
-gulp.task('bundleScripts', ['bundleScriptsProjector']);
-gulp.task('concatScripts', ['concatProjectorScripts']);
-gulp.task('buildIndex', ['buildProjectorIndex']);
-gulp.task('default', done => runSequence('less', 'cacheTemplates', 'bundleScripts', 'concatScripts', 'css', 'buildIndex', done));
+gulp.task('default', done => runSequence('less', 'bundleScripts', 'concatScripts', 'css', 'buildIndex', done));
