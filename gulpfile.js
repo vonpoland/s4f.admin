@@ -46,8 +46,8 @@ gulp.task('css', function () {
 gulp.task('bundleScripts', function () {
 	return gulp.src('./public/js/lib/index.js')
 		.pipe(gulp_jspm({
-			minify: false,
-			mangle: false
+			minify: true,
+			mangle: true
 		}))
 		.pipe(gulp.dest('./public/js/lib'));
 });
