@@ -14,10 +14,10 @@ const staticFiles = require('./lib/static/router');
 
 auth.setupAuth(app);
 app.use(bodyParser.json());
-app.use('/api/poll', poll);
+app.use('/admin/api/poll', poll);
 app.use('/admin', staticFiles);
 app.all('/admin/*', secure, function (req, res) {
-	res.sendFile(config.get('index.html'), {root: __dirname + '/public/partials/admin'});
+	res.sendFile(config.get('index'), {root: __dirname + '/public/partials/admin'});
 });
 
 app.all('/favicon.ico', function (req, res) {
@@ -32,5 +32,5 @@ var server = http.listen(config.get('server.port'), function () {
 	var host = server.address().address;
 	var port = server.address().port;
 
-	logger.info('Big-screen listening at http://%s:%s', host, port);
+	logger.info('Screen-fans listening at http://%s:%s', host, port);
 });

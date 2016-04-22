@@ -1,4 +1,3 @@
-import {getPolls} from '../poll/service.poll';
 import {changeScreen, lotWinner} from './service';
 
 export default class AdminCtrl {

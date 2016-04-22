@@ -1,5 +1,3 @@
-import {getAnswers, getPoll} from '../poll/service.poll';
-
 export default class ResultsCtrl {
     constructor() {
         getAnswers()
