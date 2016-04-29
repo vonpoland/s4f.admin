@@ -16,6 +16,7 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.34",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "classnames": "npm:classnames@2.2.4",
     "core-js": "npm:core-js@1.2.6",
     "cornflourblue/angulike": "github:cornflourblue/angulike@1.2.0",
     "history": "npm:history@2.1.0",

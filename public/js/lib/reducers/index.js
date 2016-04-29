@@ -3,10 +3,10 @@ import polls from './polls';
 import step from './step';
 import { routerReducer } from 'react-router-redux';
 
-const todoApp = combineReducers({
+const indexApp = combineReducers({
     step,
     polls,
     routing : routerReducer
 });
 
-export default todoApp;
+export default indexApp;

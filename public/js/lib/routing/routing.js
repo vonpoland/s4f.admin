@@ -1,7 +1,7 @@
 export function getPath(routing) {
     var paths = routing.pathname.split('/');
-    var parent = paths[0];
-    var poll = paths.length > 1 ? paths[1] : null;
+    var parent = paths.length > 2 ? paths[2] : null;
+    var poll = paths.length > 3 ? paths[3] : null;
 
     return {
         parent: parent,
