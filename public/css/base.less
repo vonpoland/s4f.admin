@@ -1,7 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  overflow-y: auto;
 }
 
 
@@ -9,127 +8,9 @@ body * {
   outline: none !important;
 }
 
-.font1 {
-  font-size: 10px;
+.overflow--hidden {
+  overflow: hidden;
 }
-
-.font--large {
-  font-size: 20px;
-}
-
-.font--big {
-  font-size: 18px;
-}
-
-.font--huge {
-  font-size: 30px;
-}
-
-.font2 {
-  font-size: 14px;
-}
-
-.ui-text--white {
-  color: white;
-}
-
-.ui-text--shadow1 {
-  text-shadow: 5px 5px 10px #ECD4D4;
-}
-
-.ui-text-shadow {
-  text-shadow: 1px 1px 2px black;
-}
-
-.ui-text-ellipsis {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.ui-overflow--hidden {
-  overflow: hidden;;
-}
-
-.ui-text-shadow--inverted {
-  text-shadow: 1px 1px 2px white;
-}
-
-.ui-bring-to-top {
-  z-index: 100;
-}
-.ui-max-height {
-  height: 100%;
-}
-
-.ui-max-width {
-  width: 100%;
-}
-
-.ui-bold {
-  font-weight: bold;
-}
-
-.ui-word--no-break {
-  white-space: nowrap;
-}
-.ui-relative {
-  position: relative;
-}
-
-.ui-text--underline {
-  text-decoration: underline;
-}
-
-.ui-text-space {
-  letter-spacing: 1px;
-}
-
-.ui-text-highlight {
-  background-color: rgba(256,256,256,0.3);
-}
-
-.ui-height--max {
-  height: 100%;
-}
-
-.ui-poll-number-highlight {
-  font-size: 27px;
-  line-height: 31px;
-}
-
-.ui-big-dot {
-  line-height: 10px;
-  font-size: 40px;
-}
-
-.ui-full--width {
-  width: 100%;
-}
-
-.ui-text--uppercase {
-  text-transform: uppercase;
-}
-
-.ui-text-space--big {
-  letter-spacing: 2px;
-}
-
-.ui-position--absolute {
-  position: absolute;
-}
-
-.ui-display--block {
-  display: block;
-}
-
-.ui-send-to-back {
-  z-index: -1;
-}
-
-.ui-text--center {
-  text-align: center;
-}
-
 // container
 .container {
   display: flex;
@@ -137,6 +18,7 @@ body * {
 }
 
 .container-row {
+  .container;
   flex-direction: row;
 }
 
@@ -145,6 +27,7 @@ body * {
 }
 
 .container-column {
+  .container;
   flex-direction: column;
 }
 
@@ -206,6 +89,9 @@ body * {
   margin-left: -2rem;
 }
 
+.padding--zero {
+  padding : 0 !important;
+}
 .padding-vertical--small {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
