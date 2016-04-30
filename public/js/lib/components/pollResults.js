@@ -18,8 +18,9 @@ const PollResults = React.createClass({
             <div className="container">
                 <div style={{width: '100px' }}>Numer</div>
                 <div style={{width: '500px' }}>Odpowiedź</div>
-                <div style={{width: '150px' }}>Użytkownik</div>
-                <div style={{width: '100px' }}>Data</div>
+                <div style={{width: '100px' }}>Użytkownik</div>
+                <div style={{width: '100px' }}>Użytkownik</div>
+                <div style={{width: '50px' }}>Data</div>
             </div>
             {answers.map((answer, index) =>
                 <div key={index}>
@@ -28,8 +29,10 @@ const PollResults = React.createClass({
                         <div style={{width: '500px', wordWrap: 'break-word'}}>
                             {answer.option.option} - {answer.option.answer}
                         </div>
-                        <div style={{width: '150px' }}>{answer.user.firstName}  {answer.user.lastName}</div>
-                        <div style={{width: '100px' }}>{answer.date}</div>
+                        <div style={{width: '100px' }}>{answer.user.firstName}  {answer.user.lastName}</div>
+                        <div style={{width: '100px' }}>{answer.email}</div>
+                        <div style={{width: '50px' }}>{answer.date}</div>
+
                     </div>
                 </div>
             )}
