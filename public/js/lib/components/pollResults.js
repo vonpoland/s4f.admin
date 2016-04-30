@@ -30,7 +30,7 @@ const PollResults = React.createClass({
                             {answer.option.option} - {answer.option.answer}
                         </div>
                         <div style={{width: '150px' }}>{answer.user.firstName}  {answer.user.lastName}</div>
-                        <div style={{width: '200px' }}>{answer.user.email}</div>
+                        <div style={{width: '200px', wordWrap: 'break-word' }}>{answer.user.email}</div>
                         <div style={{width: '50px' }}>{answer.date}</div>
 
                     </div>
