@@ -1,12 +1,14 @@
 import React from 'react';
-import PollList from './components/pollList';
-import ChangeStep from './components/changeStep';
+import { Link } from 'react-router';
 
-const App = () => (
-    <div>
-        <PollList />
-        <ChangeStep />
-    </div>
-);
+const App = React.createClass({
+    render() {
+        return <div className="ui-text--white">
+            <span >I', aaaaaaaaaaaaapp</span>
+            <li><Link to="/admin/tychy">About</Link></li>
+            {this.props.children}
+        </div>;
+    }
+});
 
 export default App

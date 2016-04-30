@@ -7,21 +7,20 @@ const config = require('config');
 const logger = require('bigscreen-logger');
 const bodyParser = require('body-parser');
 const poll = require('./lib/poll/router');
-const HttpStatus = require('http-status-codes');
 const staticFiles = require('./lib/static/router');
 const auth = require('./lib/auth/router');
 const authService = require('./lib/auth/service');
 
 authService.setupPassport(app);
 app.use(bodyParser.json());
-app.use('/admin/api/poll', poll);
+app.use('/admin/api/poll', authService.isAuthenticated, poll);
 app.use('/admin/api/auth', auth);
 app.use('/admin', staticFiles);
 app.all('/admin/login', function (req, res) {
     res.sendFile(config.get('login'), {root: __dirname + '/public/partials/admin'});
 });
 
-app.all('/admin/:poll*', function (req, res) {
+app.all('/admin*', authService.isAuthenticated, function (req, res) {
     res.sendFile(config.get('index'), {root: __dirname + '/public/partials/admin'});
 });
 
