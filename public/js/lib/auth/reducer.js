@@ -14,7 +14,7 @@ export default function authReducer(state = { logging : false, validation : {} }
             var loginFailed = typeof (action.user.errorMessage) !== 'undefined';
 
             if(!loginFailed) {
-                window.location = 'tychy';
+                window.location = '';
             }
 
             return {
