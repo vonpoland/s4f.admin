@@ -17,23 +17,21 @@ const Login = React.createClass({
     render() {
         var onLogin = this.props.onLogin;
         var logging = this.props.data.logging;
-        var hasUserameError = hasAnyErrorsSet(this.props.data.validation.username) ? 'has-error' : '';
-        var hasPasswordError = hasAnyErrorsSet(this.props.data.validation.password) ? 'has-error' : '';
 
         var usernameClass = classNames('form-group', { 'has-error' : hasAnyErrorsSet(this.props.data.validation.username) });
         var passwordClass = classNames('form-group', { 'has-error' : hasAnyErrorsSet(this.props.data.validation.password) });
 
         return <div className="container-row container--vertical-center container--center ui-height-page-max">
             <form role="form">
-                <div className={usernameClass} class={hasUserameError}>
+                <div className={usernameClass}>
                     <label>
-                        <span className="ui-text--white">Login</span>
+                        <span>Login</span>
                         <input className="form-control" disabled={logging} type="text" onChange={this.handleLoginChange}/>
                     </label>
                 </div>
-                <div className={passwordClass} class={hasPasswordError}>
+                <div className={passwordClass}>
                     <label>
-                        <span className="ui-text--white">Password</span>
+                        <span>Password</span>
                         <input className="form-control" disabled={logging} onChange={this.handlePasswordChange} type="password"/>
                     </label>
                 </div>

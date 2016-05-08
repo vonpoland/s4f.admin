@@ -37,18 +37,18 @@ const PollList = React.createClass({
     }
 });
 
-const mapStateToProps = (state) => {
-    return {
-        polls: state.polls || {}
-    };
-};
+const mapStateToProps = state => ({
+    polls: state.polls || {}
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onClick: (pollName, step) => {
             dispatch(setStep(pollName, step));
         },
-        fetchPolls: () => dispatch(fetchPollsIfNeeded())
+        fetchPolls: () => {
+            dispatch(fetchPollsIfNeeded());
+        }
     };
 };
 

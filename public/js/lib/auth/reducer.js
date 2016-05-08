@@ -24,6 +24,12 @@ export default function authReducer(state = { logging : false, validation : {}, 
                 auth: null
             };
         }
+    case AUTH.LOG_FAILED: {
+        return {
+            ...state,
+            logging: false
+        };
+    }
     case AUTH.LOGGED_USER_FETCHED: {
         return {
             ...state,

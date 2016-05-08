@@ -3,6 +3,7 @@ const expect = require('expect.js');
 import navigationReducer from '../../../../public/js/lib/navigation/reducer';
 import authReducer from '../../../../public/js/lib/auth/reducer';
 import {AUTH} from '../../../../public/js/lib/auth/actions';
+import {CHANGE_LOCATION} from '../../../../public/js/lib/actions/actions';
 
 describe('Log in user tests', function () {
     it('should return default state when no action performed', function () {
@@ -41,9 +42,9 @@ describe('Log in user tests', function () {
         });
     });
 
-    it('should clear user after logout', function() {
+    it('should clear user after logout', function () {
         var action = {type: AUTH.LOG_OUT_USER_SUCCESS};
-        var state = { user : 'andrzej' };
+        var state = {user: 'andrzej'};
         var result = navigationReducer(state, action);
 
         expect(result).to.not.equal(state);
@@ -52,9 +53,39 @@ describe('Log in user tests', function () {
         });
     });
 
-    it('should set auth to null when user is logged out', function() {
+    it('should set displayPageInfo to null when route change is on login page', function () {
+        var action = {type: CHANGE_LOCATION, payload: {pathname: 'admin/login'}};
+        var state = {};
+        var result = navigationReducer(state, action);
+
+        expect(result).to.not.equal(state);
+        expect(result).to.eql({
+            pageInfo: {
+                displayPageInfo: false
+            }
+        });
+    });
+
+    it('should set page info when route is on poll', function () {
+        var action = {type: CHANGE_LOCATION, payload: {pathname: 'admin/poll'}};
+        var state = {};
+        var result = navigationReducer(state, action);
+
+        expect(result).to.not.equal(state);
+        expect(result).to.eql({
+            pageInfo: {
+                displayPageInfo: true,
+                breadcrumb: 'Your polls',
+                title: 'Polls',
+                description: 'Information about your polls',
+                active: 'poll'
+            }
+        });
+    });
+
+    it('should set auth to null when user is logged out', function () {
         var action = {type: AUTH.LOG_OUT_USER_SUCCESS};
-        var state = { auth: 'some user'};
+        var state = {auth: 'some user'};
         var result = authReducer(state, action);
 
         expect(result).to.not.equal(state);
@@ -71,6 +102,17 @@ describe('Log in user tests', function () {
         expect(result).to.not.equal(state);
         expect(result).to.eql({
             auth: {name: 'test'}
+        });
+    });
+
+    it('should set logging to false when logging is failed ', function () {
+        var action = {type: AUTH.LOG_FAILED};
+        var state = {logging: true};
+        var result = authReducer(state, action);
+
+        expect(result).to.not.equal(state);
+        expect(result).to.eql({
+            logging: false
         });
     });
 });

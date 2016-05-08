@@ -93,11 +93,11 @@ export function changeStep(selectedPoll, selectedStep, stay, parent = 'tychy') {
     };
 }
 
-function fetchPolls(parent) {
+function fetchPolls() {
     return function(dispatch) {
         dispatch(requestPolls());
 
-        return db.poll.getPolls(parent)
+        return db.poll.getPolls()
             .then(response => response.json())
             .then(polls => dispatch(receivePolls(polls)));
     };
@@ -124,9 +124,5 @@ export function fetchPoll(pollName) {
 }
 
 export function fetchPollsIfNeeded() {
-    return (dispatch, getState) => {
-        let parent = getPath(getState().routing.locationBeforeTransitions).parent;
-
-        return dispatch(fetchPolls(parent));
-    };
+    return dispatch => dispatch(fetchPolls());
 }
