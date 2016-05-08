@@ -10,6 +10,7 @@ import PollView from './components/PollView';
 import { Router, Route, browserHistory  } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import PollResults from './components/pollResults';
+import Login from './auth/login.component';
 
 const loggerMiddleware = createLogger();
 
@@ -25,6 +26,7 @@ render(
     <Provider store={store}>
         <Router history={history}>
             <Route path="/admin" component={App}>
+                <Route path="login" component={Login} />
                 <Route path=":id" component={PollView} />
                 <Route path="id/:poll/results" component={PollResults} />
             </Route>

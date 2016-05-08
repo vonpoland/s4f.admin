@@ -48,6 +48,7 @@ const mapStateToProps = (state) => {
     };
 };
 
+
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchData: pollName => {
@@ -56,7 +57,6 @@ const mapDispatchToProps = (dispatch) => {
         }
     };
 };
-
 
 export default connect(
     mapStateToProps,

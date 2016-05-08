@@ -65,3 +65,26 @@ npm run gulp
 
 
 # remove index db.polls.dropIndex('winner.email_1')
+
+
+#history https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md
+https://github.com/reactjs/react-router/tree/master/docs
+http://stackoverflow.com/questions/31079081/programmatically-navigate-using-react-router
+https://github.com/reactjs/react-router/blob/master/upgrade-guides/v2.0.0.md#changes-to-thiscontext
+
+
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
+    getInitialState() {
+        return {password: '', user: ''};
+    },
+    handlePasswordChange(event) {
+        this.setState({password: event.target.value});
+    },
+    handleLoginChange(event) {
+        this.setState({user: event.target.value});
+    },
+    test () {
+        console.info('xxxxxxxxx', this.context.router.push('/admin/dashboard'))
+    },
