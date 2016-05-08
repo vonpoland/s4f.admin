@@ -17,7 +17,11 @@ app.use('/admin/api/poll', authService.isAuthenticated, poll);
 app.use('/admin/api/auth', auth);
 app.use('/admin', staticFiles);
 app.all('/admin/login', function (req, res) {
-    res.sendFile(config.get('login'), {root: __dirname + '/public/partials/admin'});
+    if(req.user) {
+        return res.redirect('/admin/dashboard');
+    }
+
+    res.sendFile(config.get('index'), {root: __dirname + '/public/partials/admin'});
 });
 
 app.all('/admin*', authService.isAuthenticated, function (req, res) {

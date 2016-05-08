@@ -36,17 +36,14 @@ const loggedUser = () => fetch('/admin/api/auth/me', {
     credentials: 'same-origin'
 });
 
-//const login = (user, password) => $.ajax({
-//    type: 'POST',
-//    url: '/admin/api/auth/login',
-//    contentType: "application/json",
-//    data: JSON.stringify({username: user, password: password}),
-//    dataType: 'json'
-//});
+const logout = () => fetch('/admin/api/auth/logout', {
+    method: 'POST',
+    credentials: 'same-origin'
+});
 
 const db = {
     poll: {getPolls, getAnswers, getPoll},
     step: {changeStep},
-    auth: {login, loggedUser}
+    auth: {login, loggedUser, logout}
 };
 export default db;

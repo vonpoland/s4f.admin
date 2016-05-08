@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Navigation from './navigation/navigation.component';
 
 const App = React.createClass({
     render() {
-        return <div className="ui-text--white">
-            <span >I', aaaaaaaaaaaaapp</span>
-            <li><Link to="/admin/tychy">About</Link></li>
+        return <div>
+            <Navigation />
             {this.props.children}
         </div>;
     }

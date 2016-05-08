@@ -1,6 +1,6 @@
 import {AUTH} from './actions';
 
-export default function authReducer(state = { logging : false, validation : {} }, action) {
+export default function authReducer(state = { logging : false, validation : {}, auth: null }, action) {
     switch(action.type) {
     case AUTH.LOGGING_USER:
         {
@@ -11,19 +11,25 @@ export default function authReducer(state = { logging : false, validation : {} }
         }
     case AUTH.LOGGED_USER:
         {
-            var loginFailed = typeof (action.user.errorMessage) !== 'undefined';
-
-            if(!loginFailed) {
-                window.location = '';
-            }
-
             return {
                 ...state,
-                loginFailed: loginFailed,
-                user: action.user,
+                auth: action.auth,
                 logging: false
             };
         }
+    case AUTH.LOG_OUT_USER_SUCCESS:
+        {
+            return {
+                ...state,
+                auth: null
+            };
+        }
+    case AUTH.LOGGED_USER_FETCHED: {
+        return {
+            ...state,
+            auth: action.user
+        };
+    }
     case AUTH.VALIDATION_RESULT:
         {
             return {

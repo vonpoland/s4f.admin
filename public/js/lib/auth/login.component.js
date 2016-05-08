@@ -20,8 +20,8 @@ const Login = React.createClass({
         var hasUserameError = hasAnyErrorsSet(this.props.data.validation.username) ? 'has-error' : '';
         var hasPasswordError = hasAnyErrorsSet(this.props.data.validation.password) ? 'has-error' : '';
 
-        var usernameClass = classNames('form-group', { 'has-error' : hasAnyErrorsSet(this.props.data.validation.username) })
-        var passwordClass = classNames('form-group', { 'has-error' : hasAnyErrorsSet(this.props.data.validation.password) })
+        var usernameClass = classNames('form-group', { 'has-error' : hasAnyErrorsSet(this.props.data.validation.username) });
+        var passwordClass = classNames('form-group', { 'has-error' : hasAnyErrorsSet(this.props.data.validation.password) });
 
         return <div className="container-row container--vertical-center container--center ui-height-page-max">
             <form role="form">
@@ -40,7 +40,7 @@ const Login = React.createClass({
                 <div>
                     <button type="button" className="btn btn-primary"
                             disabled={logging}
-                            onClick={() =>onLogin(this.state.user, this.state.password)}>Login
+                            onClick={() => onLogin(this.state.user, this.state.password)}>Login
                     </button>
                 </div>
             </form>

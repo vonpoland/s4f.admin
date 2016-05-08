@@ -1,7 +1,6 @@
 server:
   port: 8889
 index: 'index.html'
-login: 'login.html'
 maxAgeResources: 0
 database:
   web: mongodb://localhost:27017/tychyKonkurs
