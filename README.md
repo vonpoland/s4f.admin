@@ -88,3 +88,5 @@ https://github.com/reactjs/react-router/blob/master/upgrade-guides/v2.0.0.md#cha
     test () {
         console.info('xxxxxxxxx', this.context.router.push('/admin/dashboard'))
     },
+    
+    https://gist.github.com/staltz/868e7e9bc2a7b8c1f754

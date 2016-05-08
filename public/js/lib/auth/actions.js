@@ -77,7 +77,7 @@ export function getLoggedUser() {
         return db.auth.loggedUser()
             .then(response => response.json())
             .then(user => dispatch(loggedUserFetched(user)))
-            .catch(() => dispatch(loggedUserFetchFailed));
+            .catch(() => dispatch(loggedUserFetchFailed()));
     };
 }
 
