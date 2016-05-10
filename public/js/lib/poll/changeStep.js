@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {changeStep} from '../actions/actions';
+import {changeStep} from './actions';
 
 const UpdateStep = React.createClass({
     render() {

@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-const getPolls = () => fetch('api/poll', { credentials: 'same-origin'});
+const getPolls = () => fetch('api/poll', {credentials: 'same-origin'});
 
 const changeStep = (parent, pollName, step, stay) => fetch(`/admin/api/poll/${parent}/screen`, {
     method: 'POST',
@@ -10,13 +10,25 @@ const changeStep = (parent, pollName, step, stay) => fetch(`/admin/api/poll/${pa
     },
     body: JSON.stringify({pollName: pollName, step: step, stay: stay})
 });
+
+const savePoll = (pollName, modifications) => fetch(`/admin/api/poll/${pollName}`, {
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    credentials: 'same-origin',
+    body: JSON.stringify(modifications)
+});
+
 const getAnswers = pollName => fetch(`/admin/api/poll/${pollName}/answer`, {
+    credentials: 'same-origin',
     headers: {
         'Content-Type': 'application/json'
     }
 });
 
 const getPoll = pollName => fetch(`/admin/api/poll/${pollName}`, {
+    credentials: 'same-origin',
     headers: {
         'Content-Type': 'application/json'
     }
@@ -41,7 +53,7 @@ const logout = () => fetch('/admin/api/auth/logout', {
 });
 
 const db = {
-    poll: {getPolls, getAnswers, getPoll},
+    poll: {getPolls, getAnswers, getPoll, savePoll},
     step: {changeStep},
     auth: {login, loggedUser, logout}
 };

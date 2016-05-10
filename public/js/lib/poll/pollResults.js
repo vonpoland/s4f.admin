@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {fetchAnswers, fetchPoll} from '../actions/actions';
+import {fetchAnswers, fetchPoll} from './actions';
+import {calculateVotes} from '../services/polls';
 
 const PollResults = React.createClass({
     render() {
@@ -43,7 +44,7 @@ const PollResults = React.createClass({
 const mapStateToProps = (state) => {
     return {
         pollName: state.polls.pollName,
-        votes: state.polls.votes || [],
+        votes: calculateVotes(state.polls.poll) || [],
         answers: state.polls.answers || []
     };
 };

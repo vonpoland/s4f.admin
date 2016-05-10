@@ -1,9 +1,84 @@
-import {REQUEST_POLLS, RECEIVE_POLLS, CHANGE_LOCATION, RECEIVE_POLL, RECEIVE_ANSWERS} from '../actions/actions';
+import {REQUEST_POLLS,
+    RECEIVE_POLLS,
+    CHANGE_LOCATION,
+    FETCH_POLL_SUCCESS,
+    FETCH_ANSWER_SUCCESS,
+    FETCH_POLL_START,
+    CHANGE_POLL_PROPERTY,
+    SAVE_POLL_START,
+    SAVE_POLL_SUCCESS,
+    SAVE_POLL_FAILED} from '../poll/actions';
 import {getPath} from '../routing/routing';
-import {calculateVotes} from '../services/polls';
 
-function polls(state = {}, action) {
+function poll(state, action) {
+    switch(action.type) {
+    case FETCH_POLL_SUCCESS:
+        {
+            return {
+                ...state,
+                ...action.poll
+            };
+        }
+    case SAVE_POLL_SUCCESS:
+        {
+            return {
+                ...state,
+                successMessage: true,
+                isFormLocked : false
+            };
+        }
+    case SAVE_POLL_FAILED:
+        {
+            return {
+                ...state,
+                isFormLocked : false
+            };
+        }
+    case SAVE_POLL_START:
+        {
+            return {
+                ...state,
+                isFormLocked : true
+            };
+        }
+    case CHANGE_POLL_PROPERTY:
+        {
+            let modification = {};
+
+            modification[action.propertyName] = action.newValue;
+
+            return {
+                ...state,
+                modifications : {
+                    ...state.modifications,
+                    ...modification
+                }
+            };
+        }
+    case FETCH_POLL_START:
+        {
+            return { displayPollStartDateField : false, modifications : {}};
+        }
+    default:
+        {
+            return state;
+        }
+    }
+}
+
+function polls(state = { poll : { displayPollStartDateField : false, modifications : {}}}, action) {
     switch (action.type) {
+    case FETCH_POLL_SUCCESS:
+    case FETCH_POLL_START:
+    case SAVE_POLL_START:
+    case SAVE_POLL_SUCCESS:
+    case SAVE_POLL_FAILED:
+    case CHANGE_POLL_PROPERTY: {
+        return {
+            ...state,
+            poll : poll(state.poll, action)
+        };
+    }
     case CHANGE_LOCATION:
         {
             return {
@@ -11,14 +86,7 @@ function polls(state = {}, action) {
                 ...getPath(action.payload)
             };
         }
-    case RECEIVE_POLL:
-        {
-            return {
-                ...state,
-                votes: calculateVotes(action.poll)
-            };
-        }
-    case RECEIVE_ANSWERS:
+    case FETCH_ANSWER_SUCCESS:
         {
             return {
                 ...state,

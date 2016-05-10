@@ -1,5 +1,5 @@
 import {STEP_SET} from '../actions/pollList';
-import {RECEIVE_POLLS, CHANGE_STEP_START, CHANGE_STEP_FAILED, CHANGE_STEP_FINISHED} from '../actions/actions';
+import {RECEIVE_POLLS, CHANGE_STEP_START, CHANGE_STEP_FAILED, CHANGE_STEP_FINISHED} from '../poll/actions';
 
 function step(state = { canUpdate: false }, action) {
     switch (action.type) {
