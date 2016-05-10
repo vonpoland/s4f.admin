@@ -6,10 +6,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware  } from 'redux';
 import indexApp from './reducers/index';
 import App from './app';
-import PollView from './components/PollView';
+import PollList from './poll/pollList';
 import { Router, Route, browserHistory  } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import PollResults from './components/pollResults';
+import PollResults from './poll/pollResults';
+import EditPoll from './poll/edit.component';
 import Login from './auth/login.component';
 import Dashboard from './dashboard/dashboard.component';
 
@@ -29,8 +30,9 @@ render(
             <Route path="/admin" component={App}>
                 <Route path="login" component={Login} />
                 <Route path="dashboard" component={Dashboard} />
-                <Route path="poll" component={PollView} />
-                <Route path="poll/:id/:poll/results" component={PollResults} />
+                <Route path="poll/:id/edit" component={EditPoll} />
+                <Route path="poll/:id/results" component={PollResults} />
+                <Route path="poll" component={PollList} />
             </Route>
         </Router>
     </Provider>,

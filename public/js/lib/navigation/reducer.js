@@ -1,5 +1,5 @@
 import {AUTH} from '../auth/actions';
-import {CHANGE_LOCATION} from '../actions/actions';
+import {CHANGE_LOCATION} from '../poll/actions';
 import {getPageInfo} from '../routing/routing';
 
 export default function navigationReducer(state = { user: null }, action) {

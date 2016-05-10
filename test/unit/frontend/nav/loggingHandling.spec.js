@@ -3,7 +3,7 @@ const expect = require('expect.js');
 import navigationReducer from '../../../../public/js/lib/navigation/reducer';
 import authReducer from '../../../../public/js/lib/auth/reducer';
 import {AUTH} from '../../../../public/js/lib/auth/actions';
-import {CHANGE_LOCATION} from '../../../../public/js/lib/actions/actions';
+import {CHANGE_LOCATION} from '../../../../public/js/lib/poll/actions';
 
 describe('Log in user tests', function () {
     it('should return default state when no action performed', function () {
