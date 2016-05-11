@@ -1,8 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {fetchPoll, propertyChange, savePoll} from './actions';
+import Editor from '../editor/editor.component';
 
 const EditPoll = React.createClass({
+    pollDataEditor(pollData) {
+        if (!pollData) {
+            return '';
+        }
+
+        return <div className="panel panel-primary">
+            <div className="panel-heading" data-target="#editorDataPanel"  data-toggle="collapse">Poll data <i className="fa fa-fw fa-caret-down"></i></div>
+            <div className="panel-body collapse" id="editorDataPanel" aria-expanded="false">
+                <div className="list-group">
+                {pollData.options.map(pollOption => <Editor key={pollOption.name} data={pollOption}/>)}
+                 </div>
+            </div>
+        </div>;
+    },
     saveSuccessNotification() {
         return this.props.displaySuccessMessage ? <div className="alert alert-success">
             <strong>Poll has been saved!</strong>
@@ -19,7 +34,6 @@ const EditPoll = React.createClass({
                         </span>
                 </div>
             </div>
-            {this.saveButton()}
         </div> : '';
     },
     finishedCheckbox() {
@@ -45,6 +59,8 @@ const EditPoll = React.createClass({
                 </div>
                 {this.finishedCheckbox()}
                 {this.getPollStartDateField()}
+                {this.pollDataEditor(this.props.pollData)}
+                {this.saveButton()}
             </div>
         </div>;
     },
@@ -56,7 +72,6 @@ const EditPoll = React.createClass({
         }
     },
     componentWillUnmount() {
-        console.info('destroying')
         $('#datetimepicker1').data('DateTimePicker').destroy();
     },
     componentDidMount() {
@@ -70,6 +85,7 @@ const mapStateToProps = state => {
     return {
         pollName: state.polls.poll.name || '',
         displayPollStartDateField: hasStartDate,
+        pollData: state.polls.poll.data,
         startDate: state.polls.poll.startDate,
         finished: state.polls.poll.finished,
         isSaveButtonDisplayed: Object.keys(state.polls.poll.modifications).length > 0,

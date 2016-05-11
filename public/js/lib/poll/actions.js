@@ -17,6 +17,7 @@ export const CHANGE_POLL_PROPERTY = 'POLL_CHANGE_PROPERTY';
 export const SAVE_POLL_START = 'SAVE_POLL_START';
 export const SAVE_POLL_SUCCESS = 'SAVE_POLL_SUCCESS';
 export const SAVE_POLL_FAILED = 'SAVE_POLL_FAILED';
+export const STEP_SET = 'STEP_SET';
 
 export function savePollStart() {
     return {
@@ -49,7 +50,6 @@ function receivePolls(polls) {
         polls
     };
 }
-
 
 function fetchAnswerStart(parent, poll) {
     return {
@@ -95,7 +95,6 @@ function fetchPollFailed(reason) {
     };
 }
 
-
 function changeStepStart() {
     return {
         type: CHANGE_STEP_START
@@ -115,6 +114,14 @@ function changeStepFailed(reason) {
     };
 }
 
+export const setStep = (pollName, step) => {
+    return {
+        type: STEP_SET,
+        pollName: pollName,
+        step: step
+    };
+};
+
 export function propertyChange(propertyName, value) {
     return {
         type: CHANGE_POLL_PROPERTY,
@@ -127,7 +134,7 @@ function isNotSuccessFullResponse(response) {
     return response.status !== 200;
 }
 
-export function changeStep(selectedPoll, selectedStep, stay, parent = 'tychy') {
+export function changeStep(selectedPoll, selectedStep, stay, parent) {
     return function (dispatch) {
         dispatch(changeStepStart());
 
