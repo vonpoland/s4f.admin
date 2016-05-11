@@ -1,5 +1,4 @@
-import {STEP_SET} from '../actions/pollList';
-import {RECEIVE_POLLS, CHANGE_STEP_START, CHANGE_STEP_FAILED, CHANGE_STEP_FINISHED} from '../poll/actions';
+import {FETCH_POLL_SUCCESS, CHANGE_STEP_START, CHANGE_STEP_FAILED, CHANGE_STEP_FINISHED, STEP_SET} from '../poll/actions';
 
 function step(state = { canUpdate: false }, action) {
     switch (action.type) {
@@ -20,11 +19,18 @@ function step(state = { canUpdate: false }, action) {
         }
     case CHANGE_STEP_FINISHED:
     case CHANGE_STEP_FAILED:
-    case RECEIVE_POLLS:
         {
             return {
                 ...state,
                 canUpdate: true
+            };
+        }
+    case FETCH_POLL_SUCCESS:
+        {
+            return {
+                ...state,
+                canUpdate: true,
+                selectedStep: action.poll.last
             };
         }
     default:

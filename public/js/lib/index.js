@@ -11,6 +11,7 @@ import { Router, Route, browserHistory  } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import PollResults from './poll/pollResults';
 import EditPoll from './poll/edit.component';
+import ManagePoll from './poll/manage.component';
 import Login from './auth/login.component';
 import Dashboard from './dashboard/dashboard.component';
 
@@ -32,6 +33,7 @@ render(
                 <Route path="dashboard" component={Dashboard} />
                 <Route path="poll/:id/edit" component={EditPoll} />
                 <Route path="poll/:id/results" component={PollResults} />
+                <Route path="poll/:id/manage" component={ManagePoll} />
                 <Route path="poll" component={PollList} />
             </Route>
         </Router>
