@@ -8,53 +8,61 @@ body * {
   outline: none !important;
 }
 
+.btn > .fa {
+  margin: 0 0.5rem 0 0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .overflow--hidden {
   overflow: hidden;
 }
-// container
-.container {
+// flex
+.flex {
   display: flex;
   box-sizing: content-box;
 }
 
-.container-row {
-  .container;
+.flex-row {
+  .flex;
   flex-direction: row;
 }
 
-.container--vertical-center {
+.flex--vertical-center {
   align-items: center;
 }
 
-.container-column {
-  .container;
+.flex-column {
+  .flex;
   flex-direction: column;
 }
 
-.container--center {
+.flex--center {
   justify-content: center;
 }
 
-.container--space-between {
+.flex--space-between {
   justify-content: space-between;
 }
 
-.container--space-around {
+.flex--space-around {
   justify-content: space-around;
 }
 
-.container--content-to-end {
+.flex--content-to-end {
   align-items: flex-end;
 }
 
-.container--transition {
+.flex--transition {
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
 
-.container--wrap {
+.flex--wrap {
   flex-wrap: wrap;
 }
 

@@ -1,5 +1,4 @@
 import db from '../repositories/db';
-import {getPath} from '../routing/routing';
 
 export const REQUEST_POLLS = 'REQUEST_POLLS';
 export const RECEIVE_POLLS = 'RECEIVE_POLLS';
@@ -18,6 +17,14 @@ export const SAVE_POLL_START = 'SAVE_POLL_START';
 export const SAVE_POLL_SUCCESS = 'SAVE_POLL_SUCCESS';
 export const SAVE_POLL_FAILED = 'SAVE_POLL_FAILED';
 export const STEP_SET = 'STEP_SET';
+export const UPDATE_POLL_START = 'UPDATE_POLL_START';
+
+export function updatePollStart(data) {
+    return {
+        type: UPDATE_POLL_START,
+        modifications: data
+    };
+}
 
 export function savePollStart() {
     return {
@@ -25,9 +32,10 @@ export function savePollStart() {
     };
 }
 
-export function savePollSuccess() {
+export function savePollSuccess(options) {
     return {
-        type: SAVE_POLL_SUCCESS
+        type: SAVE_POLL_SUCCESS,
+        options: options
     };
 }
 
@@ -184,13 +192,21 @@ export function fetchPollsIfNeeded() {
     return dispatch => dispatch(fetchPolls());
 }
 
-export function savePoll() {
+export function savePoll(options) {
     return (dispatch, getState) => {
         var poll = getState().polls.poll;
         dispatch(savePollStart());
 
         return db.poll.savePoll(poll.name, poll.modifications)
-            .then(() => dispatch(savePollSuccess()))
+            .then(() => dispatch(savePollSuccess(options)))
             .catch(error => dispatch(savePollFailed(error)));
+    };
+}
+
+export function updatePoll(data, options) {
+    return dispatch => {
+        dispatch(updatePollStart(data));
+
+        return dispatch(savePoll(options));
     };
 }

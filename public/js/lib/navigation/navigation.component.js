@@ -25,7 +25,7 @@ const Navigation = React.createClass({
 
         return <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div className="navbar-header">
-                <a className="navbar-brand padding--zero container-row container--vertical-center" href="/admin">
+                <a className="navbar-brand padding--zero flex-row flex--vertical-center" href="/admin">
                         <img src="/admin/img/theme/s4f-poziom.png" />
                         <span className="margin-horizontal--medium">Admin</span>
                 </a>
@@ -118,22 +118,22 @@ const Navigation = React.createClass({
                     <li className={dashboardActive}>
                         <a onClick={() => browserHistory.push('/admin/dashboard')}><i className="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
+                    <li className="hidden">
                         <a href="charts.html"><i className="fa fa-fw fa-bar-chart-o"></i> Charts</a>
                     </li>
-                    <li>
+                    <li className="hidden">
                         <a href="tables.html"><i className="fa fa-fw fa-table"></i> Tables</a>
                     </li>
                     <li className={pollActive}>
                         <a onClick={() => browserHistory.push('/admin/poll')}><i className="fa fa-fw fa-edit"></i> Polls</a>
                     </li>
-                    <li>
+                    <li className="hidden">
                         <a href="bootstrap-elements.html"><i className="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
                     </li>
-                    <li>
+                    <li className="hidden">
                         <a href="bootstrap-grid.html"><i className="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
                     </li>
-                    <li>
+                    <li className="hidden">
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i className="fa fa-fw fa-arrows-v"></i> Dropdown <i className="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" className="collapse">
                             <li>
@@ -144,10 +144,10 @@ const Navigation = React.createClass({
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li className="hidden">
                         <a href="blank-page.html"><i className="fa fa-fw fa-file"></i> Blank Page</a>
                     </li>
-                    <li>
+                    <li className="hidden">
                         <a href="index-rtl.html"><i className="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
                     </li>
                 </ul>

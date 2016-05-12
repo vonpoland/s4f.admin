@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {fetchAnswers, fetchPoll} from './actions';
-import {calculateVotes} from '../services/polls';
+import {calculateVotes} from './poll.service';
 
 const PollResults = React.createClass({
     render() {
@@ -16,7 +16,7 @@ const PollResults = React.createClass({
                 </div>
             )}
             <h2>Odpowiedzi {answers.length}</h2>
-            <div className="container">
+            <div className="flex">
                 <div style={{width: '100px' }}>Numer</div>
                 <div style={{width: '500px' }}>Odpowiedź</div>
                 <div style={{width: '150px' }}>Użytkownik</div>
@@ -24,7 +24,7 @@ const PollResults = React.createClass({
             </div>
             {answers.map((answer, index) =>
                 <div key={index}>
-                    <div className="container" style={{ padding: '10px 0' }}>
+                    <div className="flex" style={{ padding: '10px 0' }}>
                         <div style={{width: '100px' }}>{index + 1}</div>
                         <div style={{width: '500px', wordWrap: 'break-word'}}>
                             {answer.option.option} - {answer.option.answer}
