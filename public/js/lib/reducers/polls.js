@@ -7,10 +7,11 @@ import {REQUEST_POLLS,
     CHANGE_POLL_PROPERTY,
     SAVE_POLL_START,
     SAVE_POLL_SUCCESS,
-    SAVE_POLL_FAILED} from '../poll/actions';
+    SAVE_POLL_FAILED,
+    UPDATE_POLL_START} from '../poll/actions';
 import {getPath} from '../routing/routing';
 
-function poll(state, action) {
+export function poll(state = { modifications : {} }, action) {
     switch(action.type) {
     case FETCH_POLL_SUCCESS:
         {
@@ -23,14 +24,16 @@ function poll(state, action) {
         {
             return {
                 ...state,
-                successMessage: true,
-                isFormLocked : false
+                successMessage: (typeof action.options === 'undefined') || action.options.successMessage,
+                isFormLocked : false,
+                modifications: {}
             };
         }
     case SAVE_POLL_FAILED:
         {
             return {
                 ...state,
+                successMessage: false,
                 isFormLocked : false
             };
         }
@@ -38,6 +41,7 @@ function poll(state, action) {
         {
             return {
                 ...state,
+                successMessage: false,
                 isFormLocked : true
             };
         }
@@ -59,6 +63,16 @@ function poll(state, action) {
         {
             return { displayPollStartDateField : false, modifications : {}};
         }
+    case UPDATE_POLL_START:
+        {
+            return {
+                ...state,
+                modifications : {
+                    ...state.modifications,
+                    ...action.modifications
+                }
+            };
+        }
     default:
         {
             return state;
@@ -73,6 +87,7 @@ function polls(state = { poll : { displayPollStartDateField : false, modificatio
     case SAVE_POLL_START:
     case SAVE_POLL_SUCCESS:
     case SAVE_POLL_FAILED:
+    case UPDATE_POLL_START:
     case CHANGE_POLL_PROPERTY: {
         return {
             ...state,

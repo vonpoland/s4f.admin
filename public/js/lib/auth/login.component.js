@@ -21,7 +21,7 @@ const Login = React.createClass({
         var usernameClass = classNames('form-group', { 'has-error' : hasAnyErrorsSet(this.props.data.validation.username) });
         var passwordClass = classNames('form-group', { 'has-error' : hasAnyErrorsSet(this.props.data.validation.password) });
 
-        return <div className="container-row container--vertical-center container--center ui-height-page-max">
+        return <div className="flex-row flex--vertical-center flex--center ui-height-page-max">
             <form role="form">
                 <div className={usernameClass}>
                     <label>

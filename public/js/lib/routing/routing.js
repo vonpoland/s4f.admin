@@ -1,3 +1,4 @@
+const nestedPathRegex = /admin\/([a-z]+)\/([a-z\-]+)\/([a-z]+)/i;
 const pageInfo = {
     login: {
         displayPageInfo: false
@@ -18,13 +19,50 @@ const pageInfo = {
     }
 };
 
+const nestedPageInfo = {
+    poll: {
+        edit: {
+            displayPageInfo: true,
+            breadcrumb: 'Edit poll',
+            title: 'Edit poll',
+            description: 'Edit your poll details here',
+            active: 'poll'
+        },
+        manage: {
+            displayPageInfo: true,
+            breadcrumb: 'Manage poll',
+            title: 'Manage poll',
+            description: 'Manage your poll here',
+            active: 'poll'
+        },
+        results: {
+            displayPageInfo: true,
+            breadcrumb: 'Poll results',
+            title: 'View poll results',
+            description: 'View poll results here',
+            active: 'poll'
+        }
+    }
+};
+
+function nestedPathInfo(parent, name, action) {
+    return nestedPageInfo[parent][action];
+}
+
 function getPage(pathname) {
+    var nestedPath = pathname.match(nestedPathRegex);
+
+    if(nestedPath && nestedPath.length > 0) {
+        nestedPath.shift();
+        return nestedPathInfo(...nestedPath);
+    }
+
     if (pathname.indexOf('/login') > 0) {
-        return 'login';
+        return pageInfo['login'];
     } else if (pathname.indexOf('/poll') > 0) {
-        return 'poll';
+        return pageInfo['poll'];
     } else if(pathname.indexOf('/dashboard') > 0) {
-        return 'dashboard';
+        return pageInfo['dashboard'];
     }
 }
 
@@ -40,5 +78,5 @@ export function getPath(routing) {
 }
 
 export function getPageInfo(payload) {
-    return pageInfo[getPage(payload.pathname)];
+    return getPage(payload.pathname);
 }

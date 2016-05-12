@@ -5,15 +5,15 @@ import Editor from '../editor/editor.component';
 
 const EditPoll = React.createClass({
     pollDataEditor(pollData) {
-        if (!pollData) {
+        if (!pollData || !pollData.options) {
             return '';
         }
 
         return <div className="panel panel-primary">
             <div className="panel-heading" data-target="#editorDataPanel"  data-toggle="collapse">Poll data <i className="fa fa-fw fa-caret-down"></i></div>
             <div className="panel-body collapse" id="editorDataPanel" aria-expanded="false">
-                <div className="list-group">
-                {pollData.options.map(pollOption => <Editor key={pollOption.name} data={pollOption}/>)}
+                <div>
+                {pollData.options.map((pollOption, index) => <Editor key={index} arrayIndex={index} data={pollOption}/>)}
                  </div>
             </div>
         </div>;
@@ -72,7 +72,13 @@ const EditPoll = React.createClass({
         }
     },
     componentWillUnmount() {
-        $('#datetimepicker1').data('DateTimePicker').destroy();
+        var datePicker = $('#datetimepicker1').data('DateTimePicker');
+
+        if(!datePicker) {
+            return;
+        }
+
+        datePicker.destroy();
     },
     componentDidMount() {
         this.props.fetchPoll();
