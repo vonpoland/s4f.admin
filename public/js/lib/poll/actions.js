@@ -1,4 +1,5 @@
 import db from '../repositories/db';
+import {mapProperties} from './poll.service';
 
 export const REQUEST_POLLS = 'REQUEST_POLLS';
 export const RECEIVE_POLLS = 'RECEIVE_POLLS';
@@ -162,6 +163,7 @@ function fetchPolls() {
 
         return db.poll.getPolls()
             .then(response => response.json())
+            .then(mapProperties)
             .then(polls => dispatch(receivePolls(polls)));
     };
 }

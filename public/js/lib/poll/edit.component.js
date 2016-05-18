@@ -10,11 +10,13 @@ const EditPoll = React.createClass({
         }
 
         return <div className="panel panel-primary">
-            <div className="panel-heading" data-target="#editorDataPanel"  data-toggle="collapse">Poll data <i className="fa fa-fw fa-caret-down"></i></div>
+            <div className="panel-heading" data-target="#editorDataPanel" data-toggle="collapse">Poll data <i
+                className="fa fa-fw fa-caret-down"></i></div>
             <div className="panel-body collapse" id="editorDataPanel" aria-expanded="false">
                 <div>
-                {pollData.options.map((pollOption, index) => <Editor key={index} arrayIndex={index} data={pollOption}/>)}
-                 </div>
+                    {pollData.options.map((pollOption, index) => <Editor key={index} arrayIndex={index}
+                                                                         data={pollOption}/>)}
+                </div>
             </div>
         </div>;
     },
@@ -24,7 +26,7 @@ const EditPoll = React.createClass({
         </div> : '';
     },
     getPollStartDateField() {
-        return this.props.displayPollStartDateField ? <div>
+        return <div>
             <div className="form-group">
                 <label htmlFor="datetimepicker1">Start</label>
                 <div className='input-group date' id='datetimepicker1'>
@@ -34,15 +36,20 @@ const EditPoll = React.createClass({
                         </span>
                 </div>
             </div>
-        </div> : '';
+        </div>;
     },
-    finishedCheckbox() {
-        return this.props.pollName ? <div className="form-group">
-            <label>Finished</label>
-            <div>
-                <input type="checkbox" defaultChecked={this.props.finished} onChange={this.props.onFinishedChange}/>
+    getPollFinishDateField() {
+        return <div>
+            <div className="form-group">
+                <label htmlFor="datetimepicker2">Finish</label>
+                <div className='input-group date' id='datetimepicker2'>
+                    <input type='text' className="form-control"/>
+                        <span className="input-group-addon">
+                            <span className="glyphicon glyphicon-calendar"></span>
+                        </span>
+                </div>
             </div>
-        </div> : '';
+        </div>;
     },
     saveButton() {
         return this.props.isSaveButtonDisplayed ?
@@ -57,24 +64,26 @@ const EditPoll = React.createClass({
                     <label>Name</label>
                     <input className="form-control" value={this.props.pollName} disabled/>
                 </div>
-                {this.finishedCheckbox()}
                 {this.getPollStartDateField()}
+                {this.getPollFinishDateField()}
                 {this.pollDataEditor(this.props.pollData)}
                 {this.saveButton()}
             </div>
         </div>;
     },
     componentDidUpdate(prevProps) {
-        if (this.props.displayPollStartDateField && !prevProps.displayPollStartDateField) {
-            $('#datetimepicker1').datetimepicker({
-                defaultDate: this.props.startDate
-            }).on('dp.change', event => this.props.onDateChange(event.date));
-        }
+        $('#datetimepicker1').datetimepicker({
+            defaultDate: this.props.startDate
+        }).on('dp.change', event => this.props.onDateChange('startDate', event.date));
+
+        $('#datetimepicker2').datetimepicker({
+            defaultDate: this.props.finishDate
+        }).on('dp.change', event => this.props.onDateChange('finishDate', event.date));
     },
     componentWillUnmount() {
         var datePicker = $('#datetimepicker1').data('DateTimePicker');
 
-        if(!datePicker) {
+        if (!datePicker) {
             return;
         }
 
@@ -86,14 +95,11 @@ const EditPoll = React.createClass({
 });
 
 const mapStateToProps = state => {
-    var hasStartDate = typeof (state.polls.poll.startDate) !== 'undefined';
-
     return {
         pollName: state.polls.poll.name || '',
-        displayPollStartDateField: hasStartDate,
         pollData: state.polls.poll.data,
         startDate: state.polls.poll.startDate,
-        finished: state.polls.poll.finished,
+        finishDate: state.polls.poll.finishDate,
         isSaveButtonDisplayed: Object.keys(state.polls.poll.modifications).length > 0,
         isFormLocked: state.polls.poll.isFormLocked,
         displaySuccessMessage: state.polls.poll.successMessage
@@ -103,8 +109,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, state) => {
     return {
         fetchPoll: () => dispatch(fetchPoll(state.routeParams.id)),
-        onDateChange: newValue => dispatch(propertyChange('startDate', newValue)),
-        onFinishedChange: event => dispatch(propertyChange('finished', event.target.checked)),
+        onDateChange: (property, newValue) => dispatch(propertyChange(property, newValue)),
         savePoll: () => dispatch(savePoll())
     };
 };

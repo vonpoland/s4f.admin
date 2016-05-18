@@ -11,7 +11,7 @@ import {REQUEST_POLLS,
     UPDATE_POLL_START} from '../poll/actions';
 import {getPath} from '../routing/routing';
 
-export function poll(state = { modifications : {} }, action) {
+export function poll(state = { modifications : {} }, action = {}) {
     switch(action.type) {
     case FETCH_POLL_SUCCESS:
         {
@@ -61,7 +61,7 @@ export function poll(state = { modifications : {} }, action) {
         }
     case FETCH_POLL_START:
         {
-            return { displayPollStartDateField : false, modifications : {}};
+            return { modifications : {}};
         }
     case UPDATE_POLL_START:
         {
@@ -80,7 +80,7 @@ export function poll(state = { modifications : {} }, action) {
     }
 }
 
-function polls(state = { poll : { displayPollStartDateField : false, modifications : {}}}, action) {
+function polls(state = { poll : { modifications : {}}}, action) {
     switch (action.type) {
     case FETCH_POLL_SUCCESS:
     case FETCH_POLL_START:
@@ -112,7 +112,8 @@ function polls(state = { poll : { displayPollStartDateField : false, modificatio
         {
             return {
                 ...state,
-                isFetching: true
+                isFetching: true,
+                poll: poll()
             };
         }
     case RECEIVE_POLLS:
