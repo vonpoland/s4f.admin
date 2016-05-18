@@ -31,6 +31,7 @@ System.config({
     "react-router-redux": "npm:react-router-redux@4.0.2",
     "redux": "npm:redux@3.5.1",
     "redux-logger": "npm:redux-logger@2.6.1",
+    "redux-router": "npm:redux-router@1.0.0-beta8",
     "redux-thunk": "npm:redux-thunk@2.0.1",
     "restangular": "github:mgonto/restangular@1.5.1",
     "socket.io-client": "github:socketio/socket.io-client@1.3.7",
@@ -302,6 +303,9 @@ System.config({
       "private": "npm:private@0.1.6",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "source-map": "npm:source-map@0.5.3"
+    },
+    "npm:redux-router@1.0.0-beta8": {
+      "deep-equal": "npm:deep-equal@1.0.1"
     },
     "npm:redux@3.5.1": {
       "lodash": "npm:lodash@4.11.1",
