@@ -15,7 +15,7 @@ function isLive(poll) {
     if(hasStartDate && hasFinishedDate) {
         var now = moment();
 
-        return moment(poll.startDate) < now &&
+        return moment(poll.startDate) < now && 
                 moment(poll.finishDate) > now;
     }
 }
