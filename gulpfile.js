@@ -12,8 +12,8 @@ var exec = require('child_process').exec;
 
 // Static server
 gulp.task('browser-sync', function () {
-	browserSync({
-		proxy: "localhost:8085"
+	browserSync.init({
+		proxy: "localhost:8889"
 	});
 });
 
