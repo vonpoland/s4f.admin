@@ -19,6 +19,7 @@ export const SAVE_POLL_SUCCESS = 'SAVE_POLL_SUCCESS';
 export const SAVE_POLL_FAILED = 'SAVE_POLL_FAILED';
 export const STEP_SET = 'STEP_SET';
 export const UPDATE_POLL_START = 'UPDATE_POLL_START';
+export const TOGGLE_AUTO_SWITCH = 'TOGGLE_AUTO_SWITCH';
 
 export function updatePollStart(data) {
     return {
@@ -44,6 +45,13 @@ export function savePollFailed(reason) {
     return {
         type: SAVE_POLL_FAILED,
         reason: reason
+    };
+}
+
+export function toggleAutoSwitch(value) {
+    return {
+        type: TOGGLE_AUTO_SWITCH,
+        value: value
     };
 }
 
@@ -123,11 +131,23 @@ function changeStepFailed(reason) {
     };
 }
 
-export const setStep = (pollName, step) => {
+function justChangeStep(pollName, step) {
     return {
         type: STEP_SET,
         pollName: pollName,
         step: step
+    };
+}
+
+export const setStep = (pollName, step) => {
+    return function (dispatch, getState) {
+        var state = getState();
+
+        dispatch(justChangeStep(pollName, step));
+
+        if (state.polls.poll.autoSwitch) {
+            dispatch(changeStep(pollName, step, true, state.polls.poll.parent));
+        }
     };
 };
 

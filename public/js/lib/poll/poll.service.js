@@ -9,14 +9,18 @@ export function calculateVotes(poll) {
 }
 
 function isLive(poll) {
-    var hasStartDate = typeof poll.startDate !== 'undefined';
-    var hasFinishedDate = typeof poll.finishDate !== 'undefined';
+    if(typeof poll.editable === 'undefined') {
+        return false;
+    }
+
+    var hasStartDate = typeof poll.editable.startDate !== 'undefined';
+    var hasFinishedDate = typeof poll.editable.finishDate !== 'undefined';
 
     if(hasStartDate && hasFinishedDate) {
         var now = moment();
 
-        return moment(poll.startDate) < now &&
-                moment(poll.finishDate) > now;
+        return moment(poll.editable.startDate) < now &&
+                moment(poll.editable.finishDate) > now;
     }
 }
 
