@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {fetchPoll, setStep} from './actions';
+import {fetchPoll, setStep, toggleAutoSwitch} from './actions';
 import {createPollLink} from './poll.service';
 import ChangeStep from './changeStep.component';
 import classNames from 'classnames';
@@ -8,6 +8,9 @@ import classNames from 'classnames';
 const ManagePoll = React.createClass({
     linkActive(templateKey) {
         return classNames('list-group-item', {active : this.props.selectedStep === templateKey});
+    },
+    toggleAutoSwitch(event) {
+        this.props.toggleAutoSwitch(event.target.value === 'true');
     },
     render() {
         return <div>
@@ -19,9 +22,17 @@ const ManagePoll = React.createClass({
                     <iframe className="ui-border--none" src='http://localhost:8888/projector/#/tychy/kto-wygra/voteResults?stay=true'></iframe>
                 </div>
             </div>
+            <div className="form-group">
+                <label>Auto switch (without accept button)</label>
+                <select className="form-control" defaultValue={false} onChange={this.toggleAutoSwitch}>
+                    <option value={true}>true</option>
+                    <option value={false}>false</option>
+                </select>
+             </div>
             <div className="list-group">
+                <label>Steps</label>
                 {Object.keys(this.props.poll.stepTemplates).map(templateKey =>
-                    <button key={templateKey} className={this.linkActive(templateKey)}  onClick={() => this.props.changeStep(this.props.pollName, templateKey)}>
+                    <button key={templateKey} className={this.linkActive(templateKey)}  onClick={() => this.props.setStep(this.props.pollName, templateKey)}>
                         {templateKey}
                     </button>
                 )}
@@ -46,7 +57,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, state) => {
     return {
         fetchPoll: () => dispatch(fetchPoll(state.routeParams.id)),
-        changeStep: (pollName, step) => dispatch(setStep(pollName, step))
+        setStep: (pollName, step) => dispatch(setStep(pollName, step)),
+        toggleAutoSwitch : value => dispatch(toggleAutoSwitch(value))
     };
 };
 

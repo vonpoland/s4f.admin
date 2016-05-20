@@ -7,7 +7,7 @@ describe('Poll actions', function () {
     it('should check if initial state is correct', function () {
         var result = polls(undefined, {});
 
-        expect(result).to.eql({ poll : { displayPollStartDateField : false, modifications : {}}});
+        expect(result).to.eql({ poll : { modifications : {}}});
     });
 
     it('should check if initial state is correct', function () {

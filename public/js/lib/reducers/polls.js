@@ -8,6 +8,7 @@ import {REQUEST_POLLS,
     SAVE_POLL_START,
     SAVE_POLL_SUCCESS,
     SAVE_POLL_FAILED,
+    TOGGLE_AUTO_SWITCH,
     UPDATE_POLL_START} from '../poll/actions';
 import {getPath} from '../routing/routing';
 
@@ -63,6 +64,13 @@ export function poll(state = { modifications : {} }, action = {}) {
         {
             return { modifications : {}};
         }
+    case TOGGLE_AUTO_SWITCH:
+        {
+            return {
+                ...state,
+                autoSwitch: action.value
+            };
+        }
     case UPDATE_POLL_START:
         {
             return {
@@ -88,6 +96,7 @@ function polls(state = { poll : { modifications : {}}}, action) {
     case SAVE_POLL_SUCCESS:
     case SAVE_POLL_FAILED:
     case UPDATE_POLL_START:
+    case TOGGLE_AUTO_SWITCH:
     case CHANGE_POLL_PROPERTY: {
         return {
             ...state,

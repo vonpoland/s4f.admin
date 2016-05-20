@@ -1,7 +1,14 @@
-import {FETCH_POLL_SUCCESS, CHANGE_STEP_START, CHANGE_STEP_FAILED, CHANGE_STEP_FINISHED, STEP_SET} from '../poll/actions';
+import {FETCH_POLL_SUCCESS, CHANGE_STEP_START, CHANGE_STEP_FAILED, CHANGE_STEP_FINISHED, STEP_SET, TOGGLE_AUTO_SWITCH} from '../poll/actions';
 
 function step(state = { canUpdate: false }, action) {
     switch (action.type) {
+    case TOGGLE_AUTO_SWITCH:
+        {
+            return {
+                ...state,
+                canUpdate : !action.value
+            };
+        }
     case CHANGE_STEP_START:
         {
             return {

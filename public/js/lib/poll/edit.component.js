@@ -4,14 +4,16 @@ import {fetchPoll, propertyChange, savePoll} from './actions';
 import Editor from '../editor/editor.component';
 
 const EditPoll = React.createClass({
+    setNowDate(selector) {
+        $(selector).data('DateTimePicker').date(moment());
+    },
     pollDataEditor(pollData) {
         if (!pollData || !pollData.options) {
             return '';
         }
 
         return <div className="panel panel-primary">
-            <div className="panel-heading" data-target="#editorDataPanel" data-toggle="collapse">Poll data <i
-                className="fa fa-fw fa-caret-down"></i></div>
+            <div className="panel-heading" data-target="#editorDataPanel" data-toggle="collapse">Poll data <i className="fa fa-fw fa-caret-down"></i></div>
             <div className="panel-body collapse" id="editorDataPanel" aria-expanded="false">
                 <div>
                     {pollData.options.map((pollOption, index) => <Editor key={index} arrayIndex={index}
@@ -30,10 +32,13 @@ const EditPoll = React.createClass({
             <div className="form-group">
                 <label htmlFor="datetimepicker1">Start</label>
                 <div className='input-group date' id='datetimepicker1'>
-                    <input type='text' className="form-control"/>
-                        <span className="input-group-addon">
-                            <span className="glyphicon glyphicon-calendar"></span>
-                        </span>
+                    <div className="flex-row">
+                        <input className="form-control" type='text'/>
+                        <button className="btn btn-success" onClick={() => this.setNowDate('#datetimepicker1')}>Now</button>
+                    </div>
+                    <span className="input-group-addon">
+                        <span className="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
             </div>
         </div>;
@@ -43,18 +48,20 @@ const EditPoll = React.createClass({
             <div className="form-group">
                 <label htmlFor="datetimepicker2">Finish</label>
                 <div className='input-group date' id='datetimepicker2'>
-                    <input type='text' className="form-control"/>
-                        <span className="input-group-addon">
-                            <span className="glyphicon glyphicon-calendar"></span>
-                        </span>
+                    <div className="flex-row">
+                        <input className="form-control" type='text'/>
+                        <button className="btn btn-success" onClick={() => this.setNowDate('#datetimepicker2')}>Now</button>
+                    </div>
+                    <span className="input-group-addon">
+                        <span className="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
             </div>
         </div>;
     },
     saveButton() {
-        return this.props.isSaveButtonDisplayed ?
-            <button onClick={this.props.savePoll} disabled={this.props.isFormLocked} className="btn btn-primary">
-                Save</button> : '';
+        return <button onClick={this.props.savePoll} disabled={!this.props.isSaveButtonEnabled  || this.props.isFormLocked} className="btn btn-primary">
+                Save</button>;
     },
     render() {
         return <div>
@@ -72,35 +79,38 @@ const EditPoll = React.createClass({
         </div>;
     },
     componentDidUpdate(prevProps) {
-        $('#datetimepicker1').datetimepicker({
-            defaultDate: this.props.startDate
-        }).on('dp.change', event => this.props.onDateChange('startDate', event.date));
-
-        $('#datetimepicker2').datetimepicker({
-            defaultDate: this.props.finishDate
-        }).on('dp.change', event => this.props.onDateChange('finishDate', event.date));
-    },
-    componentWillUnmount() {
-        var datePicker = $('#datetimepicker1').data('DateTimePicker');
-
-        if (!datePicker) {
-            return;
+        if(this.props.startDate) {
+            $('#datetimepicker1')
+                .data('DateTimePicker')
+                .defaultDate(moment(this.props.startDate));
         }
 
-        datePicker.destroy();
+        if(this.props.finishDate) {
+            $('#datetimepicker2')
+                .data('DateTimePicker')
+                .defaultDate(moment(this.props.finishDate));
+        }
+    },
+    componentWillUnmount() {
+        $('#datetimepicker1').data('DateTimePicker').destroy();
+        $('#datetimepicker2').data('DateTimePicker').destroy();
     },
     componentDidMount() {
         this.props.fetchPoll();
+        $('#datetimepicker1').datetimepicker().on('dp.change', event => this.props.onDateChange('startDate', event.date));
+        $('#datetimepicker2').datetimepicker().on('dp.change', event => this.props.onDateChange('finishDate', event.date));
     }
 });
 
 const mapStateToProps = state => {
+    var editable = state.polls.poll.editable || {};
+
     return {
         pollName: state.polls.poll.name || '',
         pollData: state.polls.poll.data,
-        startDate: state.polls.poll.startDate,
-        finishDate: state.polls.poll.finishDate,
-        isSaveButtonDisplayed: Object.keys(state.polls.poll.modifications).length > 0,
+        startDate: editable.startDate,
+        finishDate: editable.finishDate,
+        isSaveButtonEnabled: Object.keys(state.polls.poll.modifications).length > 0,
         isFormLocked: state.polls.poll.isFormLocked,
         displaySuccessMessage: state.polls.poll.successMessage
     };
