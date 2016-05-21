@@ -11,7 +11,7 @@ const changeStep = (parent, pollName, step, stay) => fetch(`/admin/api/poll/${pa
     body: JSON.stringify({pollName: pollName, step: step, stay: stay})
 });
 
-const savePoll = (pollName, update) => fetch(`/admin/api/poll/${pollName}`, {
+const savePoll = (pollName, update, path) => fetch(`/admin/api/poll/${pollName}/${path}`, {
     headers: {
         'Content-Type': 'application/json'
     },

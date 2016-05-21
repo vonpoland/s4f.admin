@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {updatePoll} from '../poll/actions';
+import {changePropertyAndSave} from '../poll/actions';
 
 function getEditField(key, value) {
     if(typeof value === 'string') {
@@ -90,7 +90,7 @@ const mapDispatchToProps = dispatch => {
             }
 
             editedData[index][data.key] = value;
-            return dispatch(updatePoll({'data.options': editedData}, {successMessage: false}));
+            return dispatch(changePropertyAndSave({ data: editedData, successMessage: false, restPath: 'data/options', propertyPath : 'data.options'}));
         }
     };
 };

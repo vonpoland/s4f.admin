@@ -66,15 +66,27 @@ const EditPoll = React.createClass({
     render() {
         return <div>
             {this.saveSuccessNotification()}
-            <div className='col-sm-6'>
+            <div className='col-sm-12'>
                 <div className="form-group">
                     <label>Name</label>
                     <input className="form-control" value={this.props.pollName} disabled/>
                 </div>
-                {this.getPollStartDateField()}
-                {this.getPollFinishDateField()}
-                {this.pollDataEditor(this.props.pollData)}
-                {this.saveButton()}
+                <div className='container-fluid'>
+                    <div className='row'>
+                        <div className='col-lg-6'>
+                            <div className='panel panel-default'>
+                                <div className='panel-body'>
+                                    {this.getPollStartDateField()}
+                                    {this.getPollFinishDateField()}
+                                    {this.saveButton()}
+                                </div>
+                            </div>
+                        </div>
+                        <div className='col-lg-6'>
+                            {this.pollDataEditor(this.props.pollData)}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>;
     },
@@ -96,9 +108,13 @@ const EditPoll = React.createClass({
         $('#datetimepicker2').data('DateTimePicker').destroy();
     },
     componentDidMount() {
-        this.props.fetchPoll();
-        $('#datetimepicker1').datetimepicker().on('dp.change', event => this.props.onDateChange('startDate', event.date));
-        $('#datetimepicker2').datetimepicker().on('dp.change', event => this.props.onDateChange('finishDate', event.date));
+        var datePickerStart = $('#datetimepicker1').datetimepicker();
+        var datePickerFinish = $('#datetimepicker2').datetimepicker();
+        this.props.fetchPoll()
+        .then(() => {
+            datePickerStart.on('dp.change', event => this.props.onDateChange('editable.startDate', event.date));
+            datePickerFinish.on('dp.change', event => this.props.onDateChange('editable.finishDate', event.date));
+        });
     }
 });
 
@@ -119,8 +135,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, state) => {
     return {
         fetchPoll: () => dispatch(fetchPoll(state.routeParams.id)),
-        onDateChange: (property, newValue) => dispatch(propertyChange(property, newValue)),
-        savePoll: () => dispatch(savePoll())
+        onDateChange: (propertyPath, newValue) => dispatch(propertyChange({ propertyPath : propertyPath, data: newValue})),
+        savePoll: () => dispatch(savePoll({ propertyPath : 'editable', restPath : 'editable'}))
     };
 };
 

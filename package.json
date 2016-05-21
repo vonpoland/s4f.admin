@@ -43,6 +43,7 @@
       "isomorphic-fetch": "npm:isomorphic-fetch@^2.2.1",
       "josdejong/jsoneditor": "github:josdejong/jsoneditor@^5.4.0",
       "marked": "npm:marked@^0.3.5",
+      "ramda": "npm:ramda@^0.21.0",
       "react": "npm:react@^15.0.1",
       "react-dom": "npm:react-dom@^15.0.1",
       "react-redux": "npm:react-redux@^4.4.5",
@@ -76,7 +77,7 @@
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
-    "ramda": "^0.18.0",
+    "ramda": "^0.21.0",
     "socket.io-client": "^1.4.5"
   }
 }

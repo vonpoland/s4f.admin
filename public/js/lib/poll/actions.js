@@ -1,5 +1,6 @@
 import db from '../repositories/db';
 import {mapProperties} from './poll.service';
+import R from 'ramda';
 
 export const REQUEST_POLLS = 'REQUEST_POLLS';
 export const RECEIVE_POLLS = 'RECEIVE_POLLS';
@@ -18,15 +19,7 @@ export const SAVE_POLL_START = 'SAVE_POLL_START';
 export const SAVE_POLL_SUCCESS = 'SAVE_POLL_SUCCESS';
 export const SAVE_POLL_FAILED = 'SAVE_POLL_FAILED';
 export const STEP_SET = 'STEP_SET';
-export const UPDATE_POLL_START = 'UPDATE_POLL_START';
 export const TOGGLE_AUTO_SWITCH = 'TOGGLE_AUTO_SWITCH';
-
-export function updatePollStart(data) {
-    return {
-        type: UPDATE_POLL_START,
-        modifications: data
-    };
-}
 
 export function savePollStart() {
     return {
@@ -151,11 +144,11 @@ export const setStep = (pollName, step) => {
     };
 };
 
-export function propertyChange(propertyName, value) {
+export function propertyChange(options) {
     return {
         type: CHANGE_POLL_PROPERTY,
-        propertyName: propertyName,
-        newValue: value
+        propertyPath: options.propertyPath,
+        newValue: options.data
     };
 }
 
@@ -217,17 +210,19 @@ export function fetchPollsIfNeeded() {
 export function savePoll(options) {
     return (dispatch, getState) => {
         var poll = getState().polls.poll;
+        var data = R.view(R.lensPath(options.propertyPath.split('.')), poll.modifications);
+
         dispatch(savePollStart());
 
-        return db.poll.savePoll(poll.name, poll.modifications)
+        return db.poll.savePoll(poll.name, data, options.restPath)
             .then(() => dispatch(savePollSuccess(options)))
             .catch(error => dispatch(savePollFailed(error)));
     };
 }
 
-export function updatePoll(data, options) {
+export function changePropertyAndSave(options) {
     return dispatch => {
-        dispatch(updatePollStart(data));
+        dispatch(propertyChange(options));
 
         return dispatch(savePoll(options));
     };
