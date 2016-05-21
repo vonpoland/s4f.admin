@@ -11,8 +11,18 @@ describe('Poll actions', function () {
     });
 
     it('should check if initial state is correct', function () {
-        var result = polls(undefined, propertyChange('startDate', 'newDate'));
-        expect(result.poll.modifications.startDate).to.equal('newDate');
+        var result = polls(undefined, propertyChange({propertyPath: 'editable.startDate', data: 'newDate'}));
+        expect(result.poll.modifications.editable.startDate).to.equal('newDate');
+    });
+
+    it('should check if initial state is correct', function () {
+        var state = { poll : { modifications : { test: { a: 1 } } }};
+
+        var result = polls(state, propertyChange({propertyPath : 'test.b', data: 2}));
+
+        expect(state.poll.modifications.test).to.not.equal(result.poll.modifications.test);
+        expect(result.poll.modifications.test.a).to.equal(1);
+        expect(result.poll.modifications.test.b).to.equal(2);
     });
 
     it('should check if initial state is correct', function () {

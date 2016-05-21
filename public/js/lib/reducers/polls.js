@@ -8,9 +8,9 @@ import {REQUEST_POLLS,
     SAVE_POLL_START,
     SAVE_POLL_SUCCESS,
     SAVE_POLL_FAILED,
-    TOGGLE_AUTO_SWITCH,
-    UPDATE_POLL_START} from '../poll/actions';
+    TOGGLE_AUTO_SWITCH} from '../poll/actions';
 import {getPath} from '../routing/routing';
+import R from 'ramda';
 
 export function poll(state = { modifications : {} }, action = {}) {
     switch(action.type) {
@@ -48,16 +48,13 @@ export function poll(state = { modifications : {} }, action = {}) {
         }
     case CHANGE_POLL_PROPERTY:
         {
-            let modification = {};
-
-            modification[action.propertyName] = action.newValue;
+            var pathLens = R.lensPath(action.propertyPath.split('.'));
+            var copy = Object.assign({}, state.modifications);
+            var modifications = R.set(pathLens, action.newValue, copy);
 
             return {
                 ...state,
-                modifications : {
-                    ...state.modifications,
-                    ...modification
-                }
+                modifications : modifications
             };
         }
     case FETCH_POLL_START:
@@ -69,16 +66,6 @@ export function poll(state = { modifications : {} }, action = {}) {
             return {
                 ...state,
                 autoSwitch: action.value
-            };
-        }
-    case UPDATE_POLL_START:
-        {
-            return {
-                ...state,
-                modifications : {
-                    ...state.modifications,
-                    ...action.modifications
-                }
             };
         }
     default:
@@ -95,7 +82,6 @@ function polls(state = { poll : { modifications : {}}}, action) {
     case SAVE_POLL_START:
     case SAVE_POLL_SUCCESS:
     case SAVE_POLL_FAILED:
-    case UPDATE_POLL_START:
     case TOGGLE_AUTO_SWITCH:
     case CHANGE_POLL_PROPERTY: {
         return {

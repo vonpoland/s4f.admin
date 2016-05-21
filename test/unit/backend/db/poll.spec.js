@@ -1,19 +1,19 @@
 const expect = require('expect.js');
-const updateOnlyEditable = require('../../../../lib/db/db').updateOnlyEditable;
+const updateOnlyPath = require('../../../../lib/db/db').updateOnlyPath;
 
 describe('poll service tests', function () {
     it('#updateOnlyEditable1', function () {
-        expect(updateOnlyEditable({
+        expect(updateOnlyPath('data', {
             property: 'test'
         })).to.eql({
             $set: {
-                'editable.property': 'test'
+                'data.property': 'test'
             }
         });
     });
 
     it('#updateOnlyEditable', function () {
-        expect(updateOnlyEditable({
+        expect(updateOnlyPath('editable', {
             property: 'test',
             property2 : 'test2'
         })).to.eql({
