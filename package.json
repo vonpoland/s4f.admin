@@ -8,7 +8,6 @@
     "jspm": "node node_modules/jspm/jspm"
   },
   "author": "screen4fans",
-  "homepage": "https://github.com/vonpoland/boostrap-node-angular-jspm#readme",
   "devDependencies": {
     "astrolabe": "^0.3.6",
     "babel-core": "^6.9.1",
