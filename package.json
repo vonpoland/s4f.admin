@@ -2,7 +2,7 @@
   "name": "bigscreen-admin",
   "version": "1.0.0",
   "description": "Screen4fans admin app",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "gulp": "node node_modules/gulp/bin/gulp",
     "jspm": "node node_modules/jspm/jspm"
