@@ -14,7 +14,7 @@ module.exports = function (shipit) {
       ignores: ['.git', 'node_modules'],
       keepReleases: 2,
       deleteOnRollback: false,
-      key: '/home/marcin/dev/ssh/key.ppk',
+      key: '/home/jenkins/.ssh/key.ppk',
       shallowClone: true
     },
     adminDev: {
