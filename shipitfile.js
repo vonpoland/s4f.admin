@@ -2,12 +2,12 @@ module.exports = function (shipit) {
     require('shipit-deploy')(shipit);
 
     shipit.task('deployAndInstall', ['deploy'], function () {
-        return shipit.remote('cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && npm run gulp && passenger-config restart-app ' + shipit.config.deployTo)
+        return shipit.remote('cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && npm run gulp && passenger-config restart-app ' + shipit.config.deployTo + '/current')
     });
 
     shipit.initConfig({
         default: {
-            deployTo: '/var/www/screen4fans-mobile',
+            deployTo: '/var/www/screen4fans-admin',
             repositoryUrl: 'ssh://git@bitbucket.org/vonpo/bigscreen-admin.git',
             workspace: '/var/lib/jenkins/deploy-tmp',
             ignores: ['.git', 'node_modules'],
