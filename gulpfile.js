@@ -66,15 +66,10 @@ gulp.task('buildIndex', function () {
 	gulp.src('./public/partials/admin/index.html')
 		.pipe(htmlreplace({
             'css': 'css/dist/app.min.css',
-			'js': 'js/admin.min.js',
-            'conf': {
-                src: [['Basic czRmOnM0ZkAyMDE1IQ==']],
-                tpl: '<script>window.auth = "%s"</script>'
-            }
-
+			'js': 'js/admin.min.js'
 		}))
 		.pipe(rename('index-production.html'))
 		.pipe(gulp.dest('./public/partials/admin'));
 });
 
-gulp.task('default', done => runSequence('less', 'bundleScripts', 'concatScripts', 'css', 'buildIndex', done));
+gulp.task('default', done => runSequence('less', 'bundleScripts', 'concatScripts', 'css', done));
