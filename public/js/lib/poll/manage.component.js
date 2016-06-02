@@ -51,7 +51,7 @@ const mapStateToProps = state => {
         pollName: state.polls.poll.name,
         selectedStep: state.step.selectedStep,
         poll: state.polls.poll.data || {stepTemplates: []},
-        tvPreviewUrl: state.polls.poll.parent ? window.bigscreenConfig.frontendConfig.projectorUrl + '/' + state.polls.poll.parent + '/' +  state.polls.poll.name + '/' + state.step.selectedStep + '?stay=true' : null
+        tvPreviewUrl: state.polls.poll.parent ? window.bigscreenConfig.frontendConfig.projectorUrl + '/#/' + state.polls.poll.parent + '/' +  state.polls.poll.name + '/' + state.step.selectedStep + '?stay=true' : null
     };
 };
 
