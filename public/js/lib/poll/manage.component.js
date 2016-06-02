@@ -19,7 +19,7 @@ const ManagePoll = React.createClass({
                     <h3 className="panel-title">Live view</h3>
                 </div>
                 <div className="panel-body">
-                    <iframe className="ui-border--none" src='http://localhost:8888/projector/#/tychy/kto-wygra/voteResults?stay=true'></iframe>
+                    <iframe className="ui-border--none" src={this.props.tvPreviewUrl}></iframe>
                 </div>
             </div>
             <div className="form-group">
@@ -50,7 +50,8 @@ const mapStateToProps = state => {
         pollLink: createPollLink(state.polls.poll),
         pollName: state.polls.poll.name,
         selectedStep: state.step.selectedStep,
-        poll: state.polls.poll.data || {stepTemplates: []}
+        poll: state.polls.poll.data || {stepTemplates: []},
+        tvPreviewUrl: state.polls.poll.parent ? window.bigscreenConfig.frontendConfig.projectorUrl + '/' + state.polls.poll.parent + '/' +  state.polls.poll.name + '/' + state.step.selectedStep + '?stay=true' : null
     };
 };
 
