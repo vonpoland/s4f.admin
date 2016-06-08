@@ -12,23 +12,34 @@ var exec = require('child_process').exec;
 
 // Static server
 gulp.task('browser-sync', function () {
-    browserSync.init({
-        proxy: 'localhost:8889/admin',
-        files: ['public/js/lib/**/*.js', 'public/css/**/*.css']
-    });
+	browserSync.init({
+		proxy: 'localhost:8889/admin',
+		files: ['public/js/lib/**/*.js', 'public/css/**/*.css']
+	});
 });
 
 gulp.task('test:unit:frontend', function (cb) {
-	exec('mocha test/unit/frontend/**/*.spec.js --compilers js:babel-core/register --reporter nyan', function (err, stdout, stderr) {
+	exec('mocha test/unit/frontend/**/*.spec.js --compilers js:babel-core/register --reporter mocha-jenkins-reporter --reporter-options junit_report_path=frontend.xml', cb);
+});
+
+gulp.task('test:unit:frontend:dev', function (cb) {
+	exec('mocha test/unit/frontend/**/*.spec.js --compilers js:babel-core/register', function(err, stdout, stderr) {
 		console.log(stdout);
 		console.log(stderr);
-		cb();
+		cb(err);
 	});
 });
 
 gulp.task('test:unit:backend', function () {
 	return gulp.src('test/unit/backend/**/*.spec.js', {read: false})
-		.pipe(mocha({reporter: 'nyan'}));
+		.pipe(mocha({
+			'reporter': 'mocha-jenkins-reporter',
+			'reporterOptions': {
+				'junit_report_name': 'Tests',
+				'junit_report_path': 'backend.xml',
+				'junit_report_stack': 1
+			}
+		}));
 });
 
 gulp.task('less', function () {
@@ -65,16 +76,11 @@ gulp.task('concatScripts', function () {
 gulp.task('buildIndex', function () {
 	gulp.src('./public/partials/admin/index.html')
 		.pipe(htmlreplace({
-            'css': 'css/dist/app.min.css',
-			'js': 'js/admin.min.js',
-            'conf': {
-                src: [['Basic czRmOnM0ZkAyMDE1IQ==']],
-                tpl: '<script>window.auth = "%s"</script>'
-            }
-
+			'css': 'css/dist/app.min.css',
+			'js': 'js/admin.min.js'
 		}))
 		.pipe(rename('index-production.html'))
 		.pipe(gulp.dest('./public/partials/admin'));
 });
 
-gulp.task('default', done => runSequence('less', 'bundleScripts', 'concatScripts', 'css', 'buildIndex', done));
+gulp.task('default', done => runSequence('less', 'bundleScripts', 'concatScripts', 'css', done));
