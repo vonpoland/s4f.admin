@@ -1,7 +1,7 @@
 const expect = require('expect.js');
 
-import polls from '../../../../public/js/lib/reducers/polls';
-import {propertyChange, savePollStart, savePollFailed, savePollSuccess} from '../../../../public/js/lib/poll/actions';
+import polls from '../../../../public/js/lib/poll/reducer';
+import {propertyChange, savePollStart, savePollFailed, savePollSuccess, CHANGE_LOCATION} from '../../../../public/js/lib/poll/actions';
 
 describe('Poll actions', function () {
     it('should check if initial state is correct', function () {
@@ -39,5 +39,16 @@ describe('Poll actions', function () {
         var result = polls(undefined, savePollSuccess());
         expect(result.poll.isFormLocked).to.equal(false);
         expect(result.poll.successMessage).to.equal(true);
+    });
+
+    it('should set default state when location is changed', function() {
+        var state = { polls: [1,2,3]};
+        var result = polls(state, {
+            type: CHANGE_LOCATION,
+            payload: { pathname : '/admin' }
+        });
+
+        expect(result.polls).not.to.eql(state.polls);
+        expect(typeof(result.polls)).to.be('undefined');
     });
 });

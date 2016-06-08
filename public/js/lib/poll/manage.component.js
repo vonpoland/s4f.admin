@@ -19,7 +19,7 @@ const ManagePoll = React.createClass({
                     <h3 className="panel-title">Live view</h3>
                 </div>
                 <div className="panel-body">
-                    <iframe className="ui-border--none" src={this.props.tvPreviewUrl}></iframe>
+                    <iframe className="ui-border--none" src={this.props.initialAddress}></iframe>
                 </div>
             </div>
             <div className="form-group">
@@ -41,9 +41,23 @@ const ManagePoll = React.createClass({
         </div>;
     },
     componentDidMount() {
+        initialAddress = null;
         this.props.fetchPoll();
     }
 });
+
+var initialAddress = null;
+function getInitialAddress(state) {
+    if(initialAddress) {
+        return initialAddress;
+    }
+
+    if(state.polls.poll.parent) {
+        let step = state.step.selectedStep ? '&step=' + state.step.selectedStep : '';
+
+        return initialAddress = state.config.projectorUrl + '/#/' + state.polls.poll.parent + '/' +  state.polls.poll.name + '?stay=true' + step;
+    }
+}
 
 const mapStateToProps = state => {
     return {
@@ -51,7 +65,7 @@ const mapStateToProps = state => {
         pollName: state.polls.poll.name,
         selectedStep: state.step.selectedStep,
         poll: state.polls.poll.data || {stepTemplates: []},
-        tvPreviewUrl: state.polls.poll.parent ? window.bigscreenConfig.frontendConfig.projectorUrl + '/#/' + state.polls.poll.parent + '/' +  state.polls.poll.name + '/' + state.step.selectedStep + '?stay=true' : null
+        initialAddress: getInitialAddress(state)
     };
 };
 
