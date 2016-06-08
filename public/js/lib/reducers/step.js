@@ -1,8 +1,19 @@
-import {STEP_SET} from '../actions/pollList';
-import {RECEIVE_POLLS, CHANGE_STEP_START, CHANGE_STEP_FAILED, CHANGE_STEP_FINISHED} from '../actions/actions';
+import {FETCH_POLL_SUCCESS, FETCH_POLL_START, CHANGE_STEP_START, CHANGE_STEP_FAILED, CHANGE_STEP_FINISHED, STEP_SET, TOGGLE_AUTO_SWITCH} from '../poll/actions';
 
-function step(state = { canUpdate: false }, action) {
+function step(state = { canUpdate: false, blockUpdate: false }, action = {}) {
     switch (action.type) {
+    case FETCH_POLL_START:
+        {
+            return step();
+        }
+    case TOGGLE_AUTO_SWITCH:
+        {
+            return {
+                ...state,
+                blockUpdate : action.value,
+                canUpdate : !action.value
+            };
+        }
     case CHANGE_STEP_START:
         {
             return {
@@ -20,11 +31,18 @@ function step(state = { canUpdate: false }, action) {
         }
     case CHANGE_STEP_FINISHED:
     case CHANGE_STEP_FAILED:
-    case RECEIVE_POLLS:
         {
             return {
                 ...state,
-                canUpdate: true
+                canUpdate: !state.blockUpdate
+            };
+        }
+    case FETCH_POLL_SUCCESS:
+        {
+            return {
+                ...state,
+                canUpdate: !state.blockUpdate,
+                selectedStep: action.poll.last
             };
         }
     default:

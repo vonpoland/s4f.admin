@@ -12,9 +12,10 @@ var exec = require('child_process').exec;
 
 // Static server
 gulp.task('browser-sync', function () {
-	browserSync.init({
-		proxy: "localhost:8889"
-	});
+    browserSync.init({
+        proxy: 'localhost:8889/admin',
+        files: ['public/js/lib/**/*.js', 'public/css/**/*.css']
+    });
 });
 
 gulp.task('test:unit:frontend', function (cb) {
