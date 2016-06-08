@@ -16,6 +16,7 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.34",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "classnames": "npm:classnames@2.2.4",
     "core-js": "npm:core-js@1.2.6",
     "cornflourblue/angulike": "github:cornflourblue/angulike@1.2.0",
     "history": "npm:history@2.1.0",
@@ -23,6 +24,8 @@ System.config({
     "josdejong/jsoneditor": "github:josdejong/jsoneditor@5.4.0",
     "jquery": "github:components/jquery@2.1.4",
     "marked": "npm:marked@0.3.5",
+    "moment": "npm:moment@2.13.0",
+    "ramda": "npm:ramda@0.21.0",
     "react": "npm:react@15.0.1",
     "react-dom": "npm:react-dom@15.0.1",
     "react-redux": "npm:react-redux@4.4.5",
@@ -30,11 +33,12 @@ System.config({
     "react-router-redux": "npm:react-router-redux@4.0.2",
     "redux": "npm:redux@3.5.1",
     "redux-logger": "npm:redux-logger@2.6.1",
+    "redux-router": "npm:redux-router@1.0.0-beta8",
     "redux-thunk": "npm:redux-thunk@2.0.1",
     "restangular": "github:mgonto/restangular@1.5.1",
     "socket.io-client": "github:socketio/socket.io-client@1.3.7",
     "github:jspm/nodelibs-assert@0.1.0": {
-      "assert": "npm:assert@1.3.0"
+      "assert": "npm:assert@1.4.0"
     },
     "github:jspm/nodelibs-buffer@0.1.0": {
       "buffer": "npm:buffer@3.6.0"
@@ -63,7 +67,7 @@ System.config({
       "path-browserify": "npm:path-browserify@0.0.0"
     },
     "github:jspm/nodelibs-process@0.1.2": {
-      "process": "npm:process@0.11.2"
+      "process": "npm:process@0.11.3"
     },
     "github:jspm/nodelibs-stream@0.1.0": {
       "stream-browserify": "npm:stream-browserify@1.0.0"
@@ -94,7 +98,11 @@ System.config({
       "domain": "github:jspm/nodelibs-domain@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:assert@1.3.0": {
+    "npm:assert@1.4.0": {
+      "assert": "github:jspm/nodelibs-assert@0.1.0",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "buffer-shims": "npm:buffer-shims@1.0.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
       "util": "npm:util@0.10.3"
     },
     "npm:babel-plugin-syntax-flow@6.5.0": {
@@ -110,6 +118,9 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "readable-stream": "npm:readable-stream@2.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:buffer-shims@1.0.0": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0"
     },
     "npm:buffer@3.6.0": {
       "base64-js": "npm:base64-js@0.0.8",
@@ -222,7 +233,7 @@ System.config({
     "npm:process-nextick-args@1.0.6": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:process@0.11.2": {
+    "npm:process@0.11.3": {
       "assert": "github:jspm/nodelibs-assert@0.1.0"
     },
     "npm:promise@7.1.1": {
@@ -234,6 +245,9 @@ System.config({
     },
     "npm:query-string@3.0.3": {
       "strict-uri-encode": "npm:strict-uri-encode@1.1.0"
+    },
+    "npm:ramda@0.21.0": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:react-dom@15.0.1": {
       "react": "npm:react@15.0.1"
@@ -301,6 +315,9 @@ System.config({
       "private": "npm:private@0.1.6",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "source-map": "npm:source-map@0.5.3"
+    },
+    "npm:redux-router@1.0.0-beta8": {
+      "deep-equal": "npm:deep-equal@1.0.1"
     },
     "npm:redux@3.5.1": {
       "lodash": "npm:lodash@4.11.1",

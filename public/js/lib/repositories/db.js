@@ -1,31 +1,60 @@
 import fetch from 'isomorphic-fetch';
 
-export const getPolls = parent => fetch('api/poll?parent=' + parent);
-export const changeStep = (parent, pollName, step, stay) => fetch(`api/poll/${parent}/screen`, {
+const getPolls = () => fetch('api/poll', {credentials: 'same-origin'});
+
+const changeStep = (parent, pollName, step, stay) => fetch(`/admin/api/poll/${parent}/screen`, {
     method: 'POST',
+    credentials: 'same-origin',
     headers: {
-      Authorization: window.auth,
-      'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
     },
     body: JSON.stringify({pollName: pollName, step: step, stay: stay})
 });
-export const getAnswers = pollName => fetch(`api/poll/${pollName}/answer`, {
+
+const savePoll = (pollName, update, path) => fetch(`/admin/api/poll/${pollName}/${path}`, {
     headers: {
-        Authorization: window.auth,
+        'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    credentials: 'same-origin',
+    body: JSON.stringify(update)
+});
+
+const getAnswers = pollName => fetch(`/admin/api/poll/${pollName}/answer`, {
+    credentials: 'same-origin',
+    headers: {
         'Content-Type': 'application/json'
     }
 });
 
-export const getPoll = pollName => fetch(`api/poll/${pollName}`, {
+const getPoll = pollName => fetch(`/admin/api/poll/${pollName}`, {
+    credentials: 'same-origin',
     headers: {
-        Authorization: window.auth,
         'Content-Type': 'application/json'
     }
 });
 
+const login = (user, password) => fetch('/admin/api/auth/login', {
+    credentials: 'same-origin',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({username: user, password: password})
+});
+
+const loggedUser = () => fetch('/admin/api/auth/me', {
+    credentials: 'same-origin'
+});
+
+const logout = () => fetch('/admin/api/auth/logout', {
+    method: 'POST',
+    credentials: 'same-origin'
+});
 
 const db = {
-    poll: {getPolls, getAnswers, getPoll},
-    step: {changeStep}
+    poll: {getPolls, getAnswers, getPoll, savePoll},
+    step: {changeStep},
+    auth: {login, loggedUser, logout}
 };
 export default db;

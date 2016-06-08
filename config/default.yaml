@@ -1,9 +1,10 @@
 server:
   port: 8889
-index: 'index.html'
+index: 'index'
+maxAgeResources: 0
 database:
-  connection: mongodb://localhost:27017/bigScreen
-security:
-  user: test
-  password: test
+  web: mongodb://localhost:27017/tychyKonkurs
+  admin: mongodb://localhost:27017/configuration
 bigscreenChannel: 'http://localhost:8085'
+frontendConfig:
+  projectorUrl: 'http://localhost:8888/projector'
