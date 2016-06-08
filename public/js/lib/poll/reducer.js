@@ -8,7 +8,7 @@ import {REQUEST_POLLS,
     SAVE_POLL_START,
     SAVE_POLL_SUCCESS,
     SAVE_POLL_FAILED,
-    TOGGLE_AUTO_SWITCH} from '../poll/actions';
+    TOGGLE_AUTO_SWITCH} from './actions';
 import {getPath} from '../routing/routing';
 import R from 'ramda';
 
@@ -75,7 +75,7 @@ export function poll(state = { modifications : {} }, action = {}) {
     }
 }
 
-function polls(state = { poll : { modifications : {}}}, action) {
+function polls(state = { poll : { modifications : {}}}, action = {}) {
     switch (action.type) {
     case FETCH_POLL_SUCCESS:
     case FETCH_POLL_START:
@@ -92,7 +92,7 @@ function polls(state = { poll : { modifications : {}}}, action) {
     case CHANGE_LOCATION:
         {
             return {
-                ...state,
+                ...polls(),
                 ...getPath(action.payload)
             };
         }

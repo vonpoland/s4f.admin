@@ -24,6 +24,7 @@ System.config({
     "josdejong/jsoneditor": "github:josdejong/jsoneditor@5.4.0",
     "jquery": "github:components/jquery@2.1.4",
     "marked": "npm:marked@0.3.5",
+    "moment": "npm:moment@2.13.0",
     "ramda": "npm:ramda@0.21.0",
     "react": "npm:react@15.0.1",
     "react-dom": "npm:react-dom@15.0.1",

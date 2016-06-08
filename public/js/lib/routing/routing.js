@@ -63,6 +63,8 @@ function getPage(pathname) {
         return pageInfo['poll'];
     } else if(pathname.indexOf('/dashboard') > 0) {
         return pageInfo['dashboard'];
+    } else if(pathname.indexOf('/admin') === 0) {
+        return pageInfo['dashboard'];
     }
 }
 

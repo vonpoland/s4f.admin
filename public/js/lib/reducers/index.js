@@ -1,10 +1,16 @@
 import { combineReducers } from 'redux';
-import polls from './polls';
+import polls from '../poll/reducer';
 import step from './step';
 import { routerReducer } from 'react-router-redux';
 import authReducer from '../auth/reducer';
 import navigationReducer from '../navigation/reducer';
 import dashboardReducer from '../dashboard/reducer';
+
+function config() {
+    return {
+        projectorUrl: window.bigscreenConfig.frontendConfig.projectorUrl
+    };
+}
 
 const indexApp = combineReducers({
     authData: authReducer,
@@ -12,7 +18,8 @@ const indexApp = combineReducers({
     dashboard: dashboardReducer,
     step,
     polls,
-    routing : routerReducer
+    config,
+    routing: routerReducer
 });
 
 export default indexApp;

@@ -13,13 +13,21 @@ var exec = require('child_process').exec;
 // Static server
 gulp.task('browser-sync', function () {
     browserSync.init({
-        proxy: "localhost:8889/admin",
-        files: ["public/js/lib/**/*.js", "public/css/**/*.css"]
+        proxy: 'localhost:8889/admin',
+        files: ['public/js/lib/**/*.js', 'public/css/**/*.css']
     });
 });
 
 gulp.task('test:unit:frontend', function (cb) {
     exec('mocha test/unit/frontend/**/*.spec.js --compilers js:babel-core/register --reporter mocha-jenkins-reporter --reporter-options junit_report_path=frontend.xml', cb);
+});
+
+gulp.task('test:unit:frontend:dev', function (cb) {
+    exec('mocha test/unit/frontend/**/*.spec.js --compilers js:babel-core/register', function(err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
 });
 
 gulp.task('test:unit:backend', function () {

@@ -4,6 +4,7 @@ import LoginStatus from './loginStatus.component';
 import {getLoggedUser} from '../auth/actions';
 import { browserHistory  } from 'react-router';
 import classNames from 'classnames';
+import { Link  } from 'react-router';
 
 const Navigation = React.createClass({
     componentDidMount() {
@@ -14,8 +15,8 @@ const Navigation = React.createClass({
         var displayLoginStatus = !!this.props.data.user;
         var partial = '';
         var pageInfo = this.props.data.pageInfo || {};
-        var dashboardActive = classNames({ active : pageInfo.active === 'dashboard' });
-        var pollActive = classNames({active: pageInfo.active === 'poll'});
+        var dashboardActive = classNames({ active : pageInfo.active === 'dashboard', hidden : !displayLoginStatus });
+        var pollActive = classNames({active: pageInfo.active === 'poll', hidden : !displayLoginStatus});
         if(displayLoginStatus) {
             partial = <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i> {user.firstName} {user.lastName} <b className="caret"></b></a>
@@ -116,7 +117,7 @@ const Navigation = React.createClass({
             <div className="collapse navbar-collapse navbar-ex1-collapse">
                 <ul className="nav navbar-nav side-nav">
                     <li className={dashboardActive}>
-                        <a onClick={() => browserHistory.push('/admin/dashboard')}><i className="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <Link to="/admin/dashboard"><i className="fa fa-fw fa-dashboard"></i> Dashboard</Link>
                     </li>
                     <li className="hidden">
                         <a href="charts.html"><i className="fa fa-fw fa-bar-chart-o"></i> Charts</a>
@@ -125,7 +126,7 @@ const Navigation = React.createClass({
                         <a href="tables.html"><i className="fa fa-fw fa-table"></i> Tables</a>
                     </li>
                     <li className={pollActive}>
-                        <a onClick={() => browserHistory.push('/admin/poll')}><i className="fa fa-fw fa-edit"></i> Polls</a>
+                        <Link to="/admin/poll"><i className="fa fa-fw fa-edit"></i> Polls</Link>
                     </li>
                     <li className="hidden">
                         <a href="bootstrap-elements.html"><i className="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>

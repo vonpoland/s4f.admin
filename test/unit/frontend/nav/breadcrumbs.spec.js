@@ -52,6 +52,23 @@ describe('Breadcrumbs tests', function () {
         });
     });
 
+    it('should set page default - dashboard page when on /admin path', function () {
+        var action = {type: CHANGE_LOCATION, payload: {pathname: '/admin'}};
+        var state = {};
+        var result = navigationReducer(state, action);
+
+        expect(result).to.not.equal(state);
+        expect(result).to.eql({
+            pageInfo: {
+                displayPageInfo: true,
+                breadcrumb: 'Dashboard',
+                title: 'Dashboard',
+                description: 'Statistics Overview',
+                active: 'dashboard'
+            }
+        });
+    });
+
     describe('#getPageInfo tests', function () {
         it('should get correct nested path', function () {
             var path = 'admin/poll/test-poll/manage';

@@ -58,7 +58,7 @@ const Editor = React.createClass({
     render() {
         return <div className="list-group-item">
             <div>
-                <div data-target={'#' + this.props.data.option} data-toggle="collapse">{this.props.data.name}
+                <div data-target={'#' + this.props.data.option} data-toggle="collapse">{this.props.data.name || (this.props.data.firstName + ' ' + this.props.data.lastName)}
                     <i className={'fa padding-horizontal--small ' + (this.props.data.enabled ? 'fa-check' : 'fa-close')} aria-hidden="true"></i>
                     <i className="fa fa-fw fa-caret-down"></i></div>
                 <div id={this.props.data.option} className="collapse margin-vertical--big" aria-expanded="false">

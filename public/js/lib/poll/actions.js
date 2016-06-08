@@ -177,7 +177,8 @@ function fetchPolls() {
         return db.poll.getPolls()
             .then(response => response.json())
             .then(mapProperties)
-            .then(polls => dispatch(receivePolls(polls)));
+            .then(polls => dispatch(receivePolls(polls)))
+            .catch(() => dispatch(receivePolls([])));
     };
 }
 
