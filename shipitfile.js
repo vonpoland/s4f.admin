@@ -17,7 +17,7 @@ module.exports = function (shipit) {
             shallowClone: true
         },
         dev: {
-            branch: 'new-look',
+            branch: 'master',
             servers: 'screen4fans@40.115.23.130'
         }
     });
