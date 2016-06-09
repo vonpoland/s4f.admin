@@ -7,10 +7,26 @@ import classNames from 'classnames';
 
 const ManagePoll = React.createClass({
     onLoad (arg) {
-       console.info($(arg.currentTarget).contents().height);
+        var height;
+        var width;
+        var iframe = $(arg.currentTarget);
+        try {
+            var content = iframe.contents();
+
+            height = content.height();
+            width = content.width();
+        } catch(e) {
+            console.error(e);
+            width = 1920;
+            height = 1080;
+        }
+
+        console.info(width, height);
+        iframe.width(width);
+        iframe.height(height);
     },
     linkActive(templateKey) {
-        return classNames('list-group-item', {active : this.props.selectedStep === templateKey});
+        return classNames('list-group-item', {active: this.props.selectedStep === templateKey});
     },
     toggleAutoSwitch(event) {
         this.props.toggleAutoSwitch(event.target.value === 'true');
@@ -21,7 +37,7 @@ const ManagePoll = React.createClass({
                 <div className="panel-heading">
                     <h3 className="panel-title">Live view</h3>
                 </div>
-                <div className="panel-body">
+                <div className="panel-body overflow--scroll ui-width--max">
                     <iframe ref="iframe" className="ui-border--none" src={this.props.initialAddress}></iframe>
                 </div>
             </div>
@@ -31,11 +47,12 @@ const ManagePoll = React.createClass({
                     <option value={true}>true</option>
                     <option value={false}>false</option>
                 </select>
-             </div>
+            </div>
             <div className="list-group">
                 <label>Steps</label>
                 {Object.keys(this.props.poll.stepTemplates).map(templateKey =>
-                    <button key={templateKey} className={this.linkActive(templateKey)}  onClick={() => this.props.setStep(this.props.pollName, templateKey)}>
+                    <button key={templateKey} className={this.linkActive(templateKey)}
+                            onClick={() => this.props.setStep(this.props.pollName, templateKey)}>
                         {templateKey}
                     </button>
                 )}
@@ -52,14 +69,14 @@ const ManagePoll = React.createClass({
 
 var initialAddress = null;
 function getInitialAddress(state) {
-    if(initialAddress) {
+    if (initialAddress) {
         return initialAddress;
     }
 
-    if(state.polls.poll.parent) {
+    if (state.polls.poll.parent) {
         let step = state.step.selectedStep ? '&step=' + state.step.selectedStep : '';
 
-        return initialAddress = state.config.projectorUrl + '/#/' + state.polls.poll.parent + '/' +  state.polls.poll.name + '?stay=true' + step;
+        return initialAddress = state.config.projectorUrl + '/#/' + state.polls.poll.parent + '/' + state.polls.poll.name + '?stay=true' + step;
     }
 }
 
@@ -77,7 +94,7 @@ const mapDispatchToProps = (dispatch, state) => {
     return {
         fetchPoll: () => dispatch(fetchPoll(state.routeParams.id)),
         setStep: (pollName, step) => dispatch(setStep(pollName, step)),
-        toggleAutoSwitch : value => dispatch(toggleAutoSwitch(value))
+        toggleAutoSwitch: value => dispatch(toggleAutoSwitch(value))
     };
 };
 
