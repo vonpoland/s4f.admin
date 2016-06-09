@@ -21,11 +21,11 @@ const ManagePoll = React.createClass({
                 width = 1920;
                 height = 1080;
             }
-        }, 2000);
 
-        console.info(width, height);
-        iframe.width(width);
-        iframe.height(height);
+            console.info(width, height);
+            iframe.width(width);
+            iframe.height(height);
+        }, 2000);
     },
     linkActive(templateKey) {
         return classNames('list-group-item', {active: this.props.selectedStep === templateKey});
