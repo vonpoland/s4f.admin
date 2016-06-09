@@ -10,16 +10,18 @@ const ManagePoll = React.createClass({
         var height;
         var width;
         var iframe = $(arg.currentTarget);
-        try {
-            var content = iframe.contents();
+        setTimeout(() => {
+            try {
+                var content = iframe.contents();
 
-            height = content.height();
-            width = content.width();
-        } catch(e) {
-            console.error(e);
-            width = 1920;
-            height = 1080;
-        }
+                height = content.height();
+                width = content.width();
+            } catch(e) {
+                console.error(e);
+                width = 1920;
+                height = 1080;
+            }
+        }, 2000);
 
         console.info(width, height);
         iframe.width(width);
