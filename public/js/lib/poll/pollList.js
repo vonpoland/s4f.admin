@@ -10,6 +10,9 @@ const PollList = React.createClass({
     projectorLink(poll) {
         return this.props.projectorUrl + '/' + poll.parent + '/' + poll.name;
     },
+    mobileLink(poll) {
+        return this.props.mobileUrl + '/' + poll.name;
+    },
     liveIcon(isLive) {
         if(isLive === true) {
             return <i className="fa fa-circle icon--live" title="Poll online" aria-hidden="true"></i>;
@@ -25,7 +28,8 @@ const PollList = React.createClass({
                     <tr>
                         <th>Poll name</th>
                         <th>Status</th>
-                        <th>Link</th>
+                        <th>Telebim Link</th>
+                        <th>Mobile Link</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -34,7 +38,8 @@ const PollList = React.createClass({
                     <tr key={poll.name}>
                         <td>{poll.name}</td>
                         <td>{this.liveIcon(poll.isLive)}</td>
-                        <td><a href={this.projectorLink(poll)} target="_blank" className="btn btn-link">Link</a></td>
+                        <td><a href={this.projectorLink(poll)} target="_blank" className="btn btn-link">Telebim</a></td>
+                        <td><a href={this.mobileLink(poll)} target="_blank" className="btn btn-link">Mobile</a></td>
                         <td>
                             <Link to={this.link(poll.name, 'edit')} className="margin-horizontal--small"><i className="fa fa-lg fa-pencil" aria-hidden="true"></i>&nbsp;Edit</Link>&nbsp;
                             <Link to={this.link(poll.name, 'results')} className="margin-horizontal--small"><i className="fa fa-lg fa-eye" aria-hidden="true"></i>&nbsp;Results</Link>
@@ -52,6 +57,7 @@ const PollList = React.createClass({
 
 const mapStateToProps = state => ({
     projectorUrl : state.config.projectorUrl,
+    mobileUrl : state.config.mobileUrl,
     polls: state.polls || {}
 });
 

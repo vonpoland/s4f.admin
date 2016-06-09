@@ -6,6 +6,9 @@ import ChangeStep from './changeStep.component';
 import classNames from 'classnames';
 
 const ManagePoll = React.createClass({
+    onLoad (arg) {
+       console.info($(arg.currentTarget).contents().height);
+    },
     linkActive(templateKey) {
         return classNames('list-group-item', {active : this.props.selectedStep === templateKey});
     },
@@ -19,7 +22,7 @@ const ManagePoll = React.createClass({
                     <h3 className="panel-title">Live view</h3>
                 </div>
                 <div className="panel-body">
-                    <iframe className="ui-border--none" src={this.props.initialAddress}></iframe>
+                    <iframe ref="iframe" className="ui-border--none" src={this.props.initialAddress}></iframe>
                 </div>
             </div>
             <div className="form-group">
@@ -43,6 +46,7 @@ const ManagePoll = React.createClass({
     componentDidMount() {
         initialAddress = null;
         this.props.fetchPoll();
+        this.refs.iframe.addEventListener('load', this.onLoad);
     }
 });
 

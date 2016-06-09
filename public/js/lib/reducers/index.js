@@ -8,7 +8,8 @@ import dashboardReducer from '../dashboard/reducer';
 
 function config() {
     return {
-        projectorUrl: window.bigscreenConfig.frontendConfig.projectorUrl
+        projectorUrl: window.bigscreenConfig.frontendConfig.projectorUrl,
+        mobileUrl: window.bigscreenConfig.bigscreenChannel
     };
 }
 
