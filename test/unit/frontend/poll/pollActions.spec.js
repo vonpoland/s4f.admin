@@ -42,7 +42,7 @@ describe('Poll actions', function () {
     });
 
     it('should set default state when location is changed', function() {
-        var state = { polls: [1,2,3]};
+        var state = { polls: [1,2,3], isFetching : true};
         var result = polls(state, {
             type: CHANGE_LOCATION,
             payload: { pathname : '/admin' }
@@ -50,5 +50,15 @@ describe('Poll actions', function () {
 
         expect(result.polls).not.to.eql(state.polls);
         expect(typeof(result.polls)).to.be('undefined');
+    });
+
+    it('should set default state when location is changed when poll is fetching', function() {
+        var state = { polls: [1,2,3], isFetching : false};
+        var result = polls(state, {
+            type: CHANGE_LOCATION,
+            payload: { pathname : '/admin' }
+        });
+
+        expect(result.polls).to.eql(state.polls);
     });
 });

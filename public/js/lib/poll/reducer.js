@@ -91,8 +91,9 @@ function polls(state = { poll : { modifications : {}}}, action = {}) {
     }
     case CHANGE_LOCATION:
         {
+            let newState = state.isFetching ? polls() : state;
             return {
-                ...polls(),
+                ...newState,
                 ...getPath(action.payload)
             };
         }
