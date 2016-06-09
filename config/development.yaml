@@ -1,4 +1,4 @@
-bigscreenChannel: 'http://40.115.23.130/'
+bigscreenChannel: 'http://40.115.23.130'
 index: 'index-production'
 frontendConfig:
   projectorUrl: 'http://40.115.23.130/projector'
