@@ -20,10 +20,13 @@ const Login = React.createClass({
             this.props.onLogin(this.state.user, this.state.password);
         }
     },
+    validationFailed() {
+        return this.props.data.loggingFailed ?
+            <div id="loginFailedTxt" className="alert alert-danger"><strong>Login failed</strong> Please check if login and password are correct.</div> : <div></div>;
+    },
     render() {
         var onLogin = this.props.onLogin;
         var logging = this.props.data.logging;
-
         var usernameClass = classNames('form-group', {'has-error': hasAnyErrorsSet(this.props.data.validation.username)});
         var passwordClass = classNames('form-group', {'has-error': hasAnyErrorsSet(this.props.data.validation.password)});
 
@@ -34,17 +37,18 @@ const Login = React.createClass({
                 </div>
                 <div className="panel-body">
                     <form role="form" onKeyPress={this.onKeyPress}>
+                        {this.validationFailed()}
                         <div className={usernameClass}>
-                            <label>
+                            <label className="ui-width--max">
                                 <span>Login</span>
-                                <input className="form-control" disabled={logging} type="text"
+                                <input id="txtLogin" className="form-control" disabled={logging} type="text"
                                        onChange={this.handleLoginChange}/>
                             </label>
                         </div>
                         <div className={passwordClass}>
-                            <label>
+                            <label className="ui-width--max">
                                 <span>Password</span>
-                                <input className="form-control" disabled={logging} onChange={this.handlePasswordChange}
+                                <input id="txtPassword" className="form-control" disabled={logging} onChange={this.handlePasswordChange}
                                        type="password"/>
                             </label>
                         </div>

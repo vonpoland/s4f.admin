@@ -74,6 +74,18 @@ describe('Log in user tests', function () {
         });
     });
 
+    it('should set loggingFailed to false when user is being logged. ', function () {
+        var action = {type: AUTH.LOGGING_USER};
+        var state = {loggingFailed: true};
+        var result = authReducer(state, action);
+
+        expect(result).to.not.equal(state);
+        expect(result).to.eql({
+            logging: true,
+            loggingFailed: false
+        });
+    });
+
     it('should set logging to false when logging is failed ', function () {
         var action = {type: AUTH.LOG_FAILED};
         var state = {logging: true};
@@ -81,7 +93,8 @@ describe('Log in user tests', function () {
 
         expect(result).to.not.equal(state);
         expect(result).to.eql({
-            logging: false
+            logging: false,
+            loggingFailed: true
         });
     });
 });

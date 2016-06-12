@@ -18,7 +18,7 @@ const LoginStatus = React.createClass({
             </li>
             <li className="divider"></li>
             <li>
-                <a href="#" onClick={logout}><i className="fa fa-fw fa-power-off"></i> Log Out</a>
+                <a href="#" id="btnLogout" onClick={logout}><i className="fa fa-fw fa-power-off"></i> Log Out</a>
             </li>
         </ul>;
     }
