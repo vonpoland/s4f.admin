@@ -20,7 +20,7 @@ exports.config = {
     },
     params: {
         login: {
-            user: 'mojjoj@wp.pl',
+            user: 'test@s4f.pl',
             password: 'test',
             url: 'login'
         }
