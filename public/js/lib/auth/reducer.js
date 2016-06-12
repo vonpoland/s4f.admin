@@ -6,6 +6,7 @@ export default function authReducer(state = { logging : false, validation : {}, 
         {
             return {
                 ...state,
+                loggingFailed: false,
                 logging: true
             };
         }
@@ -27,6 +28,7 @@ export default function authReducer(state = { logging : false, validation : {}, 
     case AUTH.LOG_FAILED: {
         return {
             ...state,
+            loggingFailed: true,
             logging: false
         };
     }

@@ -22,7 +22,6 @@ const ManagePoll = React.createClass({
                 height = 1080;
             }
 
-            console.info(width, height);
             iframe.width(width);
             iframe.height(height);
         }, 2000);

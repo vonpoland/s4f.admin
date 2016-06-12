@@ -19,7 +19,7 @@ const Navigation = React.createClass({
         var pollActive = classNames({active: pageInfo.active === 'poll', hidden : !displayLoginStatus});
         if(displayLoginStatus) {
             partial = <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i> {user.firstName} {user.lastName} <b className="caret"></b></a>
+                <a id="loginStatusUser" href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i> {user.firstName} {user.lastName} <b className="caret"></b></a>
                 <LoginStatus />
             </li>;
         }
