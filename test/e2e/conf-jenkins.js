@@ -14,7 +14,7 @@ exports.config = {
     },
     directConnect: true,
     specs: ['specs/**/*spec.js'],
-    baseUrl: 'http://40.115.23.130/admin',
+    baseUrl: 'http://40.115.23.130/admin/',
     suites: {
         login: 'specs/login/*.spec.js'
     },
