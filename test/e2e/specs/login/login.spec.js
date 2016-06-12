@@ -19,6 +19,7 @@ describe('should check if login works', function () {
 
     it('should inform user when bad login or password is set', function () {
         LoginPage.login('test', 'test');
+        browser.wait(EC.visibilityOf(LoginPage.loggingFailedTxt));
         expect(LoginPage.loggingFailedTxt.isDisplayed()).toBe(true);
     });
 });
