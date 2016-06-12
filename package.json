@@ -30,6 +30,7 @@
     "mocha-jenkins-reporter": "0.2.2",
     "mockery": "^1.7.0",
     "moment": "^2.13.0",
+    "node-mocks-http": "^1.5.2",
     "pm2": "^1.0.0",
     "react": "^15.0.2",
     "react-router": "^2.4.0",

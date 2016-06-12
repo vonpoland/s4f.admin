@@ -215,7 +215,7 @@ export function savePoll(options) {
 
         dispatch(savePollStart());
 
-        return db.poll.savePoll(poll.name, data, options.restPath)
+        return db.poll.savePoll(poll.id, data, options.restPath)
             .then(() => dispatch(savePollSuccess(options)))
             .catch(error => dispatch(savePollFailed(error)));
     };
