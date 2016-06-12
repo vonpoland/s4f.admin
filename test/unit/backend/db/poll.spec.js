@@ -1,5 +1,7 @@
+/* global describe, it */
+
 const expect = require('expect.js');
-const updateOnlyPath = require('../../../../lib/db/db').updateOnlyPath;
+const updateOnlyPath = require('../../../../lib/db/helpers').updateOnlyPath;
 
 describe('poll service tests', function () {
     it('#updateOnlyEditable1', function () {

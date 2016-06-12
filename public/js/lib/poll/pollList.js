@@ -4,8 +4,8 @@ import { Link  } from 'react-router';
 import {fetchPollsIfNeeded} from './actions';
 
 const PollList = React.createClass({
-    link(pollName, action) {
-        return '/admin/poll/' + pollName + '/' + action;
+    link(pollId, action) {
+        return '/admin/poll/' + pollId + '/' + action;
     },
     projectorLink(poll) {
         return this.props.projectorUrl + '/' + poll.parent + '/' + poll.name;
@@ -35,15 +35,15 @@ const PollList = React.createClass({
                 </thead>
                 <tbody>
                 {polls.map(poll =>
-                    <tr key={poll.name}>
+                    <tr key={poll.id}>
                         <td>{poll.name}</td>
                         <td>{this.liveIcon(poll.isLive)}</td>
                         <td><a href={this.projectorLink(poll)} target="_blank" className="btn btn-link">Telebim</a></td>
                         <td><a href={this.mobileLink(poll)} target="_blank" className="btn btn-link">Mobile</a></td>
                         <td>
-                            <Link to={this.link(poll.name, 'edit')} className="margin-horizontal--small"><i className="fa fa-lg fa-pencil" aria-hidden="true"></i>&nbsp;Edit</Link>&nbsp;
-                            <Link to={this.link(poll.name, 'results')} className="margin-horizontal--small"><i className="fa fa-lg fa-eye" aria-hidden="true"></i>&nbsp;Results</Link>
-                            <Link to={this.link(poll.name, 'manage')} className="margin-horizontal--small"><i className="fa fa-lg fa-gear" aria-hidden="true"></i>&nbsp;Manage</Link>
+                            <Link to={this.link(poll.id, 'edit')} className="margin-horizontal--small"><i className="fa fa-lg fa-pencil" aria-hidden="true"></i>&nbsp;Edit</Link>&nbsp;
+                            <Link to={this.link(poll.id, 'results')} className="margin-horizontal--small"><i className="fa fa-lg fa-eye" aria-hidden="true"></i>&nbsp;Results</Link>
+                            <Link to={this.link(poll.id, 'manage')} className="margin-horizontal--small"><i className="fa fa-lg fa-gear" aria-hidden="true"></i>&nbsp;Manage</Link>
                         </td>
                     </tr>
                 )}
