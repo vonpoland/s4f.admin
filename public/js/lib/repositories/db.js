@@ -2,13 +2,13 @@ import fetch from 'isomorphic-fetch';
 
 const getPolls = () => fetch('api/poll', {credentials: 'same-origin'});
 
-const changeStep = (parent, pollName, step, stay) => fetch(`/admin/api/poll/${parent}/screen`, {
+const changeStep = (parent, pollId, step, stay) => fetch(`/admin/api/poll/${pollId}/screen`, {
     method: 'POST',
     credentials: 'same-origin',
     headers: {
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify({pollName: pollName, step: step, stay: stay})
+    body: JSON.stringify({pollId: pollId, step: step, stay: stay, parent: parent})
 });
 
 const savePoll = (pollName, update, path) => fetch(`/admin/api/poll/${pollName}/${path}`, {
