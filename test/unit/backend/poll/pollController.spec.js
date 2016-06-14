@@ -34,10 +34,10 @@ var dbMock = {
                     }
                 };
             },
-            update: function(params, data, done) {
+            update: function (params, data, done) {
                 var poll = Object.assign({}, find(params));
 
-                Object.keys(data.$set).forEach(function(key) {
+                Object.keys(data.$set).forEach(function (key) {
                     var lens = R.lensPath(key.split('.'));
                     poll = R.set(lens, data.$set[key], poll);
 
@@ -49,6 +49,12 @@ var dbMock = {
     }
 };
 
+const socketMock = {
+    getIo: function () {
+        return {}
+    }
+}
+
 describe('Poll controller tests', function () {
     before(function () {
         mockery.enable({
@@ -56,6 +62,7 @@ describe('Poll controller tests', function () {
             warnOnUnregistered: false
         });
         mockery.registerMock('../db/db', dbMock);
+        mockery.registerMock('../channel/service', socketMock);
         this.router = require('../../../../lib/poll/router');
     });
 
@@ -106,12 +113,9 @@ describe('Poll controller tests', function () {
         var request = httpMocks.createRequest({
             method: 'PUT',
             url: '/testPoll/editable',
-            params: {
-                id: pollName
-            },
             body: {
-                option1 : 'one',
-                option2 : 'two'
+                option1: 'one',
+                option2: 'two'
             }
         });
 
@@ -131,12 +135,48 @@ describe('Poll controller tests', function () {
         var request = httpMocks.createRequest({
             method: 'PUT',
             url: '/nextPoll/editable',
-            params: {
-                id: pollName
-            },
             body: {
-                option1 : 'one',
-                option2 : 'two'
+                option1: 'one',
+                option2: 'two'
+            }
+        });
+
+        request.user = {polls: [pollName]};
+        response.on('end', function () {
+            var result = response._getData();
+            expect(result).to.be('Bad Request');
+            done();
+        });
+
+        this.router.handle(request, response);
+    });
+
+    it('should get error why trying to get answer form other user polls', function (done) {
+        const pollName = 'testPoll';
+        var response = buildResponse();
+        var request = httpMocks.createRequest({
+            method: 'GET',
+            url: '/nextPoll/answer'
+        });
+
+        request.user = {polls: [pollName]};
+        response.on('end', function () {
+            var result = response._getData();
+            expect(result).to.be('Bad Request');
+            done();
+        });
+
+        this.router.handle(request, response);
+    });
+
+    it('should get error why trying to change poll screen form other user polls', function (done) {
+        const pollName = 'testPoll';
+        var response = buildResponse();
+        var request = httpMocks.createRequest({
+            method: 'POST',
+            url: '/nextPoll/screen',
+            body: {
+                parent: 'parent'
             }
         });
 

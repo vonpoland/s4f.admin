@@ -22,11 +22,13 @@ const Dashboard = React.createClass({
                             </div>
                         </div>
                     </div>
-                        <div className="panel-footer">
-                            <span className="pull-left"><Link to="/admin/poll/zuzel-torun/manage">Manage</Link></span>
-                            <div className="pull-right"><Link to="/admin/poll/zuzel-torun/manage"><i className="fa fa-arrow-circle-right"></i></Link></div>
+                    {this.props.polls.map(poll =>
+                        <div className="panel-footer" key={poll.id}>
+                            <span className="pull-left"><Link to={'/admin/poll/' + poll.id + '/manage'}>Manage</Link></span>
+                            <div className="pull-right"><Link to={'/admin/poll/' + poll.id + '/manage'}><i className="fa fa-arrow-circle-right"></i></Link></div>
                             <div className="clearfix"></div>
                         </div>
+                    )}
                 </div>
             </div>
         </div>;
@@ -34,5 +36,5 @@ const Dashboard = React.createClass({
 });
 
 export default connect(
-    state => ({data: state.dashboard})
+    state => ({polls: state.dashboard.polls})
 )(Dashboard);

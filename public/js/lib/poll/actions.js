@@ -132,14 +132,14 @@ function justChangeStep(pollName, step) {
     };
 }
 
-export const setStep = (pollName, step) => {
+export const setStep = (pollId, step) => {
     return function (dispatch, getState) {
         var state = getState();
 
-        dispatch(justChangeStep(pollName, step));
+        dispatch(justChangeStep(pollId, step));
 
         if (state.polls.poll.autoSwitch) {
-            dispatch(changeStep(pollName, step, true, state.polls.poll.parent));
+            dispatch(changeStep(pollId, step, true, state.polls.poll.parent));
         }
     };
 };
@@ -156,11 +156,11 @@ function isNotSuccessFullResponse(response) {
     return response.status !== 200;
 }
 
-export function changeStep(selectedPoll, selectedStep, stay, parent) {
+export function changeStep(pollId, selectedStep, stay, parent) {
     return function (dispatch) {
         dispatch(changeStepStart());
 
-        return db.step.changeStep(parent, selectedPoll, selectedStep, stay)
+        return db.step.changeStep(parent, pollId, selectedStep, stay)
             .then(response => {
                 if (isNotSuccessFullResponse(response)) {
                     return dispatch(changeStepFailed());

@@ -53,7 +53,7 @@ const ManagePoll = React.createClass({
                 <label>Steps</label>
                 {Object.keys(this.props.poll.stepTemplates).map(templateKey =>
                     <button key={templateKey} className={this.linkActive(templateKey)}
-                            onClick={() => this.props.setStep(this.props.pollName, templateKey)}>
+                            onClick={() => this.props.setStep(this.props.pollId, templateKey)}>
                         {templateKey}
                     </button>
                 )}
@@ -84,7 +84,7 @@ function getInitialAddress(state) {
 const mapStateToProps = state => {
     return {
         pollLink: createPollLink(state.polls.poll),
-        pollName: state.polls.poll.name,
+        pollId: state.polls.poll.id,
         selectedStep: state.step.selectedStep,
         poll: state.polls.poll.data || {stepTemplates: []},
         initialAddress: getInitialAddress(state)
@@ -94,7 +94,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, state) => {
     return {
         fetchPoll: () => dispatch(fetchPoll(state.routeParams.id)),
-        setStep: (pollName, step) => dispatch(setStep(pollName, step)),
+        setStep: (pollId, step) => dispatch(setStep(pollId, step)),
         toggleAutoSwitch: value => dispatch(toggleAutoSwitch(value))
     };
 };
