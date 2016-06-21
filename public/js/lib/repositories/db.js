@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-const getPolls = () => fetch('api/poll', {credentials: 'same-origin'});
+const getPolls = () => fetch('/admin/api/poll', {credentials: 'same-origin'});
 
 const changeStep = (parent, pollId, step, stay) => fetch(`/admin/api/poll/${pollId}/screen`, {
     method: 'POST',
