@@ -1,6 +1,7 @@
 import db from '../repositories/db';
 import {mapProperties} from './poll.service';
 import R from 'ramda';
+import { browserHistory  } from 'react-router';
 
 export const REQUEST_POLLS = 'REQUEST_POLLS';
 export const RECEIVE_POLLS = 'RECEIVE_POLLS';
@@ -20,6 +21,7 @@ export const SAVE_POLL_SUCCESS = 'SAVE_POLL_SUCCESS';
 export const SAVE_POLL_FAILED = 'SAVE_POLL_FAILED';
 export const STEP_SET = 'STEP_SET';
 export const TOGGLE_AUTO_SWITCH = 'TOGGLE_AUTO_SWITCH';
+export const NOTIFICATION_DISPLAYED = 'NOTIFICATION_DISPLAYED';
 
 export function savePollStart() {
     return {
@@ -31,6 +33,12 @@ export function savePollSuccess(options) {
     return {
         type: SAVE_POLL_SUCCESS,
         options: options
+    };
+}
+
+export function notificationHasBeenDisplayed() {
+    return {
+        type: NOTIFICATION_DISPLAYED
     };
 }
 
@@ -132,6 +140,10 @@ function justChangeStep(pollName, step) {
     };
 }
 
+function moveUserToInteractions() {
+    browserHistory.push('/admin/interaction');
+}
+
 export const setStep = (pollId, step) => {
     return function (dispatch, getState) {
         var state = getState();
@@ -217,6 +229,7 @@ export function savePoll(options) {
 
         return db.poll.savePoll(poll.id, data, options.restPath)
             .then(() => dispatch(savePollSuccess(options)))
+            .then(() => moveUserToInteractions())
             .catch(error => dispatch(savePollFailed(error)));
     };
 }

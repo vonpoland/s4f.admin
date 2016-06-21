@@ -1,3 +1,4 @@
+/* global describe, it */
 const expect = require('expect.js');
 
 import navigationReducer from '../../../../public/js/lib/navigation/reducer';
@@ -19,7 +20,7 @@ describe('Breadcrumbs tests', function () {
     });
 
     it('should set page info when route is on poll', function () {
-        var action = {type: CHANGE_LOCATION, payload: {pathname: 'admin/poll'}};
+        var action = {type: CHANGE_LOCATION, payload: {pathname: 'admin/interaction'}};
         var state = {};
         var result = navigationReducer(state, action);
 
@@ -27,16 +28,16 @@ describe('Breadcrumbs tests', function () {
         expect(result).to.eql({
             pageInfo: {
                 displayPageInfo: true,
-                breadcrumb: 'Your polls',
-                title: 'Polls',
-                description: 'Information about your polls',
-                active: 'poll'
+                breadcrumb: 'Interactions',
+                title: 'My Live Interactions',
+                description: '',
+                active: 'interaction'
             }
         });
     });
 
     it('should set page info when route is on poll', function () {
-        var action = {type: CHANGE_LOCATION, payload: {pathname: 'admin/poll/poll-test/edit'}};
+        var action = {type: CHANGE_LOCATION, payload: {pathname: 'admin/interaction/poll-test/edit'}};
         var state = {};
         var result = navigationReducer(state, action);
 
@@ -44,10 +45,10 @@ describe('Breadcrumbs tests', function () {
         expect(result).to.eql({
             pageInfo: {
                 displayPageInfo: true,
-                breadcrumb: 'Edit poll',
-                title: 'Edit poll',
-                description: 'Edit your poll details here',
-                active: 'poll'
+                breadcrumb: 'Edit interaction',
+                title: 'Edit interaction',
+                description: 'Edit your interaction details here',
+                active: 'interaction'
             }
         });
     });
@@ -63,7 +64,7 @@ describe('Breadcrumbs tests', function () {
                 displayPageInfo: true,
                 breadcrumb: 'Dashboard',
                 title: 'Dashboard',
-                description: 'Statistics Overview',
+                description: '',
                 active: 'dashboard'
             }
         });
@@ -71,28 +72,28 @@ describe('Breadcrumbs tests', function () {
 
     describe('#getPageInfo tests', function () {
         it('should get correct nested path', function () {
-            var path = 'admin/poll/test-poll/manage';
+            var path = 'admin/interaction/test-poll/manage';
             var result = getPageInfo({ pathname: path });
 
             expect(result).to.eql({
                 displayPageInfo: true,
-                breadcrumb: 'Manage poll',
-                title: 'Manage poll',
-                description: 'Manage your poll here',
-                active: 'poll'
+                breadcrumb: 'Manage interaction',
+                title: 'Manage interaction',
+                description: 'Manage your interaction here',
+                active: 'interaction'
             });
         });
 
         it('should get correct nested path', function () {
-            var path = 'admin/poll/test-poll/results';
+            var path = 'admin/interaction/test-poll/results';
             var result = getPageInfo({ pathname: path });
 
             expect(result).to.eql({
                 displayPageInfo: true,
-                breadcrumb: 'Poll results',
-                title: 'View poll results',
-                description: 'View poll results here',
-                active: 'poll'
+                breadcrumb: 'Interaction results',
+                title: 'View interaction results',
+                description: 'View interaction results here',
+                active: 'interaction'
             });
         });
     });

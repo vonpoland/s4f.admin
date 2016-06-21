@@ -24,8 +24,8 @@ const Dashboard = React.createClass({
                     </div>
                     {this.props.polls.map(poll =>
                         <div className="panel-footer" key={poll.id}>
-                            <span className="pull-left"><Link to={'/admin/poll/' + poll.id + '/manage'}>Manage</Link></span>
-                            <div className="pull-right"><Link to={'/admin/poll/' + poll.id + '/manage'}><i className="fa fa-arrow-circle-right"></i></Link></div>
+                            <span className="pull-left"><Link to={'/admin/interaction/' + poll.id + '/manage'}>Manage</Link></span>
+                            <div className="pull-right"><Link to={'/admin/interaction/' + poll.id + '/manage'}><i className="fa fa-arrow-circle-right"></i></Link></div>
                             <div className="clearfix"></div>
                         </div>
                     )}

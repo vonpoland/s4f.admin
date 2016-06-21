@@ -8,7 +8,8 @@ import {REQUEST_POLLS,
     SAVE_POLL_START,
     SAVE_POLL_SUCCESS,
     SAVE_POLL_FAILED,
-    TOGGLE_AUTO_SWITCH} from './actions';
+    TOGGLE_AUTO_SWITCH,
+    NOTIFICATION_DISPLAYED} from './actions';
 import {getPath} from '../routing/routing';
 import R from 'ramda';
 
@@ -25,7 +26,6 @@ export function poll(state = { modifications : {} }, action = {}) {
         {
             return {
                 ...state,
-                successMessage: (typeof action.options === 'undefined') || action.options.successMessage,
                 isFormLocked : false,
                 modifications: {}
             };
@@ -80,7 +80,6 @@ function polls(state = { poll : { modifications : {}}}, action = {}) {
     case FETCH_POLL_SUCCESS:
     case FETCH_POLL_START:
     case SAVE_POLL_START:
-    case SAVE_POLL_SUCCESS:
     case SAVE_POLL_FAILED:
     case TOGGLE_AUTO_SWITCH:
     case CHANGE_POLL_PROPERTY: {
@@ -89,11 +88,36 @@ function polls(state = { poll : { modifications : {}}}, action = {}) {
             poll : poll(state.poll, action)
         };
     }
+    case NOTIFICATION_DISPLAYED:
+        {
+            return {
+                ...state,
+                canDeleteNotification: true
+            };
+        }
+    case SAVE_POLL_SUCCESS:
+        {
+            return {
+                ...state,
+                poll : poll(state.poll, action),
+                successMessage: 'Interaction was saved'
+            };
+        }
     case CHANGE_LOCATION:
         {
             let newState = state.isFetching ? polls() : state;
+            let successMessage = state.successMessage;
+            let canDeleteNotification = state.canDeleteNotification;
+
+            if (state.canDeleteNotification) {
+                successMessage = null;
+                canDeleteNotification = false;
+            }
+
             return {
                 ...newState,
+                successMessage,
+                canDeleteNotification,
                 ...getPath(action.payload)
             };
         }

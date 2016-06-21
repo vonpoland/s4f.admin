@@ -14,14 +14,14 @@ const LivePolls = React.createClass({
                     </div>
                     <div className="col-xs-9 text-right">
                         <div className="huge">{this.props.livePollCount}</div>
-                        <div>Live Polls</div>
+                        <div>My Live Interactions</div>
                     </div>
                 </div>
             </div>
             <div className="panel-footer">
-                <div className="pull-left"><Link to="/admin/poll">View Details</Link></div>
+                <div className="pull-left"><Link to="/admin/interaction">View Details</Link></div>
                 <div className="pull-right">
-                    <Link to="/admin/poll"><i className="fa fa-arrow-circle-right"></i></Link>
+                    <Link to="/admin/interaction"><i className="fa fa-arrow-circle-right"></i></Link>
                 </div>
                 <div className="clearfix"></div>
             </div>

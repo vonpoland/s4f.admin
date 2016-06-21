@@ -22,11 +22,7 @@ const EditPoll = React.createClass({
             </div>
         </div>;
     },
-    saveSuccessNotification() {
-        return this.props.displaySuccessMessage ? <div className="alert alert-success">
-            <strong>Poll has been saved!</strong>
-        </div> : '';
-    },
+
     getPollStartDateField() {
         return <div>
             <div className="form-group">
@@ -65,7 +61,6 @@ const EditPoll = React.createClass({
     },
     render() {
         return <div>
-            {this.saveSuccessNotification()}
             <div className='col-sm-12'>
                 <div className="form-group">
                     <label>Name</label>
@@ -127,8 +122,7 @@ const mapStateToProps = state => {
         startDate: editable.startDate,
         finishDate: editable.finishDate,
         isSaveButtonEnabled: Object.keys(state.polls.poll.modifications).length > 0,
-        isFormLocked: state.polls.poll.isFormLocked,
-        displaySuccessMessage: state.polls.poll.successMessage
+        isFormLocked: state.polls.poll.isFormLocked
     };
 };
 
