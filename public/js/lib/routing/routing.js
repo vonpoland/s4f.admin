@@ -7,40 +7,40 @@ const pageInfo = {
         displayPageInfo: true,
         breadcrumb: 'Dashboard',
         title: 'Dashboard',
-        description: 'Statistics Overview',
+        description: '',
         active: 'dashboard'
     },
-    poll: {
+    interaction: {
         displayPageInfo: true,
-        breadcrumb: 'Your polls',
-        title: 'Polls',
-        description: 'Information about your polls',
-        active: 'poll'
+        breadcrumb: 'Interactions',
+        title: 'My Live Interactions',
+        description: '',
+        active: 'interaction'
     }
 };
 
 const nestedPageInfo = {
-    poll: {
+    interaction: {
         edit: {
             displayPageInfo: true,
-            breadcrumb: 'Edit poll',
-            title: 'Edit poll',
-            description: 'Edit your poll details here',
-            active: 'poll'
+            breadcrumb: 'Edit interaction',
+            title: 'Edit interaction',
+            description: 'Edit your interaction details here',
+            active: 'interaction'
         },
         manage: {
             displayPageInfo: true,
-            breadcrumb: 'Manage poll',
-            title: 'Manage poll',
-            description: 'Manage your poll here',
-            active: 'poll'
+            breadcrumb: 'Manage interaction',
+            title: 'Manage interaction',
+            description: 'Manage your interaction here',
+            active: 'interaction'
         },
         results: {
             displayPageInfo: true,
-            breadcrumb: 'Poll results',
-            title: 'View poll results',
-            description: 'View poll results here',
-            active: 'poll'
+            breadcrumb: 'Interaction results',
+            title: 'View interaction results',
+            description: 'View interaction results here',
+            active: 'interaction'
         }
     }
 };
@@ -59,8 +59,8 @@ function getPage(pathname) {
 
     if (pathname.indexOf('/login') > 0) {
         return pageInfo['login'];
-    } else if (pathname.indexOf('/poll') > 0) {
-        return pageInfo['poll'];
+    } else if (pathname.indexOf('/interaction') > 0) {
+        return pageInfo['interaction'];
     } else if(pathname.indexOf('/dashboard') > 0) {
         return pageInfo['dashboard'];
     } else if(pathname.indexOf('/admin') === 0) {

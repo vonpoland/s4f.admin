@@ -16,7 +16,7 @@ const Navigation = React.createClass({
         var partial = '';
         var pageInfo = this.props.data.pageInfo || {};
         var dashboardActive = classNames({ active : pageInfo.active === 'dashboard', hidden : !displayLoginStatus });
-        var pollActive = classNames({active: pageInfo.active === 'poll', hidden : !displayLoginStatus});
+        var interactionActive = classNames({active: pageInfo.active === 'interaction', hidden : !displayLoginStatus});
         if(displayLoginStatus) {
             partial = <li className="dropdown">
                 <a id="loginStatusUser" href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-user"></i> {user.firstName} {user.lastName} <b className="caret"></b></a>
@@ -125,8 +125,8 @@ const Navigation = React.createClass({
                     <li className="hidden">
                         <a href="tables.html"><i className="fa fa-fw fa-table"></i> Tables</a>
                     </li>
-                    <li className={pollActive}>
-                        <Link to="/admin/poll"><i className="fa fa-fw fa-edit"></i> Polls</Link>
+                    <li className={interactionActive}>
+                        <Link to="/admin/interaction"><i className="fa fa-fw fa-edit"></i> Interactions</Link>
                     </li>
                     <li className="hidden">
                         <a href="bootstrap-elements.html"><i className="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>

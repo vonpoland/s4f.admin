@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Breadcrumb from './breadcrumb.component';
 
 const Heading = React.createClass({
     render() {
@@ -10,7 +9,6 @@ const Heading = React.createClass({
                     <span>{this.props.data.title} </span>
                     <small>{this.props.data.description}</small>
                 </h1>
-                <Breadcrumb />
             </div>
         </div> : <div></div>;
 

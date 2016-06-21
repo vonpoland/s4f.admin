@@ -32,10 +32,10 @@ render(
                 <IndexRoute component={Dashboard} />
                 <Route path="login" component={Login} />
                 <Route path="dashboard" component={Dashboard} />
-                <Route path="poll/:id/edit" component={EditPoll} />
-                <Route path="poll/:id/results" component={PollResults} />
-                <Route path="poll/:id/manage" component={ManagePoll} />
-                <Route path="poll" component={PollList} />
+                <Route path="interaction/:id/edit" component={EditPoll} />
+                <Route path="interaction/:id/results" component={PollResults} />
+                <Route path="interaction/:id/manage" component={ManagePoll} />
+                <Route path="interaction" component={PollList} />
             </Route>
         </Router>
     </Provider>,

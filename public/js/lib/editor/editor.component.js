@@ -90,7 +90,7 @@ const mapDispatchToProps = dispatch => {
             }
 
             editedData[index][data.key] = value;
-            return dispatch(changePropertyAndSave({ data: editedData, successMessage: false, restPath: 'data/options', propertyPath : 'data.options'}));
+            return dispatch(changePropertyAndSave({ data: editedData, restPath: 'data/options', propertyPath : 'data.options'}));
         }
     };
 };
@@ -98,8 +98,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         pollData: state.polls.poll.data,
-        isFormLocked: state.polls.poll.isFormLocked,
-        successMessage: state.polls.poll.successMessage
+        isFormLocked: state.polls.poll.isFormLocked
     };
 };
 
