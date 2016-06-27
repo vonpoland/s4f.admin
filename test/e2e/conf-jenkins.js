@@ -1,7 +1,8 @@
-/* global jasmine */
+/* global jasmine, browser */
 
 exports.config = {
     onPrepare: function () {
+        browser.driver.manage().window().setSize(1600, 1000);
         var reporters = require('jasmine-reporters');
         var junitReporter = new reporters.JUnitXmlReporter({
             savePath: './e2etests',
@@ -20,9 +21,12 @@ exports.config = {
     },
     params: {
         login: {
-            user: 'test@s4f.pl',
+            user: 'test@test.pl',
             password: 'test',
             url: 'login'
+        },
+        interactions: {
+            url: 'interaction'
         }
     }
 };
