@@ -60,7 +60,7 @@ const EditPoll = React.createClass({
                 Save</button>;
     },
     render() {
-        return <div>
+        return <div className="component--editor">
             <div className='col-sm-12'>
                 <div className="form-group">
                     <label>Name</label>
