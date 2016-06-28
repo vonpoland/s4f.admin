@@ -14,22 +14,13 @@ const frontendConfig = {
     config : { frontendConfig: config.get('frontendConfig'), bigscreenChannel: config.get('bigscreenChannel') }
 };
 
-authService.setupPassport(app);
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/public/partials/admin');
 app.use('/admin/api/poll', authService.isAuthenticated, poll);
 app.use('/admin/api/auth', auth);
 app.use('/admin', staticFiles);
-app.all('/admin/login', function (req, res) {
-    if (req.user) {
-        return res.redirect('/admin/dashboard');
-    }
-
-    res.render(config.get('index'), frontendConfig);
-});
-
-app.all('/admin*', authService.isAuthenticated, function (req, res) {
+app.all('/admin*', function (req, res) {
     res.render(config.get('index'), frontendConfig);
 });
 
@@ -38,7 +29,7 @@ app.all('/favicon.ico', function (req, res) {
 });
 
 app.all('*', function (req, res) {
-    res.redirect('/admin/login');
+    res.render(config.get('index'), frontendConfig);
 });
 
 var server = http.listen(config.get('server.port'), function () {

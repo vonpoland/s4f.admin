@@ -14,10 +14,10 @@ exports.config = {
         login: {
             user: 'test@test.pl',
             password: 'test',
-            url: 'login'
+            url: '/admin/login'
         },
         interactions: {
-            url: 'interaction'
+            url: '/admin/interaction'
         }
     }
 };

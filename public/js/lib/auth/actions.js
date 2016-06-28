@@ -70,14 +70,22 @@ function loggedUserFetchFailed() {
     };
 }
 
+
+function moveUserToLogin() {
+    browserHistory.push('/admin/login');
+}
+
 export function getLoggedUser() {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(fetchingLoggedUser());
 
         return db.auth.loggedUser()
             .then(response => response.json())
             .then(user => dispatch(loggedUserFetched(user)))
-            .catch(() => dispatch(loggedUserFetchFailed()));
+            .catch(() => {
+                moveUserToLogin();
+                dispatch(loggedUserFetchFailed());
+            });
     };
 }
 
@@ -87,12 +95,14 @@ function moveUserToDashBoard(loginResult) {
     }
 }
 
-function moveUserToLogin() {
-    browserHistory.push('/admin/login');
-}
-
 function handleLoginResult(loginResult) {
     return loginResult.errorMessage ? Promise.reject(loginResult.errorMessage) : loginResult;
+}
+
+function saveUserToken(loginResult) {
+    if (loginResult.token) {
+        window.localStorage.setItem('userToken', loginResult.token);
+    }
 }
 
 function loggingOutUser() {
@@ -140,6 +150,7 @@ export function login(user, password) {
             .then(response => response.json())
             .then(handleLoginResult)
             .then(auth => {
+                saveUserToken(auth);
                 dispatch(loggedUser(auth));
                 moveUserToDashBoard(auth);
             })
