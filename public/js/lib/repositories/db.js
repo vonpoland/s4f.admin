@@ -1,11 +1,24 @@
 import fetch from 'isomorphic-fetch';
 
-const getPolls = () => fetch('/admin/api/poll', {credentials: 'same-origin'});
+function getAuthToken() {
+    return window.localStorage.getItem('userToken');
+}
+
+function forgetToken() {
+    window.localStorage.setItem('userToken', '');
+}
+
+const getPolls = () => fetch('/admin/api/poll', {
+    headers: {
+        'x-access-token': getAuthToken(),
+        'Content-Type': 'application/json'
+    }
+});
 
 const changeStep = (parent, pollId, step, stay) => fetch(`/admin/api/poll/${pollId}/screen`, {
     method: 'POST',
-    credentials: 'same-origin',
     headers: {
+        'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({pollId: pollId, step: step, stay: stay, parent: parent})
@@ -13,29 +26,28 @@ const changeStep = (parent, pollId, step, stay) => fetch(`/admin/api/poll/${poll
 
 const savePoll = (pollName, update, path) => fetch(`/admin/api/poll/${pollName}/${path}`, {
     headers: {
+        'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
     },
     method: 'PUT',
-    credentials: 'same-origin',
     body: JSON.stringify(update)
 });
 
 const getAnswers = pollName => fetch(`/admin/api/poll/${pollName}/answer`, {
-    credentials: 'same-origin',
     headers: {
+        'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
     }
 });
 
 const getPoll = pollName => fetch(`/admin/api/poll/${pollName}`, {
-    credentials: 'same-origin',
     headers: {
+        'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
     }
 });
 
 const login = (user, password) => fetch('/admin/api/auth/login', {
-    credentials: 'same-origin',
     headers: {
         'Content-Type': 'application/json'
     },
@@ -44,13 +56,16 @@ const login = (user, password) => fetch('/admin/api/auth/login', {
 });
 
 const loggedUser = () => fetch('/admin/api/auth/me', {
+    headers: {
+        'x-access-token': getAuthToken()
+    },
     credentials: 'same-origin'
 });
 
-const logout = () => fetch('/admin/api/auth/logout', {
-    method: 'POST',
-    credentials: 'same-origin'
-});
+const logout = () => {
+    forgetToken();
+    return Promise.resolve();
+};
 
 const db = {
     poll: {getPolls, getAnswers, getPoll, savePoll},
