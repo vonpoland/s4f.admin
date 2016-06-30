@@ -140,7 +140,10 @@ function justChangeStep(pollName, step) {
     };
 }
 
-function moveUserToInteractions() {
+function moveUserToInteractions(moveToDashBoard) {
+    if(moveToDashBoard === false) {
+        return;
+    }
     browserHistory.push('/admin/interaction');
 }
 
@@ -229,7 +232,7 @@ export function savePoll(options) {
 
         return db.poll.savePoll(poll.id, data, options.restPath)
             .then(() => dispatch(savePollSuccess(options)))
-            .then(() => moveUserToInteractions())
+            .then(() => moveUserToInteractions(options.moveToDashBoard))
             .catch(error => dispatch(savePollFailed(error)));
     };
 }
