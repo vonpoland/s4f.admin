@@ -90,7 +90,7 @@ const mapDispatchToProps = dispatch => {
             }
 
             editedData[index][data.key] = value;
-            return dispatch(changePropertyAndSave({ data: editedData, restPath: 'data/options', propertyPath : 'data.options'}));
+            return dispatch(changePropertyAndSave({ data: editedData, restPath: 'data/options', propertyPath : 'data.options', moveToDashBoard: false}));
         }
     };
 };
