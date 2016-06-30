@@ -39,7 +39,7 @@ const Navigation = React.createClass({
                             <a href="#">
                                 <div className="media">
                                     <span className="pull-left">
-                                        <img className="media-object" src="http://placehold.it/50x50" alt=""/>
+                                        <img className="media-object" src="https://placehold.it/50x50" alt=""/>
                                     </span>
                                     <div className="media-body">
                                         <h5 className="media-heading"><strong>John Smith</strong>
@@ -54,7 +54,7 @@ const Navigation = React.createClass({
                             <a href="#">
                                 <div className="media">
                                     <span className="pull-left">
-                                        <img className="media-object" src="http://placehold.it/50x50" alt=""/>
+                                        <img className="media-object" src="https://placehold.it/50x50" alt=""/>
                                     </span>
                                     <div className="media-body">
                                         <h5 className="media-heading"><strong>John Smith</strong>
@@ -69,7 +69,7 @@ const Navigation = React.createClass({
                             <a href="#">
                                 <div className="media">
                                     <span className="pull-left">
-                                        <img className="media-object" src="http://placehold.it/50x50" alt=""/>
+                                        <img className="media-object" src="https://placehold.it/50x50" alt=""/>
                                     </span>
                                     <div className="media-body">
                                         <h5 className="media-heading"><strong>John Smith</strong>
