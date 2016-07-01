@@ -14,14 +14,30 @@ describe('poll service tests', function () {
         });
     });
 
-    it('#updateOnlyEditable', function () {
+    it('#updateOnlyEditable2', function () {
         expect(updateOnlyPath('editable', {
             property: 'test',
-            property2 : 'test2'
+            property2: 'test2'
         })).to.eql({
             $set: {
                 'editable.property': 'test',
                 'editable.property2': 'test2'
+            }
+        });
+    });
+
+    it('#updateOnlyEditable3 - check nested objects', function () {
+        expect(updateOnlyPath('editable', {
+            property: {
+                left: 1,
+                top: 5
+            },
+            test: 'test'
+        })).to.eql({
+            $set: {
+                'editable.test': 'test',
+                'editable.property.left': 1,
+                'editable.property.top': 5
             }
         });
     });

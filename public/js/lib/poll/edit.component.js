@@ -39,6 +39,42 @@ const EditPoll = React.createClass({
             </div>
         </div>;
     },
+
+    getPositionComponent() {
+        if(this.props.position === null) {
+            return '';
+        }
+
+        var position = this.props.position || {};
+        var left = position.left;
+        var top = position.top;
+
+        var topDiv = <div>
+            <label htmlFor="marginTop">Margin - top</label>
+            <div className='input-group' id='marginTop'>
+                <div className="flex-row">
+                    <input className="form-control" type='number' defaultValue={top} onChange={event => this.props.onFieldChange('editable.position.top', parseInt(event.target.value))}/>
+                </div>
+            </div>
+        </div>;
+
+        var leftDiv =  <div>
+            <label htmlFor="marginLeft">Margin - left</label>
+            <div className='input-group' id='marginLeft'>
+                <div className="flex-row">
+                    <input className="form-control" type='number' defaultValue={left} onChange={event => this.props.onFieldChange('editable.position.left', parseInt(event.target.value))}/>
+                </div>
+            </div>
+        </div>;
+
+        return <div>
+            <div className="form-group">
+                {topDiv}
+                {leftDiv}
+            </div>
+        </div>;
+    },
+
     getPollFinishDateField() {
         return <div>
             <div className="form-group">
@@ -73,6 +109,7 @@ const EditPoll = React.createClass({
                                 <div className='panel-body'>
                                     {this.getPollStartDateField()}
                                     {this.getPollFinishDateField()}
+                                    {this.getPositionComponent()}
                                     {this.saveButton()}
                                 </div>
                             </div>
@@ -107,8 +144,8 @@ const EditPoll = React.createClass({
         var datePickerFinish = $('#datetimepicker2').datetimepicker();
         this.props.fetchPoll()
         .then(() => {
-            datePickerStart.on('dp.change', event => this.props.onDateChange('editable.startDate', event.date));
-            datePickerFinish.on('dp.change', event => this.props.onDateChange('editable.finishDate', event.date));
+            datePickerStart.on('dp.change', event => this.props.onFieldChange('editable.startDate', event.date));
+            datePickerFinish.on('dp.change', event => this.props.onFieldChange('editable.finishDate', event.date));
         });
     }
 });
@@ -121,6 +158,7 @@ const mapStateToProps = state => {
         pollData: state.polls.poll.data,
         startDate: editable.startDate,
         finishDate: editable.finishDate,
+        position: state.polls.poll.name ? editable.position : null,
         isSaveButtonEnabled: Object.keys(state.polls.poll.modifications).length > 0,
         isFormLocked: state.polls.poll.isFormLocked
     };
@@ -129,7 +167,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, state) => {
     return {
         fetchPoll: () => dispatch(fetchPoll(state.routeParams.id)),
-        onDateChange: (propertyPath, newValue) => dispatch(propertyChange({ propertyPath : propertyPath, data: newValue})),
+        onFieldChange: (propertyPath, newValue) => dispatch(propertyChange({ propertyPath : propertyPath, data: newValue})),
         savePoll: () => dispatch(savePoll({ propertyPath : 'editable', restPath : 'editable'}))
     };
 };
