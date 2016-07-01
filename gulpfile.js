@@ -33,13 +33,18 @@ gulp.task('test:unit:frontend:dev', function (cb) {
 gulp.task('test:unit:backend', function () {
 	return gulp.src('test/unit/backend/**/*.spec.js', {read: false})
 		.pipe(mocha({
-			'reporter': 'mocha-jenkins-reporter',
-			'reporterOptions': {
-				'junit_report_name': 'Tests',
-				'junit_report_path': 'backend.xml',
-				'junit_report_stack': 1
+			reporter: 'mocha-jenkins-reporter',
+			reporterOptions: {
+				junit_report_name: 'Tests',
+				junit_report_path: 'backend.xml',
+				junit_report_stack: 1
 			}
 		}));
+});
+
+gulp.task('test:unit:backend:dev', function () {
+    return gulp.src('test/unit/backend/**/*.spec.js', {read: false})
+        .pipe(mocha({}));
 });
 
 gulp.task('less', function () {
