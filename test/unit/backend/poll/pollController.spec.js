@@ -51,9 +51,9 @@ var dbMock = {
 
 const socketMock = {
     getIo: function () {
-        return {}
+        return {};
     }
-}
+};
 
 describe('Poll controller tests', function () {
     before(function () {
