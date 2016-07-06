@@ -48,6 +48,17 @@ describe('should check if login works', function () {
         expect(InteractionsPage.notLiveIcon(0).isDisplayed()).toBe(true);
     });
 
+    it('should revert interaction', function () {
+        var startDate = '06/27/2000';
+        var finishDate = '06/27/2040';
+
+        EditInteractionPage.setStartDate(startDate);
+        EditInteractionPage.setFinishDate(finishDate);
+        EditInteractionPage.saveBtn.click();
+        expect(InteractionsPage.saveSuccess.isDisplayed()).toBe(true);
+        expect(InteractionsPage.liveIcon(0).isDisplayed()).toBe(true);
+    });
+
     it('should log out user', function () {
         LoginPage.logout();
     });
