@@ -15,7 +15,7 @@ exports.config = {
     },
     directConnect: false,
     specs: ['specs/**/*spec.js'],
-    baseUrl: 'http://test.glosuj.mobi/admin/',
+    baseUrl: 'https://screen4fans.com/admin/',
     suites: {
         login: 'specs/login/*.spec.js'
     },
