@@ -46,6 +46,7 @@ describe('should check if login works', function () {
         EditInteractionPage.saveBtn.click();
         expect(InteractionsPage.saveSuccess.isDisplayed()).toBe(true);
         expect(InteractionsPage.notLiveIcon(0).isDisplayed()).toBe(true);
+        InteractionsPage.edit(0);
     });
 
     it('should revert interaction', function () {
