@@ -9,6 +9,15 @@ module.exports = Page.create({
             return element.all(by.css('[href="/admin/interaction"]')).get(0);
         }
     },
+    editByName: {
+      value: function (interaction) {
+          var editLink = element(by.css('[data-edit="' + interaction + '"]'));
+
+          browser.wait(EC.visibilityOf(editLink));
+          editLink.click();
+          browser.wait(EC.visibilityOf(element(by.css('.component--editor'))));
+      }
+    },
     edit: {
         value: function (index) {
             var editLink = element.all(by.css('.link--edit')).get(index);

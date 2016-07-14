@@ -8,16 +8,22 @@ exports.config = {
     baseUrl: 'http://localhost:8889/admin',
     suites: {
         login: 'specs/login/*.spec.js',
-        editInteraction: 'specs/interaction/edit.spec.js'
+        editInteraction: 'specs/interaction/edit.spec.js',
+        integration: 'specs/integration/*.spec.js'
+    },
+    jasmineNodeOpts : {
+        showColors: true,
+        defaultTimeoutInterval : 200000
     },
     params: {
         login: {
-            user: 'test@test.pl',
+            user: 'test@s4f.pl',
             password: 'test',
             url: '/admin/login'
         },
         interactions: {
-            url: '/admin/interaction'
+            url: '/admin/interaction',
+            projectorDerbyLink: 'http://localhost:8888/projector/test-interaction/test-interaction-derby7'
         }
     }
 };

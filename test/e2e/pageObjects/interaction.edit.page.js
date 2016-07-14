@@ -14,6 +14,16 @@ module.exports = Page.create({
             browser.executeScript('$("#datetimepicker2").data("DateTimePicker").date("' + value + '")');
         }
     },
+    setStartDateManually: {
+        value: function (script) {
+            browser.executeScript('$("#datetimepicker1").data("DateTimePicker").date(' + script + ')');
+        }
+    },
+    setStartFinishDateManually: {
+        value: function (script) {
+            browser.executeScript('$("#datetimepicker2").data("DateTimePicker").date(' + script + ')');
+        }
+    },
     saveBtn: {
         get: function () {
             var button = element(by.partialButtonText('Save'));

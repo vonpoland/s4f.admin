@@ -13,6 +13,10 @@ exports.config = {
     capabilities: {
         browserName: 'chrome'
     },
+    jasmineNodeOpts : {
+        showColors: true,
+        defaultTimeoutInterval : 200000
+    },
     directConnect: true,
     specs: ['specs/**/*spec.js'],
     baseUrl: 'http://test.glosuj.mobi/admin/',
@@ -26,7 +30,8 @@ exports.config = {
             url: '/admin/login'
         },
         interactions: {
-            url: '/admin/interaction'
+            url: '/admin/interaction',
+            projectorDerbyLink: 'https://screen4fans.com/projector/test-interaction/test-interaction-derby7'
         }
     }
 };

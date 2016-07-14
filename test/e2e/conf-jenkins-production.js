@@ -13,6 +13,10 @@ exports.config = {
     capabilities: {
         browserName: 'chrome'
     },
+    jasmineNodeOpts : {
+        showColors: true,
+        defaultTimeoutInterval : 200000
+    },
     directConnect: false,
     specs: ['specs/**/*spec.js'],
     baseUrl: 'https://screen4fans.com/admin/',
@@ -26,7 +30,8 @@ exports.config = {
             url: '/admin/login'
         },
         interactions: {
-            url: '/admin/interaction'
+            url: '/admin/interaction',
+            projectorDerbyLink: 'https://screen4fans.com/projector/test-interaction/test-interaction-derby7'
         }
     }
 };
