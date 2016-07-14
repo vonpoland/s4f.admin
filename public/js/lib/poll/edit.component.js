@@ -144,8 +144,16 @@ const EditPoll = React.createClass({
         var datePickerFinish = $('#datetimepicker2').datetimepicker();
         this.props.fetchPoll()
         .then(() => {
-            datePickerStart.on('dp.change', event => this.props.onFieldChange('editable.startDate', event.date));
-            datePickerFinish.on('dp.change', event => this.props.onFieldChange('editable.finishDate', event.date));
+            datePickerStart.on('dp.change', event => {
+                event.date.seconds(0);
+                event.date.milliseconds(0);
+                this.props.onFieldChange('editable.startDate', event.date)
+            });
+            datePickerFinish.on('dp.change', event => {
+                event.date.seconds(0);
+                event.date.milliseconds(0);
+                this.props.onFieldChange('editable.finishDate', event.date)
+            });
         });
     }
 });

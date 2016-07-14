@@ -49,12 +49,12 @@ const PollList = React.createClass({
                         <td><a href={this.projectorLink(poll)} target="_blank" className="btn btn-link">Telebim</a></td>
                         <td><a href={this.mobileLink(poll)} target="_blank" className="btn btn-link">Mobile</a></td>
                         <td>
-                            <Link to={this.link(poll.id, 'edit')} className="link--edit margin-horizontal--small"><i
-                                className="fa fa-lg fa-pencil" aria-hidden="true"></i>&nbsp;Edit</Link>&nbsp;
-                            <Link to={this.link(poll.id, 'results')} className="margin-horizontal--small"><i
-                                className="fa fa-lg fa-eye" aria-hidden="true"></i>&nbsp;Results</Link>
-                            <Link to={this.link(poll.id, 'manage')} className="margin-horizontal--small"><i
-                                className="fa fa-lg fa-gear" aria-hidden="true"></i>&nbsp;Manage</Link>
+                            <Link to={this.link(poll.id, 'edit')} data-edit={poll.name} className="link--edit margin-horizontal--small">
+                                <i className="fa fa-lg fa-pencil" aria-hidden="true"></i>&nbsp;Edit</Link>&nbsp;
+                            <Link to={this.link(poll.id, 'results')} className="margin-horizontal--small">
+                                <i className="fa fa-lg fa-eye" aria-hidden="true"></i>&nbsp;Results</Link>
+                            <Link to={this.link(poll.id, 'manage')} className="margin-horizontal--small">
+                                <i className="fa fa-lg fa-gear" aria-hidden="true"></i>&nbsp;Manage</Link>
                         </td>
                     </tr>
                 )}
