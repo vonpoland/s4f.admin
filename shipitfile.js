@@ -29,7 +29,7 @@ module.exports = function (shipit) {
             deployTo: '/home/mkrawczyk/domains/screen4fans.com/bigscree-admin',
             branch: 'master',
             servers: 'mkrawczyk@screen4fans.com',
-            key: '/var/jenkins_home/.ssh/prod_key.ppk'
+            key: '/var/jenkins_home/.ssh/prod_key'
         }
     });
 };
