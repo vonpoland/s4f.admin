@@ -28,8 +28,8 @@ module.exports = function (shipit) {
             workspace: '/var/jenkins_home/deploy-tmp',
             deployTo: '/home/mkrawczyk/domains/screen4fans.com/bigscree-admin',
             branch: 'master',
-            servers: 'mkrawczyk@screen4fans'
-            key: '/var/jenkins_home/.ssh/prod_key.ppk',
+            servers: 'mkrawczyk@screen4fans',
+            key: '/var/jenkins_home/.ssh/prod_key.ppk'
         }
     });
 };

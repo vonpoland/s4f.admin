@@ -36,6 +36,9 @@
     "react": "^15.0.2",
     "react-router": "^2.4.0",
     "run-sequence": "^1.1.5",
+    "shipit": "^1.0.2",
+    "shipit-captain": "^0.4.3",
+    "shipit-cli": "^1.4.1",
     "shipit-deploy": "~2.2.0"
   },
   "jspm": {
