@@ -2,20 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {fetchAnswers, fetchPoll} from './actions';
 import {calculateVotes} from './poll.service';
+import {PieChart} from '../charts/barChart.component';
 
 const PollResults = React.createClass({
     render() {
-        var votes = this.props.votes;
         var answers = this.props.answers;
 
         return <div>
-            <h1>Wyniki {this.props.pollName}</h1>
-            {votes.map(vote =>
-                <div key={vote.option}>
-                    <span>{vote.option}</span> - <span>{vote.value}</span>
-                </div>
-            )}
-            <h2>Odpowiedzi {answers.length}</h2>
+            <h1>Results {this.props.pollName}</h1>
+            <PieChart data={this.props.votes}></PieChart>
+            <h2>Answers {answers.length}</h2>
             <div className="flex">
                 <div style={{width: '100px' }}>Numer</div>
                 <div style={{width: '500px' }}>Odpowiedź</div>
@@ -33,31 +29,29 @@ const PollResults = React.createClass({
                         <div style={{width: '150px' }}>{answer.user.firstName}  {answer.user.lastName}</div>
                         <div style={{width: '200px', wordWrap: 'break-word' }}>{answer.user.email}</div>
                         <div style={{width: '50px' }}>{answer.date}</div>
-
                     </div>
                 </div>
             )}
         </div>;
     },
     componentDidMount() {
-        this.props.fetchData(this.props.pollName);
+        this.props.fetchData();
     }
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
-        pollName: state.polls.pollName,
+        pollName: state.polls.poll.name,
         votes: calculateVotes(state.polls.poll) || [],
         answers: state.polls.answers || []
     };
 };
 
-
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, state) => {
     return {
-        fetchData: pollName => {
-            dispatch(fetchAnswers(pollName));
-            dispatch(fetchPoll(pollName));
+        fetchData: () => {
+            dispatch(fetchAnswers(state.routeParams.id));
+            dispatch(fetchPoll(state.routeParams.id));
         }
     };
 };
