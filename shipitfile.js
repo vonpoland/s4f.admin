@@ -6,7 +6,7 @@ module.exports = function (shipit) {
    // });
 
     shipit.task('deployAndInstall', ['deploy'], function () {
-        return shipit.remote('cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && npm run gulp')
+        return shipit.remote('cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && npm run gulp && node node_modules/pm2/bin/pm2 restart admin')
     });
 
     shipit.initConfig({
