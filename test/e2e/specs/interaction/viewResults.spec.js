@@ -6,7 +6,7 @@ const ViewInteractionPage = require('../../pageObjects/interaction.view.page');
 const generateName = require('sillyname');
 const saveName = generateName();
 
-describe('should check if login works', function () {
+describe('should check view page', function () {
     it('should open interaction panel', function () {
         browser.ignoreSynchronization = true;
         LoginPage.go();
