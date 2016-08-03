@@ -51,9 +51,9 @@ const PollList = React.createClass({
                         <td>
                             <Link to={this.link(poll.id, 'edit')} data-edit={poll.name} className="link--edit margin-horizontal--small">
                                 <i className="fa fa-lg fa-pencil" aria-hidden="true"></i>&nbsp;Edit</Link>&nbsp;
-                            <Link to={this.link(poll.id, 'results')} className="margin-horizontal--small">
+                            <Link to={this.link(poll.id, 'results')} data-view={poll.name} className="margin-horizontal--small">
                                 <i className="fa fa-lg fa-eye" aria-hidden="true"></i>&nbsp;Results</Link>
-                            <Link to={this.link(poll.id, 'manage')} className="margin-horizontal--small">
+                            <Link to={this.link(poll.id, 'manage')} data-manage={poll.name} className="margin-horizontal--small">
                                 <i className="fa fa-lg fa-gear" aria-hidden="true"></i>&nbsp;Manage</Link>
                         </td>
                     </tr>
