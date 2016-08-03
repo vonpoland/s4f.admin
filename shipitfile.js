@@ -6,7 +6,7 @@ module.exports = function (shipit) {
    // });
 
     shipit.task('deployAndInstall', ['deploy'], function () {
-        return shipit.remote('cd ' + shipit.config.deployTo + '/current && node node_modules/pm2/bin/pm2 stop admin && npm install && npm run jspm install && npm run gulp && node node_modules/pm2/bin/pm2 restart admin')
+        return shipit.remote('NODE_ENV=production cd ' + shipit.config.deployTo + '/current && node node_modules/pm2/bin/pm2 stop admin && npm install && npm run jspm install && npm run gulp && node node_modules/pm2/bin/pm2 restart admin')
     });
 
     shipit.initConfig({
