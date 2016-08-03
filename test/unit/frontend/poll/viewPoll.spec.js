@@ -15,7 +15,7 @@ import {
     fetchPollSuccess
 } from '../../../../public/js/lib/poll/actions';
 
-describe('Poll actions', function () {
+describe('View actions', function () {
     it('should enabled button if text is valid', function () {
         var result = polls(undefined, pollResultsNameChange('test'));
 
