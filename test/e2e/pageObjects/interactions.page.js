@@ -18,6 +18,15 @@ module.exports = Page.create({
           browser.wait(EC.visibilityOf(element(by.css('.component--editor'))));
       }
     },
+    resultsByName: {
+        value: function (interaction) {
+            var viewLink = element(by.css('[data-view="' + interaction + '"]'));
+
+            browser.wait(EC.visibilityOf(viewLink));
+            viewLink.click();
+            browser.wait(EC.visibilityOf(element(by.css('#clearResultsVote'))));
+        }
+    },
     edit: {
         value: function (index) {
             var editLink = element.all(by.css('.link--edit')).get(index);
