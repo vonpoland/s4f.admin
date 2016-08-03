@@ -9,9 +9,18 @@ import {REQUEST_POLLS,
     SAVE_POLL_SUCCESS,
     SAVE_POLL_FAILED,
     TOGGLE_AUTO_SWITCH,
-    NOTIFICATION_DISPLAYED} from './actions';
+    POLL_RESULTS_NAME_CHANGE,
+    POLL_RESULTS_NAME_SAVE_START,
+    POLL_RESULTS_NAME_SAVE_FAILED,
+    POLL_RESULTS_NAME_SAVE_FINISHED,
+    POLL_RESULTS_CHANGE,
+    POLL_RESULTS_CLEAR_START,
+    POLL_RESULTS_CLEAR_FINISHED,
+    POLL_RESULTS_CLEAR_FAILED,
+    NOTIFICATION_DISPLAYED,} from './actions';
 import {getPath} from '../routing/routing';
 import R from 'ramda';
+import {getVotesForPollResults} from './poll.service';
 
 export function poll(state = { modifications : {} }, action = {}) {
     switch(action.type) {
@@ -68,6 +77,54 @@ export function poll(state = { modifications : {} }, action = {}) {
                 autoSwitch: action.value
             };
         }
+    case POLL_RESULTS_NAME_CHANGE:
+        {
+            return {
+                ...state,
+                resultsName: action.value,
+                isSaveResultsNameButtonEnabled : action.value.trim().length > 0
+            }
+        }
+    case POLL_RESULTS_NAME_SAVE_START:
+        {
+            return {
+                ...state,
+                isSaveResultsNameButtonEnabled: false,
+                isSaveResultsNameInputDisabled: true,
+                isClearResultsButtonDisabled: true
+            }
+        }
+    case POLL_RESULTS_NAME_SAVE_FAILED:
+    case POLL_RESULTS_NAME_SAVE_FINISHED:
+        {
+            return {
+                ...state,
+                isSaveResultsNameButtonEnabled: true,
+                isSaveResultsNameInputDisabled: false,
+                isClearResultsButtonDisabled: false,
+                resultsName: ''
+            }
+        }
+    case POLL_RESULTS_CHANGE: {
+        return {
+            ...state,
+            enableRevertResultsButton: action.value && action.value.length > 0,
+            votes: getVotesForPollResults(state, action.value)
+        }
+    }
+    case POLL_RESULTS_CLEAR_START: {
+        return {
+            ...state,
+            disableCloseClearResultsModalButton: true
+        }
+    }
+    case POLL_RESULTS_CLEAR_FINISHED:
+    case POLL_RESULTS_CLEAR_FAILED: {
+        return {
+            ...state,
+            disableCloseClearResultsModalButton : false
+        }
+    }
     default:
         {
             return state;
@@ -81,7 +138,15 @@ function polls(state = { poll : { modifications : {}}}, action = {}) {
     case FETCH_POLL_START:
     case SAVE_POLL_START:
     case SAVE_POLL_FAILED:
+    case POLL_RESULTS_NAME_CHANGE:
     case TOGGLE_AUTO_SWITCH:
+    case POLL_RESULTS_CHANGE:
+    case POLL_RESULTS_NAME_SAVE_START:
+    case POLL_RESULTS_NAME_SAVE_FAILED:
+    case POLL_RESULTS_NAME_SAVE_FINISHED:
+    case POLL_RESULTS_CLEAR_START:
+    case POLL_RESULTS_CLEAR_FINISHED:
+    case POLL_RESULTS_CLEAR_FAILED:
     case CHANGE_POLL_PROPERTY: {
         return {
             ...state,

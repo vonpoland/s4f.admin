@@ -2,8 +2,10 @@ import React from 'react';
 
 export const BarChart = React.createClass({
     render() {
-
-        return <svg ref={c => this._svg = c}></svg>
+        return <div>
+            <div></div>
+            <svg ref={c => this._svg = c}></svg>
+        </div>
     },
     shouldComponentUpdate(nextProps) {
         return nextProps.data.length > 0;
@@ -49,12 +51,24 @@ export const BarChart = React.createClass({
 
 export const PieChart = React.createClass({
     render() {
-        return <div className="chart" ref={c => this._chart = c}><svg ref={c => this._svg = c}></svg></div>;
+        return <div>
+            <div>Votes sum: {this.dataSum}</div>
+            <div className="chart" ref={c => this._chart = c}>
+            <svg ref={c => this._svg = c}></svg>
+        </div></div>;
     },
     shouldComponentUpdate(nextProps) {
-        return nextProps.data.length > 0;
+        return typeof (nextProps.data) !== 'undefined';
     },
     componentWillUpdate(nextProps) {
+        if(nextProps.data.length === 0) {
+            this.dataSum = 'no votes yet';
+            d3.select(this._svg)
+                .html('');
+
+            return;
+        }
+
         var tooltip = d3.select(this._chart)
             .append('div')
             .attr('class', 'chart-tooltip');
@@ -72,6 +86,7 @@ export const PieChart = React.createClass({
         var radius = Math.min(width, height) / 2;
         var color = d3.scaleOrdinal(d3.schemeCategory20b);
         var svg = d3.select(this._svg)
+            .html("")
             .attr('width', width)
             .attr('height', height)
             .append('g')
@@ -82,8 +97,10 @@ export const PieChart = React.createClass({
         var pie = d3.pie()
             .value(function(d) { return d.value; })
             .sort(null);
+        var pieData = pie(nextProps.data);
+        this.dataSum = pieData.reduce((acc, next) => acc + next.value, 0);
         var path = svg.selectAll('path')
-            .data(pie(nextProps.data))
+            .data(pieData)
             .enter()
             .append('path')
             .attr('d', arc)

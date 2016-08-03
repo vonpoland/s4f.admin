@@ -1,7 +1,7 @@
 import db from '../repositories/db';
-import {mapProperties} from './poll.service';
+import {mapProperties, mapPropertiesForSinglePoll} from './poll.service';
 import R from 'ramda';
-import { browserHistory  } from 'react-router';
+import {browserHistory} from 'react-router';
 
 export const REQUEST_POLLS = 'REQUEST_POLLS';
 export const RECEIVE_POLLS = 'RECEIVE_POLLS';
@@ -41,6 +41,95 @@ export function notificationHasBeenDisplayed() {
         type: NOTIFICATION_DISPLAYED
     };
 }
+
+/** START poll save results or clear them **/
+export const POLL_RESULTS_NAME_CHANGE = 'POLL_RESULTS_NAME_CHANGE';
+export const POLL_RESULTS_NAME_SAVE_START = 'POLL_RESULTS_NAME_SAVE_START';
+export const POLL_RESULTS_NAME_SAVE_FINISHED = 'POLL_RESULTS_NAME_SAVE_FINISHED';
+export const POLL_RESULTS_NAME_SAVE_FAILED = 'POLL_RESULTS_NAME_SAVE_FAILED';
+export const POLL_RESULTS_CHANGE = "POLL_RESULTS_CHANGE";
+export const POLL_RESULTS_CLEAR_START = 'POLL_RESULTS_CLEAR_START';
+export const POLL_RESULTS_CLEAR_FINISHED = 'POLL_RESULTS_CLEAR_FINISHED';
+export const POLL_RESULTS_CLEAR_FAILED = 'POLL_RESULTS_CLEAR_FAILED';
+
+export function pollResultClearStart() {
+    return {
+        type: POLL_RESULTS_CLEAR_START
+    }
+}
+
+export function pollResultClearFinished() {
+    return {
+        type: POLL_RESULTS_CLEAR_FINISHED
+    }
+}
+
+export function pollResultClearFailed() {
+    return {
+        type: POLL_RESULTS_CLEAR_FAILED
+    }
+}
+
+export function pollResultClearStartAsync() {
+    return function (dispatch, getState) {
+        var pollId = getState().polls.poll.id;
+
+        dispatch(pollResultClearStart());
+
+        return db.poll.clearPollResults(pollId)
+            .then(() => dispatch(fetchPoll(pollId)))
+            .then(() => dispatch(pollResultClearFinished()))
+            .catch(() => dispatch(pollResultClearFailed()))
+    }
+}
+
+export function pollResultsNameChange(name) {
+    return {
+        type: POLL_RESULTS_NAME_CHANGE,
+        value: name
+    }
+}
+
+export function savePollResultsNameStart() {
+    return {
+        type: POLL_RESULTS_NAME_SAVE_START
+    }
+}
+
+export function savePollResultsNameFailed() {
+    return {
+        type: POLL_RESULTS_NAME_SAVE_FAILED
+    }
+}
+
+export function savePollResultsNameFinished() {
+    return {
+        type: POLL_RESULTS_NAME_SAVE_FINISHED
+    }
+}
+
+export function saveResultsNameAsync() {
+    return function (dispatch, getState) {
+        var state = getState();
+        var pollId = state.polls.poll.id;
+        var resultName = state.polls.poll.resultsName;
+
+        dispatch(savePollResultsNameStart());
+
+        return db.poll.savePollResults(pollId, resultName)
+            .then(() => dispatch(savePollResultsNameFinished()))
+            .then(() => dispatch(fetchPoll(pollId)))
+            .catch(() => dispatch(savePollResultsNameFailed()));
+    }
+}
+
+export function changePollResults(resultName) {
+    return {
+        type: POLL_RESULTS_CHANGE,
+        value: resultName
+    }
+}
+/** FINISH poll save results or clear them **/
 
 export function savePollFailed(reason) {
     return {
@@ -99,7 +188,7 @@ function fetchPollStart(pollName) {
     };
 }
 
-function fetchPollSuccess(poll) {
+export function fetchPollSuccess(poll) {
     return {
         type: FETCH_POLL_SUCCESS,
         poll: poll
@@ -141,7 +230,7 @@ function justChangeStep(pollName, step) {
 }
 
 function moveUserToInteractions(moveToDashBoard) {
-    if(moveToDashBoard === false) {
+    if (moveToDashBoard === false) {
         return;
     }
     browserHistory.push('/admin/interaction');
@@ -208,12 +297,13 @@ export function fetchAnswers(pollName) {
     };
 }
 
-export function fetchPoll(pollName) {
+export function fetchPoll(pollId) {
     return dispatch => {
-        dispatch(fetchPollStart(pollName));
+        dispatch(fetchPollStart(pollId));
 
-        return db.poll.getPoll(pollName)
+        return db.poll.getPoll(pollId)
             .then(response => response.json())
+            .then(mapPropertiesForSinglePoll)
             .then(poll => dispatch(fetchPollSuccess(poll)))
             .catch(error => dispatch(fetchPollFailed(error)));
     };
