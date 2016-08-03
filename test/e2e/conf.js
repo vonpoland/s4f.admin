@@ -9,11 +9,11 @@ exports.config = {
     suites: {
         login: 'specs/login/*.spec.js',
         editInteraction: 'specs/interaction/edit.spec.js',
-        integration: 'specs/integration/*.spec.js'
+        integration: 'specs/integration/*.spec.js',
+        viewResults: 'specs/interaction/viewResults.spec.js'
     },
     jasmineNodeOpts : {
-        showColors: true,
-        defaultTimeoutInterval : 200000
+        showColors: true
     },
     params: {
         login: {
@@ -22,6 +22,7 @@ exports.config = {
             url: '/admin/login'
         },
         interactions: {
+            pollWithResults: 'test-interaction-question',
             url: '/admin/interaction',
             projectorDerbyLink: 'http://localhost:8888/projector/test-interaction/test-interaction-derby7'
         }

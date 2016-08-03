@@ -24,7 +24,7 @@ module.exports = Page.create({
 
             browser.wait(EC.visibilityOf(viewLink));
             viewLink.click();
-            browser.wait(EC.visibilityOf(element(by.css('#clearResultsVote'))));
+            browser.wait(EC.presenceOf(element(by.css('#clearResultsVote'))));
         }
     },
     edit: {
