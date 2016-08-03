@@ -30,6 +30,7 @@ exports.config = {
             url: '/admin/login'
         },
         interactions: {
+            pollWithResults: 'kto-wygra',
             url: '/admin/interaction',
             projectorDerbyLink: 'https://screen4fans.com/projector/test-interaction/test-interaction-derby7'
         }

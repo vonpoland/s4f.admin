@@ -11,7 +11,7 @@ module.exports = Page.create({
     },
     saveResultsAs: {
         get: function () {
-            var button = element(by.css('.btn-primary'));
+            var button = element(by.css('#saveInteractionResults'));
 
             browser.wait(EC.elementToBeClickable(button));
 
@@ -20,7 +20,7 @@ module.exports = Page.create({
     },
     oldResult: {
         value: function (text) {
-            var button = element(by.partialButtonText('text'));
+            var button = element(by.partialButtonText(text));
 
             browser.wait(EC.elementToBeClickable(button));
 

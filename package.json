@@ -39,7 +39,8 @@
     "shipit": "^1.0.2",
     "shipit-captain": "^0.4.3",
     "shipit-cli": "^1.4.1",
-    "shipit-deploy": "~2.2.0"
+    "shipit-deploy": "~2.2.0",
+    "sillyname": "^0.1.0"
   },
   "jspm": {
     "directories": {

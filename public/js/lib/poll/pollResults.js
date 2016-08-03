@@ -76,7 +76,7 @@ const PollResults = React.createClass({
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary" disabled={!this.props.enabledSaveResultsButton}
-                                onClick={() => this.props.saveResultName()}>Save
+                                id="saveInteractionResults" onClick={() => this.props.saveResultName()}>Save
                         </button>
                         <button className="btn btn-danger pull-right" disabled={this.props.disableClearResultsButton} data-toggle="modal" data-target="#clearResultsVote">
                             Clear interaction votes
