@@ -4,7 +4,7 @@ const LoginPage = require('../../pageObjects/login.page');
 const InteractionsPage = require('../../pageObjects/interactions.page');
 const EditInteractionPage = require('../../pageObjects/interaction.edit.page');
 
-describe('should check if login works', function () {
+describe('should check edit page', function () {
     it('should open interaction panel', function () {
         browser.ignoreSynchronization = true;
         LoginPage.go();
