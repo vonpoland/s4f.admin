@@ -5,7 +5,7 @@ const expect = require('expect.js');
 import polls from '../../../../public/js/lib/poll/reducer';
 import {propertyChange, savePollStart, savePollFailed, savePollSuccess, notificationHasBeenDisplayed, CHANGE_LOCATION} from '../../../../public/js/lib/poll/actions';
 
-describe('Poll actions', function () {
+describe('View actions', function () {
     it('should check if initial state is correct #1', function () {
         var result = polls(undefined, {});
 
