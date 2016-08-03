@@ -1,6 +1,7 @@
 import moment from 'moment';
 
-export function calculateVotes(poll) {
+
+function calculateVotes(poll) {
     if (typeof poll.data === 'undefined') {
         return [];
     }
@@ -45,4 +46,18 @@ export function livePollCount(polls) {
     }
 
     return polls.filter(poll => poll.isLive).length;
+}
+
+export function mapPropertiesForSinglePoll(poll) {
+    poll.votes = calculateVotes(poll);
+
+    return poll;
+}
+
+export function getVotesForPollResults(poll, resultsName) {
+    if( typeof resultsName === 'undefined') {
+        return calculateVotes(poll);
+    }
+
+    return calculateVotes({data: {votes: poll.data.oldResults.filter(result => result.name === resultsName).pop().results}});
 }

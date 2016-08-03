@@ -68,6 +68,7 @@ describe('Poll controller tests', function () {
 
     after(function () {
         mockery.deregisterMock('../db/db');
+        mockery.deregisterMock('../channel/service', socketMock);
         mockery.disable();
     });
 

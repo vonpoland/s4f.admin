@@ -33,6 +33,23 @@ const savePoll = (pollName, update, path) => fetch(`/admin/api/poll/${pollName}/
     body: JSON.stringify(update)
 });
 
+const savePollResults = (pollId, resultsName) => fetch(`/admin/api/poll/${pollId}/data/results`, {
+    headers: {
+        'x-access-token': getAuthToken(),
+        'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({resultsName: resultsName})
+});
+
+const clearPollResults = pollId => fetch(`/admin/api/poll/${pollId}/data/results`, {
+    headers: {
+        'x-access-token': getAuthToken(),
+        'Content-Type': 'application/json'
+    },
+    method: 'DELETE'
+});
+
 const getAnswers = pollName => fetch(`/admin/api/poll/${pollName}/answer`, {
     headers: {
         'x-access-token': getAuthToken(),
@@ -68,7 +85,7 @@ const logout = () => {
 };
 
 const db = {
-    poll: {getPolls, getAnswers, getPoll, savePoll},
+    poll: {getPolls, getAnswers, getPoll, savePoll, savePollResults, clearPollResults},
     step: {changeStep},
     auth: {login, loggedUser, logout}
 };
