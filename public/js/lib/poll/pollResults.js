@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchAnswers, fetchPoll, pollResultsNameChange, saveResultsNameAsync, changePollResults, pollResultClearStartAsync} from './actions';
+import {fetchAnswers, fetchPoll, pollResultsNameChange, saveResultsNameAsync, changePollResults, pollResultClearStartAsync, DELETE_PREVIOUS_RESULT} from './actions';
 import {PieChart} from '../charts/barChart.component';
 import moment from 'moment';
 import classNames from 'classnames';
@@ -38,22 +38,23 @@ const PollResults = React.createClass({
         var votes = this.props.previousVotes || [];
         votes.map(vote => {
                 if(vote.date) {
-                    vote.date = moment(vote.date).format('LLLL')
+                    vote.date = moment(vote.date).format('llll')
                 }
                 return vote;
             });
         var buttonRevertClass = classNames('btn btn-link pull-right', { 'hide': !this.props.enableRevertResultsButton});
 
-        return <div className="col-sm-4 col--primary">
+        return <div className="col-md-5 col--primary previous-results">
             <div className="panel panel-success">
                 <div className="panel-heading">
                     <h3 className="panel-title">Show previous results <button type="button" className={buttonRevertClass} onClick={() => this.props.changeResults()}>Show current values</button></h3>
                 </div>
                 <div className="panel-body">
                     {votes.map((vote, index) =>
-                        <div key={index} className="flex">
-                            <div className="col-lg-4"><button type="button" onClick={() => this.props.changeResults(vote.name)} className="btn btn-link">{vote.name}</button></div>
-                            <div className="col-lg-8"><span style={{lineHeight: '34px'}}>{vote.date}</span></div>
+                        <div key={index} className="flex interaction-information-row">
+                            <div className="col-md-4"><button type="button" onClick={() => this.props.changeResults(vote.name)} className="btn btn-link">{vote.name}</button></div>
+                            <div className="col-md-5"><span style={{lineHeight: '34px'}}>{vote.date}</span></div>
+                            <div className="col-md-2 remove"><a onClick={() => this.props.deletePreviousResult(vote.id)} data-link={'remove-previous' + index}><i className="fa fa-lg fa-trash-o" aria-hidden="true"></i>Delete</a></div>
                         </div>
                     )}
                 </div>
@@ -61,7 +62,7 @@ const PollResults = React.createClass({
         </div>
     },
     saveResults() {
-        return <div className="col-lg-4 col--primary">
+        return <div className="col-md-4 col--primary">
             <div className="panel panel-green">
                 <div className="panel-heading">
                     <h3 className="panel-title">Save or clear results</h3>
@@ -106,7 +107,7 @@ const PollResults = React.createClass({
         </div>
     },
     render() {
-        return <div>
+        return <div className="interaction-results">
             <h1>Results {this.props.pollName}</h1>
             <div className='panel panel-default'>
                 <div className='panel-body'>
@@ -151,6 +152,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, state) => {
     return {
+    	deletePreviousResult: resultId => dispatch(DELETE_PREVIOUS_RESULT.run(resultId)),
         clearInteractionResult: () => dispatch(pollResultClearStartAsync()).then(() => closeDialog('#clearResultsVote')),
         onResultNameChange: text => dispatch(pollResultsNameChange(text)),
         saveResultName: text => dispatch(saveResultsNameAsync()),

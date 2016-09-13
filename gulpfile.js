@@ -7,6 +7,7 @@ var minifyCss = require('gulp-minify-css');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var htmlreplace = require('gulp-html-replace');
+var watch = require('gulp-watch');
 var runSequence = require('run-sequence');
 var exec = require('child_process').exec;
 
@@ -23,10 +24,20 @@ gulp.task('test:unit:frontend', function (cb) {
 });
 
 gulp.task('test:unit:frontend:dev', function (cb) {
-	exec('mocha test/unit/frontend/**/*.spec.js --compilers js:babel-core/register', function(err, stdout, stderr) {
-		console.log(stdout);
-		console.log(stderr);
-		cb(err);
+	require('babel-core/register');
+
+	return watch(['public/**/*.js', 'test/unit/frontend/**/*.js'], function () {
+		gulp.src('test/unit/frontend/**/*.spec.js', {read: false})
+			.pipe(mocha())
+			.on('error', function (error) {
+				console.error(error);
+			});
+
+		// exec('mocha test/unit/frontend/**/*.spec.js --compilers js:babel-core/register', function (err, stdout, stderr) {
+		// 	console.log(stdout);
+		// 	console.log(stderr);
+		// 	cb(err);
+		// });
 	});
 });
 

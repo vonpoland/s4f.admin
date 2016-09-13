@@ -50,6 +50,14 @@ const clearPollResults = pollId => fetch(`/admin/api/poll/${pollId}/data/results
     method: 'DELETE'
 });
 
+const deleteResult = (pollId, resultId) => fetch(`/admin/api/poll/${pollId}/data/results/${resultId}`, {
+    headers: {
+        'x-access-token': getAuthToken(),
+        'Content-Type': 'application/json'
+    },
+    method: 'DELETE'
+});
+
 const getAnswers = pollName => fetch(`/admin/api/poll/${pollName}/answer`, {
     headers: {
         'x-access-token': getAuthToken(),
@@ -85,7 +93,7 @@ const logout = () => {
 };
 
 const db = {
-    poll: {getPolls, getAnswers, getPoll, savePoll, savePollResults, clearPollResults},
+    poll: {getPolls, getAnswers, getPoll, savePoll, savePollResults, clearPollResults, deleteResult},
     step: {changeStep},
     auth: {login, loggedUser, logout}
 };

@@ -1,7 +1,3 @@
-bigscreenChannel: 'http://40.115.23.130'
-index: 'index-production'
-frontendConfig:
-  projectorUrl: 'http://40.115.23.130/projector'
 database:
-  web: mongodb://localhost:27017/development
-  admin: mongodb://localhost:27017/configuration
+  web: mongodb://localhost:27017/s4f-development-web
+  admin: mongodb://localhost:27017/s4f-development-conf

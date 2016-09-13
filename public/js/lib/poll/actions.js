@@ -83,6 +83,25 @@ export function pollResultClearStartAsync() {
     }
 }
 
+export function action(type, ...args) {
+	return { type : type, ...args}
+}
+export const DELETE_PREVIOUS_RESULT = {
+	START: 'DELETE_PREVIOUS_RESULT_START',
+	SUCCESS: 'DELETE_PREVIOUS_RESULT_SUCCESS',
+	FAIL: 'DELETE_PREVIOUS_RESULT_FAIL',
+	run: resultId => (dispatch, getState) => {
+		var pollId = getState().polls.poll.id;
+
+		dispatch(action(DELETE_PREVIOUS_RESULT.START));
+
+		return db.poll.deleteResult(pollId, resultId)
+			.then(() => dispatch(fetchPoll(pollId)))
+			.then(() => dispatch(action(DELETE_PREVIOUS_RESULT.SUCCESS)))
+			.catch(() => dispatch(action(DELETE_PREVIOUS_RESULT.FAIL)))
+	}
+};
+
 export function pollResultsNameChange(name) {
     return {
         type: POLL_RESULTS_NAME_CHANGE,

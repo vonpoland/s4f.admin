@@ -17,7 +17,8 @@ import {REQUEST_POLLS,
     POLL_RESULTS_CLEAR_START,
     POLL_RESULTS_CLEAR_FINISHED,
     POLL_RESULTS_CLEAR_FAILED,
-    NOTIFICATION_DISPLAYED,} from './actions';
+    NOTIFICATION_DISPLAYED,
+    DELETE_PREVIOUS_RESULT} from './actions';
 import {getPath} from '../routing/routing';
 import R from 'ramda';
 import {getVotesForPollResults} from './poll.service';
@@ -118,6 +119,19 @@ export function poll(state = { modifications : {} }, action = {}) {
             disableCloseClearResultsModalButton: true
         }
     }
+	case DELETE_PREVIOUS_RESULT.START: {
+		return {
+			...state,
+			removingPreviousResultInProgress: true
+		}
+	}
+	case DELETE_PREVIOUS_RESULT.FAIL:
+	case DELETE_PREVIOUS_RESULT.SUCCESS: {
+		return {
+			...state,
+			removingPreviousResultInProgress: false
+		}
+	}
     case POLL_RESULTS_CLEAR_FINISHED:
     case POLL_RESULTS_CLEAR_FAILED: {
         return {
@@ -147,6 +161,9 @@ function polls(state = { poll : { modifications : {}}}, action = {}) {
     case POLL_RESULTS_CLEAR_START:
     case POLL_RESULTS_CLEAR_FINISHED:
     case POLL_RESULTS_CLEAR_FAILED:
+	case DELETE_PREVIOUS_RESULT.START:
+	case DELETE_PREVIOUS_RESULT.SUCCESS:
+	case DELETE_PREVIOUS_RESULT.FAIL:
     case CHANGE_POLL_PROPERTY: {
         return {
             ...state,

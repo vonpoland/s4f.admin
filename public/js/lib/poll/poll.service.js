@@ -1,6 +1,5 @@
 import moment from 'moment';
 
-
 function calculateVotes(poll) {
     if (typeof poll.data === 'undefined') {
         return [];

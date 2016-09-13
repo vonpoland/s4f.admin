@@ -9,7 +9,7 @@ describe('should check edit page', function () {
         browser.ignoreSynchronization = true;
         LoginPage.go();
         LoginPage.login(browser.params.login.user, browser.params.login.password, true);
-        InteractionsPage.interactionsLink.click();
+        InteractionsPage.resultsByName('kto-wygra').click();
         InteractionsPage.edit(0);
     });
 
