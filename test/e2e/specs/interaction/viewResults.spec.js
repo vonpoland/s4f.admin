@@ -33,9 +33,8 @@ describe('should check view page', function () {
 	it('should not find new result on list', function () {
 		expect(ViewInteractionPage.oldResultDirectly(saveName).isPresent()).toBe(false);
 	});
-
-
-	// it('should log out user', function () {
-    //     LoginPage.logout();
-    // });
+	
+	it('should log out user', function () {
+        LoginPage.logout();
+    });
 });
