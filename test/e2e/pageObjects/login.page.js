@@ -49,6 +49,7 @@ module.exports = Page.create({
     },
     logout: {
         value: function () {
+            browser.wait(EC.elementToBeClickable(this.loggedUserTxt));
             this.loggedUserTxt.click();
             this.logoutBtn.click();
             browser.wait(EC.visibilityOf(this.loginBtn));
