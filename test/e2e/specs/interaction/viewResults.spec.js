@@ -32,6 +32,7 @@ describe('should check view page', function () {
 
 	it('should not find new result on list', function () {
 		expect(ViewInteractionPage.oldResultDirectly(saveName).isPresent()).toBe(false);
+        ViewInteractionPage.modal.isPresent()
 	});
 	
 	it('should log out user', function () {
