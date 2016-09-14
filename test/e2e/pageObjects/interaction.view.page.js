@@ -36,6 +36,15 @@ module.exports = Page.create({
             return button;
         }
     },
+    modal: {
+        get: function () {
+            var modal = element(by.id('dashboardModal'));
+
+            browser.wait(EC.invisibilityOf(modal));
+
+            return modal;
+        }
+    },
     removePreviousButtonByIndex: {
         value: function (index) {
             var button = element(by.css('[data-link="remove-previous' + index +'"]'));
