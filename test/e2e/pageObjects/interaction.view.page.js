@@ -26,5 +26,30 @@ module.exports = Page.create({
 
             return button;
         }
+    },
+    oldResultDirectly: {
+        value: function (text) {
+            var button = element(by.partialButtonText(text));
+
+            browser.wait(EC.stalenessOf(button));
+
+            return button;
+        }
+    },
+    removePreviousButtonByIndex: {
+        value: function (index) {
+            var button = element(by.css('[data-link="remove-previous' + index +'"]'));
+
+            return button;
+        }
+    },
+    confirmDelete: {
+        get: function () {
+            var button = element(by.css('#dashboardModal .modal-footer .btn-primary'));
+
+            browser.wait(EC.elementToBeClickable(button));
+
+            return button;
+        }
     }
 });

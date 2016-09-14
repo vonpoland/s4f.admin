@@ -24,7 +24,18 @@ describe('should check view page', function () {
         expect(ViewInteractionPage.oldResult(saveName).isDisplayed()).toBe(true);
     });
 
-    it('should log out user', function () {
-        LoginPage.logout();
+    it('should remove from the list', function () {
+		ViewInteractionPage.removePreviousButtonByIndex(0).click();
+		ViewInteractionPage.confirmDelete.click();
     });
+
+
+	it('should not find new result on list', function () {
+		expect(ViewInteractionPage.oldResultDirectly(saveName).isPresent()).toBe(false);
+	});
+
+
+	// it('should log out user', function () {
+    //     LoginPage.logout();
+    // });
 });

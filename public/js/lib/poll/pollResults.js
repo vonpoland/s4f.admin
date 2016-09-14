@@ -4,6 +4,8 @@ import {fetchAnswers, fetchPoll, pollResultsNameChange, saveResultsNameAsync, ch
 import {PieChart} from '../charts/barChart.component';
 import moment from 'moment';
 import classNames from 'classnames';
+import {MODAL} from '../modal/actions';
+import Modal from '../modal/modal';
 
 const PollResults = React.createClass({
     getUserAnswers () {
@@ -98,7 +100,7 @@ const PollResults = React.createClass({
                             If you didn't save them before you will loose your results.
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-default" data-dismiss="modal" disabled={this.props.disableCloseClearResultsModalButton}>Close</button>
+                            <button type="button" className="btn btn-default" data-dismiss="modal" disabled={this.props.disableCloseClearResultsModalButton}>Cancel</button>
                             <button type="button" className="btn btn-primary" disabled={this.props.disableCloseClearResultsModalButton} onClick={() => this.props.clearInteractionResult()}>Save changes</button>
                         </div>
                     </div>
@@ -124,6 +126,7 @@ const PollResults = React.createClass({
                     {this.getUserAnswers()}
                 </div>
             </div>
+			<Modal id="dashboardModal"/>
         </div>;
     },
     componentDidMount() {
@@ -152,7 +155,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, state) => {
     return {
-    	deletePreviousResult: resultId => dispatch(DELETE_PREVIOUS_RESULT.run(resultId)),
+		deletePreviousResult: resultId => dispatch(MODAL.open({
+			title: 'Confirmation',
+			content: 'Please confirm if you want to clear this vote result.',
+			onAccept: () => dispatch(DELETE_PREVIOUS_RESULT.run(resultId))
+				.then(dispatch(MODAL.close()))
+		})),
         clearInteractionResult: () => dispatch(pollResultClearStartAsync()).then(() => closeDialog('#clearResultsVote')),
         onResultNameChange: text => dispatch(pollResultsNameChange(text)),
         saveResultName: text => dispatch(saveResultsNameAsync()),
