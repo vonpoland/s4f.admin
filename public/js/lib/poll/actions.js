@@ -83,9 +83,10 @@ export function pollResultClearStartAsync() {
     }
 }
 
-export function action(type, ...args) {
-	return { type : type, ...args}
+export function action(type, value) {
+	return { type : type, value: value}
 }
+
 export const DELETE_PREVIOUS_RESULT = {
 	START: 'DELETE_PREVIOUS_RESULT_START',
 	SUCCESS: 'DELETE_PREVIOUS_RESULT_SUCCESS',

@@ -5,6 +5,7 @@ import { routerReducer } from 'react-router-redux';
 import authReducer from '../auth/reducer';
 import navigationReducer from '../navigation/reducer';
 import dashboardReducer from '../dashboard/reducer';
+import modal from '../modal/reducer';
 
 function config() {
     return {
@@ -20,6 +21,7 @@ const indexApp = combineReducers({
     step,
     polls,
     config,
+    modal,
     routing: routerReducer
 });
 

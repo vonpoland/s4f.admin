@@ -26,6 +26,19 @@ function isLive(poll) {
     }
 }
 
+function calculateData(data) {
+	if(!data) {
+		return;
+	}
+
+	if(Array.isArray(data.oldResults)) {
+		data.oldResults = data.oldResults.sort((first, second) => {
+			return new Date(first.date) < new Date(second.date);
+		})
+	}
+
+	return data;
+}
 export function createPollLink(poll) {
     if (poll.name && poll.parent) {
         return window.bigscreenConfig.frontendConfig.projectorUrl + '/' + poll.parent + '/' + poll.name;
@@ -49,6 +62,7 @@ export function livePollCount(polls) {
 
 export function mapPropertiesForSinglePoll(poll) {
     poll.votes = calculateVotes(poll);
+    poll.data = calculateData(poll.data);
 
     return poll;
 }

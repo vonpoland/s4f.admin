@@ -35,6 +35,7 @@ System.config({
     "redux-logger": "npm:redux-logger@2.6.1",
     "redux-router": "npm:redux-router@1.0.0-beta8",
     "redux-thunk": "npm:redux-thunk@2.0.1",
+    "reselect": "npm:reselect@2.5.3",
     "restangular": "github:mgonto/restangular@1.5.1",
     "socket.io-client": "github:socketio/socket.io-client@1.3.7",
     "github:jspm/nodelibs-assert@0.1.0": {
