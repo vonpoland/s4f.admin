@@ -5,7 +5,7 @@ exports.config = {
         browser.driver.manage().window().setSize(1600, 1000);
     },
     specs: ['specs/**/*spec.js'],
-    baseUrl: 'http://localhost:8889/admin',
+    baseUrl: 'https://screen4fans.com/admin',
     suites: {
         login: 'specs/login/*.spec.js',
         editInteraction: 'specs/interaction/edit.spec.js',
