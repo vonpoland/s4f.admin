@@ -3,15 +3,20 @@
 var Page = require('astrolabe').Page;
 const EC = protractor.ExpectedConditions;
 
+function createDateString(year, month, date) {
+	var date = [year, month, date];
+	return 'var tempDate = new Date(' + date.join(',') +')';
+}
+
 module.exports = Page.create({
     setStartDate: {
-        value: function (value) {
-            browser.executeScript('$("#datetimepicker1").data("DateTimePicker").date("' + value + '")');
+        value: function (year, month, day) {
+            browser.executeScript(createDateString(year, month, day) + ';$("#datetimepicker1").data("DateTimePicker").date(tempDate)');
         }
     },
     setFinishDate: {
-        value: function (value) {
-            browser.executeScript('$("#datetimepicker2").data("DateTimePicker").date("' + value + '")');
+        value: function (year, month, day) {
+            browser.executeScript(createDateString(year, month, day) + ';$("#datetimepicker2").data("DateTimePicker").date(tempDate)');
         }
     },
     setStartDateManually: {
