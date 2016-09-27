@@ -1,19 +1,15 @@
 module.exports = function (shipit) {
     require('shipit-deploy')(shipit);
 
-    shipit.task('clean-pm2', function () {
+    shipit.blTask('clean-pm2', function () {
         return shipit.remote('node ' + shipit.config.pm2Path + ' delete admin')
     });
 
-    shipit.task('start-pm2', function () {
+    shipit.blTask('start-pm2', function () {
         return shipit.remote('cd ' + shipit.config.deployTo + '/current && NODE_ENV=production node '  + shipit.config.pm2Path + ' start --name admin ' + shipit.config.deployTo + '/current/app.js')
     });
 
-    shipit.task('test', function () {
-        return shipit.remote('pwd')
-    });
-
-    shipit.task('install-dependencies', function () {
+    shipit.blTask('install-dependencies', function () {
         return shipit.remote('NODE_ENV=production cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && npm run gulp')
     });
 
