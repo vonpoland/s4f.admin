@@ -6,7 +6,7 @@ module.exports = function (shipit) {
     });
 
     shipit.task('start-pm2', function () {
-        return shipit.remote('cd ' + shipit.config.deployTo + '/current && NODE_ENV=production node'  + shipit.config.pm2Path + ' start --name admin ' + shipit.config.deployTo + '/current/app.js')
+        return shipit.remote('cd ' + shipit.config.deployTo + '/current && NODE_ENV=production node '  + shipit.config.pm2Path + ' start --name admin ' + shipit.config.deployTo + '/current/app.js')
     });
 
     shipit.task('test', function () {
