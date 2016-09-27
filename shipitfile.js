@@ -11,7 +11,7 @@ module.exports = function (shipit) {
             repositoryUrl: 'ssh://git@bitbucket.org/vonpo/bigscreen-admin.git',
             workspace: '/var/lib/jenkins/deploy-tmp',
             ignores: ['.git', 'node_modules'],
-            keepReleases: 0,
+            keepReleases: 2,
             deleteOnRollback: false,
             key: '/var/jenkins/.ssh/key.ppk',
             shallowClone: true
