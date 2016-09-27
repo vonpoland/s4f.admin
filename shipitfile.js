@@ -1,12 +1,8 @@
 module.exports = function (shipit) {
     require('shipit-deploy')(shipit);
 
-   // shipit.task('deployAndInstall', ['deploy'], function () {
-   //     return shipit.remote('cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && npm run gulp && passenger-config restart-app ' + shipit.config.deployTo + '/current')
-   // });
-
     shipit.task('deployAndInstall', ['deploy'], function () {
-        return shipit.remote('NODE_ENV=production cd ' + shipit.config.deployTo + '/current && node node_modules/pm2/bin/pm2 delete admin && npm install && npm run jspm install && npm run gulp && node node_modules/pm2/bin/pm2 start app.js --name admin')
+        return shipit.remote('NODE_ENV=production cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && npm run gulp')
     });
 
     shipit.initConfig({
@@ -15,7 +11,7 @@ module.exports = function (shipit) {
             repositoryUrl: 'ssh://git@bitbucket.org/vonpo/bigscreen-admin.git',
             workspace: '/var/lib/jenkins/deploy-tmp',
             ignores: ['.git', 'node_modules'],
-            keepReleases: 2,
+            keepReleases: 0,
             deleteOnRollback: false,
             key: '/var/jenkins/.ssh/key.ppk',
             shallowClone: true
@@ -30,6 +26,14 @@ module.exports = function (shipit) {
             branch: 'master',
             servers: 'mkrawczyk@screen4fans.com',
             key: '/var/jenkins_home/.ssh/prod_key'
+        },
+        test: {
+            workspace: '/m/dev/temp-sync/test', // this is on local
+            repositoryUrl: 'https://github.com/mourner/hello-lib.git',
+            deployTo: '/home/marcin/deploy-test',
+            branch: 'master',
+            servers: 'marcin@192.168.1.146',
+            key: '/m/dev/key/key'
         }
     });
 };
