@@ -12,7 +12,7 @@ module.exports = function (shipit) {
     });
 
     shipit.blTask('install-dependencies', function () {
-        return shipit.remote('NODE_ENV=production cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && npm run gulp')
+        return shipit.remote('cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && NODE_ENV=production npm run gulp')
     });
 
     shipit.task('deployAndInstall', ['deploy', 'clean-pm2', 'install-dependencies', 'start-pm2'], function () {
