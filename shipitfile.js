@@ -3,6 +3,8 @@ module.exports = function (shipit) {
 
     shipit.blTask('clean-pm2', function () {
         return shipit.remote('node ' + shipit.config.pm2Path + ' delete admin')
+            .then(() => {})
+            .catch(() => {})
     });
 
     shipit.blTask('start-pm2', function () {
