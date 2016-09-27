@@ -9,8 +9,12 @@ exports.config = {
     suites: {
         login: 'specs/login/*.spec.js',
         editInteraction: 'specs/interaction/edit.spec.js',
+		editResults: 'specs/interaction/viewResults.spec.js',
         integration: 'specs/integration/*.spec.js',
         viewResults: 'specs/interaction/viewResults.spec.js'
+    },
+    capabilities: {
+        browserName: 'chrome'
     },
     jasmineNodeOpts : {
         showColors: true
@@ -22,7 +26,7 @@ exports.config = {
             url: '/admin/login'
         },
         interactions: {
-            pollWithResults: 'test-interaction-question',
+            pollWithResults: 'kto-wygra',
             url: '/admin/interaction',
             projectorDerbyLink: 'http://localhost:8888/projector/test-interaction/test-interaction-derby7'
         }
