@@ -7,4 +7,4 @@ database:
   admin: mongodb://localhost:27017/configuration
 bigscreenChannel: 'http://localhost:8085'
 frontendConfig:
-  projectorUrl: 'http://localhost:8888/projector'
+  projectorUrl: 'http://localhost:8888'
