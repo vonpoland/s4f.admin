@@ -26,7 +26,7 @@ const Navigation = React.createClass({
 
         return <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div className="navbar-header">
-                <a className="navbar-brand padding--zero flex-row flex--vertical-center" href="/admin">
+                <a className="navbar-brand padding--zero flex-row flex--vertical-center" href="/">
                         <img src="/img/theme/s4f-poziom.png" />
                         <span className="margin-horizontal--medium">Admin</span>
                 </a>

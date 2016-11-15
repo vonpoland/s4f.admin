@@ -28,7 +28,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 render(
     <Provider store={store}>
         <Router history={history}>
-            <Route path="/admin" component={App}>
+            <Route path="/" component={App}>
                 <IndexRoute component={Dashboard} />
                 <Route path="login" component={Login} />
                 <Route path="dashboard" component={Dashboard} />
