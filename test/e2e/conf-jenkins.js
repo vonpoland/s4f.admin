@@ -31,7 +31,7 @@ exports.config = {
         },
         interactions: {
             url: '/interaction',
-            projectorDerbyLink: 'https://screen4fans.com/projector/test-interaction/test-interaction-derby7'
+            projectorDerbyLink: 'https://tv.screen4fans.com/test-interaction/test-interaction-derby7'
         }
     }
 };
