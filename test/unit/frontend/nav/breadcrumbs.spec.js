@@ -53,8 +53,8 @@ describe('Breadcrumbs tests', function () {
         });
     });
 
-    it('should set page default - dashboard page when on /admin path', function () {
-        var action = {type: CHANGE_LOCATION, payload: {pathname: '/admin'}};
+    it('should set page default - dashboard page when on / path', function () {
+        var action = {type: CHANGE_LOCATION, payload: {pathname: '/'}};
         var state = {};
         var result = navigationReducer(state, action);
 

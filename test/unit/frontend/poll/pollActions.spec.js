@@ -54,7 +54,7 @@ describe('Poll actions', function () {
 		var state = {polls: [1, 2, 3], isFetching: true};
 		var result = polls(state, {
 			type: CHANGE_LOCATION,
-			payload: {pathname: '/admin'}
+			payload: {pathname: '/'}
 		});
 
 		expect(result.polls).not.to.eql(state.polls);
@@ -65,7 +65,7 @@ describe('Poll actions', function () {
 		var state = {polls: [1, 2, 3], isFetching: false};
 		var result = polls(state, {
 			type: CHANGE_LOCATION,
-			payload: {pathname: '/admin'}
+			payload: {pathname: '/'}
 		});
 
 		expect(result.polls).to.eql(state.polls);

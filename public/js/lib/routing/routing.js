@@ -1,4 +1,4 @@
-const nestedPathRegex = /admin\/([a-z]+)\/([a-z\-]+)\/([a-z]+)/i;
+const nestedPathRegex = /\/([a-z]+)\/([a-z\-]+)\/([a-z]+)/i;
 const pageInfo = {
     login: {
         displayPageInfo: false
@@ -63,7 +63,7 @@ function getPage(pathname) {
         return pageInfo['interaction'];
     } else if(pathname.indexOf('/dashboard') > 0) {
         return pageInfo['dashboard'];
-    } else if(pathname.indexOf('/admin') === 0) {
+    } else if(pathname.indexOf('/') === 0) {
         return pageInfo['dashboard'];
     }
 }

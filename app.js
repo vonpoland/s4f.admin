@@ -19,10 +19,10 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/public/partials/admin');
 app.use('/api/poll', authService.isAuthenticated, poll);
 app.use('/api/auth', auth);
-app.use('/admin', staticFiles);
-app.all('/admin*', function (req, res) {
-    res.render(config.get('index'), frontendConfig);
-});
+app.use('/', staticFiles);
+// app.all('/*', function (req, res) {
+//     res.render(config.get('index'), frontendConfig);
+// });
 
 app.all('/favicon.ico', function (req, res) {
     res.sendFile('favicon.ico', {root: __dirname + '/'});
