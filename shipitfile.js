@@ -15,7 +15,7 @@ module.exports = function (shipit) {
         return shipit.remote('cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && NODE_ENV=production npm run gulp')
     });
 
-    shipit.task('deployAndInstall', ['deploy', 'clean-pm2', 'install-dependencies', 'start-pm2'], function () {
+    shipit.task('deployAndInstall', ['deploy', 'install-dependencies'], function () {
     });
 
     shipit.initConfig({
@@ -36,7 +36,7 @@ module.exports = function (shipit) {
         },
         production: {
             workspace: '/var/jenkins_home/deploy-tmp',
-            deployTo: '/home/mkrawczyk/domains/screen4fans.com/bigscreen-admin',
+            deployTo: '/home/mkrawczyk/domains/admin.screen4fans.com/deploy',
             branch: 'master',
             servers: 'mkrawczyk@screen4fans.com',
             key: '/var/jenkins_home/.ssh/prod_key'
@@ -50,8 +50,8 @@ module.exports = function (shipit) {
             key: '/m/dev/key/key'
         },
         test2: {
-            deployTo: '/home/mkrawczyk/domains/screen4fans.com/bigscreen-admin',
-            workspace: '/m/dev/temp-sync/test', // this is on local
+            deployTo: '/home/mkrawczyk/domains/admin.screen4fans.com/deploy',
+            workspace: '/d/dev/temp-sync/test', // this is on local
             servers: 'mkrawczyk@screen4fans.com',
         }
     });
