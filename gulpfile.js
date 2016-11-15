@@ -90,7 +90,7 @@ gulp.task('concatScripts', function () {
 });
 
 gulp.task('buildIndex', function () {
-	gulp.src('./public/partials/admin/index.html')
+	gulp.src('./public/partials/index.html')
 		.pipe(htmlreplace({
 			'css': 'css/dist/app.min.css',
 			'js': 'js/admin.min.js'

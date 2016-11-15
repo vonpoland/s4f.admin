@@ -19,7 +19,7 @@ exports.config = {
     },
     directConnect: false,
     specs: ['specs/**/*spec.js'],
-    baseUrl: 'https://screen4fans.com/admin/',
+    baseUrl: 'https://screen4fans.com/',
     suites: {
         login: 'specs/login/*.spec.js'
     },
@@ -27,11 +27,11 @@ exports.config = {
         login: {
             user: 'test@s4f.pl',
             password: 'test',
-            url: '/admin/login'
+            url: '/login'
         },
         interactions: {
             pollWithResults: 'kto-wygra',
-            url: '/admin/interaction',
+            url: '/interaction',
             projectorDerbyLink: 'https://screen4fans.com/projector/test-interaction/test-interaction-derby7'
         }
     }

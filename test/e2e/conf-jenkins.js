@@ -19,7 +19,7 @@ exports.config = {
     },
     directConnect: true,
     specs: ['specs/**/*spec.js'],
-    baseUrl: 'http://test.glosuj.mobi/admin/',
+    baseUrl: 'http://test.glosuj.mobi/',
     suites: {
         login: 'specs/login/*.spec.js'
     },
@@ -27,10 +27,10 @@ exports.config = {
         login: {
             user: 'test@test.pl',
             password: 'test',
-            url: '/admin/login'
+            url: '/login'
         },
         interactions: {
-            url: '/admin/interaction',
+            url: '/interaction',
             projectorDerbyLink: 'https://screen4fans.com/projector/test-interaction/test-interaction-derby7'
         }
     }

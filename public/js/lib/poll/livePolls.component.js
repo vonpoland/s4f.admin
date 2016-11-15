@@ -19,9 +19,9 @@ const LivePolls = React.createClass({
                 </div>
             </div>
             <div className="panel-footer">
-                <div className="pull-left"><Link to="/admin/interaction">View Details</Link></div>
+                <div className="pull-left"><Link to="/interaction">View Details</Link></div>
                 <div className="pull-right">
-                    <Link to="/admin/interaction"><i className="fa fa-arrow-circle-right"></i></Link>
+                    <Link to="/interaction"><i className="fa fa-arrow-circle-right"></i></Link>
                 </div>
                 <div className="clearfix"></div>
             </div>

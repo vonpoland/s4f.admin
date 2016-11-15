@@ -8,14 +8,14 @@ function forgetToken() {
     window.localStorage.setItem('userToken', '');
 }
 
-const getPolls = () => fetch('/admin/api/poll', {
+const getPolls = () => fetch('/api/poll', {
     headers: {
         'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
     }
 });
 
-const changeStep = (parent, pollId, step, stay) => fetch(`/admin/api/poll/${pollId}/screen`, {
+const changeStep = (parent, pollId, step, stay) => fetch(`/api/poll/${pollId}/screen`, {
     method: 'POST',
     headers: {
         'x-access-token': getAuthToken(),
@@ -24,7 +24,7 @@ const changeStep = (parent, pollId, step, stay) => fetch(`/admin/api/poll/${poll
     body: JSON.stringify({pollId: pollId, step: step, stay: stay, parent: parent})
 });
 
-const savePoll = (pollName, update, path) => fetch(`/admin/api/poll/${pollName}/${path}`, {
+const savePoll = (pollName, update, path) => fetch(`/api/poll/${pollName}/${path}`, {
     headers: {
         'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ const savePoll = (pollName, update, path) => fetch(`/admin/api/poll/${pollName}/
     body: JSON.stringify(update)
 });
 
-const savePollResults = (pollId, resultsName) => fetch(`/admin/api/poll/${pollId}/data/results`, {
+const savePollResults = (pollId, resultsName) => fetch(`/api/poll/${pollId}/data/results`, {
     headers: {
         'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const savePollResults = (pollId, resultsName) => fetch(`/admin/api/poll/${pollId
     body: JSON.stringify({resultsName: resultsName})
 });
 
-const clearPollResults = pollId => fetch(`/admin/api/poll/${pollId}/data/results`, {
+const clearPollResults = pollId => fetch(`/api/poll/${pollId}/data/results`, {
     headers: {
         'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ const clearPollResults = pollId => fetch(`/admin/api/poll/${pollId}/data/results
     method: 'DELETE'
 });
 
-const deleteResult = (pollId, resultId) => fetch(`/admin/api/poll/${pollId}/data/results/${resultId}`, {
+const deleteResult = (pollId, resultId) => fetch(`/api/poll/${pollId}/data/results/${resultId}`, {
     headers: {
         'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
@@ -58,21 +58,21 @@ const deleteResult = (pollId, resultId) => fetch(`/admin/api/poll/${pollId}/data
     method: 'DELETE'
 });
 
-const getAnswers = pollName => fetch(`/admin/api/poll/${pollName}/answer`, {
+const getAnswers = pollName => fetch(`/api/poll/${pollName}/answer`, {
     headers: {
         'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
     }
 });
 
-const getPoll = pollName => fetch(`/admin/api/poll/${pollName}`, {
+const getPoll = pollName => fetch(`/api/poll/${pollName}`, {
     headers: {
         'x-access-token': getAuthToken(),
         'Content-Type': 'application/json'
     }
 });
 
-const login = (user, password) => fetch('/admin/api/auth/login', {
+const login = (user, password) => fetch('/api/auth/login', {
     headers: {
         'Content-Type': 'application/json'
     },
@@ -80,7 +80,7 @@ const login = (user, password) => fetch('/admin/api/auth/login', {
     body: JSON.stringify({username: user, password: password})
 });
 
-const loggedUser = () => fetch('/admin/api/auth/me', {
+const loggedUser = () => fetch('/api/auth/me', {
     headers: {
         'x-access-token': getAuthToken()
     },

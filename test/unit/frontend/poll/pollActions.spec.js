@@ -82,7 +82,7 @@ describe('Poll actions', function () {
 
 		status = polls(status, {
 			type: CHANGE_LOCATION,
-			payload: {pathname: '/admin/interaction'}
+			payload: {pathname: '/interaction'}
 		});
 
 		expect(status.successMessage).to.be(null);

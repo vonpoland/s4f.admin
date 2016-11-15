@@ -23,11 +23,11 @@ exports.config = {
         login: {
             user: 'test@s4f.pl',
             password: 'test',
-            url: '/admin/login'
+            url: '/login'
         },
         interactions: {
             pollWithResults: 'kto-wygra',
-            url: '/admin/interaction',
+            url: '/interaction',
             projectorDerbyLink: 'http://localhost:8888/projector/test-interaction/test-interaction-derby7'
         }
     }

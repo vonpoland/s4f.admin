@@ -253,7 +253,7 @@ function moveUserToInteractions(moveToDashBoard) {
     if (moveToDashBoard === false) {
         return;
     }
-    browserHistory.push('/admin/interaction');
+    browserHistory.push('/interaction');
 }
 
 export const setStep = (pollId, step) => {
