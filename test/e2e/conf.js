@@ -5,7 +5,7 @@ exports.config = {
         browser.driver.manage().window().setSize(1600, 1000);
     },
     specs: ['specs/**/*spec.js'],
-    baseUrl: 'https://admin.screen4fans.com',
+    baseUrl: 'http://localhost:8889/',
     suites: {
         login: 'specs/login/*.spec.js',
         editInteraction: 'specs/interaction/edit.spec.js',
@@ -17,7 +17,8 @@ exports.config = {
         browserName: 'chrome'
     },
     jasmineNodeOpts : {
-        showColors: true
+        showColors: true,
+        defaultTimeoutInterval : 200000
     },
     params: {
         login: {
@@ -28,7 +29,7 @@ exports.config = {
         interactions: {
             pollWithResults: 'kto-wygra',
             url: '/interaction',
-            projectorDerbyLink: 'http://localhost:8888/projector/test-interaction/test-interaction-derby7'
+            projectorDerbyLink: 'http://localhost:8888/test-interaction/test-interaction-derby7'
         }
     }
 };

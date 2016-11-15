@@ -19,7 +19,7 @@ exports.config = {
     },
     directConnect: false,
     specs: ['specs/**/*spec.js'],
-    baseUrl: 'https://screen4fans.com/',
+    baseUrl: 'https://admin.screen4fans.com/',
     suites: {
         login: 'specs/login/*.spec.js'
     },
