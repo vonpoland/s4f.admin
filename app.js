@@ -17,8 +17,8 @@ const frontendConfig = {
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/public/partials/admin');
-app.use('/admin/api/poll', authService.isAuthenticated, poll);
-app.use('/admin/api/auth', auth);
+app.use('/api/poll', authService.isAuthenticated, poll);
+app.use('/api/auth', auth);
 app.use('/admin', staticFiles);
 app.all('/admin*', function (req, res) {
     res.render(config.get('index'), frontendConfig);

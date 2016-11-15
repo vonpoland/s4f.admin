@@ -5,7 +5,7 @@ import {fetchPollsIfNeeded, notificationHasBeenDisplayed} from './actions';
 
 const PollList = React.createClass({
     link(pollId, action) {
-        return '/admin/interaction/' + pollId + '/' + action;
+        return '/interaction/' + pollId + '/' + action;
     },
     projectorLink(poll) {
         return this.props.projectorUrl + '/' + poll.parent + '/' + poll.name;

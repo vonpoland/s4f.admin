@@ -27,7 +27,7 @@ const Navigation = React.createClass({
         return <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div className="navbar-header">
                 <a className="navbar-brand padding--zero flex-row flex--vertical-center" href="/admin">
-                        <img src="/admin/img/theme/s4f-poziom.png" />
+                        <img src="/img/theme/s4f-poziom.png" />
                         <span className="margin-horizontal--medium">Admin</span>
                 </a>
             </div>
@@ -117,7 +117,7 @@ const Navigation = React.createClass({
             <div className="collapse navbar-collapse navbar-ex1-collapse">
                 <ul className="nav navbar-nav side-nav">
                     <li className={dashboardActive}>
-                        <Link to="/admin/dashboard"><i className="fa fa-fw fa-dashboard"></i> Dashboard</Link>
+                        <Link to="/dashboard"><i className="fa fa-fw fa-dashboard"></i> Dashboard</Link>
                     </li>
                     <li className="hidden">
                         <a href="charts.html"><i className="fa fa-fw fa-bar-chart-o"></i> Charts</a>
@@ -126,7 +126,7 @@ const Navigation = React.createClass({
                         <a href="tables.html"><i className="fa fa-fw fa-table"></i> Tables</a>
                     </li>
                     <li className={interactionActive}>
-                        <Link to="/admin/interaction"><i className="fa fa-fw fa-edit"></i> Interactions</Link>
+                        <Link to="/interaction"><i className="fa fa-fw fa-edit"></i> Interactions</Link>
                     </li>
                     <li className="hidden">
                         <a href="bootstrap-elements.html"><i className="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>

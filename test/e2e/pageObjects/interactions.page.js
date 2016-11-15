@@ -6,7 +6,7 @@ const EC = protractor.ExpectedConditions;
 module.exports = Page.create({
     interactionsLink : {
         get: function () {
-            return element.all(by.css('[href="/admin/interaction"]')).get(0);
+            return element.all(by.css('[href="/interaction"]')).get(0);
         }
     },
     editByName: {

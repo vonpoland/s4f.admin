@@ -72,7 +72,7 @@ function loggedUserFetchFailed() {
 
 
 function moveUserToLogin() {
-    browserHistory.push('/admin/login');
+    browserHistory.push('/login');
 }
 
 export function getLoggedUser() {
