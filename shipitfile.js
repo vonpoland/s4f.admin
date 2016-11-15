@@ -1,21 +1,16 @@
 module.exports = function (shipit) {
     require('shipit-deploy')(shipit);
 
-    shipit.blTask('clean-pm2', function () {
-        return shipit.remote('node ' + shipit.config.pm2Path + ' delete admin')
-            .then(() => {})
-            .catch(() => {})
-    });
 
-    shipit.blTask('start-pm2', function () {
-        return shipit.remote('cd ' + shipit.config.deployTo + '/current && NODE_ENV=production node '  + shipit.config.pm2Path + ' start --name admin ' + shipit.config.deployTo + '/current/app.js')
+    shipit.blTask('restart', function () {
+        return shipit.remote('devil www restart admin.screen4fans.com')
     });
 
     shipit.blTask('install-dependencies', function () {
         return shipit.remote('cd ' + shipit.config.deployTo + '/current && npm install && npm run jspm install && NODE_ENV=production npm run gulp')
     });
 
-    shipit.task('deployAndInstall', ['deploy', 'install-dependencies'], function () {
+    shipit.task('deployAndInstall', ['deploy', 'install-dependencies', 'restart'], function () {
     });
 
     shipit.initConfig({
