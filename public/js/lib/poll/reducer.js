@@ -1,4 +1,5 @@
-import {REQUEST_POLLS,
+import {
+    REQUEST_POLLS,
     RECEIVE_POLLS,
     CHANGE_LOCATION,
     FETCH_POLL_SUCCESS,
@@ -18,76 +19,76 @@ import {REQUEST_POLLS,
     POLL_RESULTS_CLEAR_FINISHED,
     POLL_RESULTS_CLEAR_FAILED,
     NOTIFICATION_DISPLAYED,
-    DELETE_PREVIOUS_RESULT} from './actions';
+    DELETE_PREVIOUS_RESULT
+} from './actions';
 import {getPath} from '../routing/routing';
 import R from 'ramda';
-import {getVotesForPollResults} from './poll.service';
+import {getVotesForPollResults, isStarted, isFinished} from './poll.service';
 
-export function poll(state = { modifications : {} }, action = {}) {
-    switch(action.type) {
-    case FETCH_POLL_SUCCESS:
-        {
+export function poll(state = {modifications: {}}, action = {}) {
+    switch (action.type) {
+        case FETCH_POLL_SUCCESS: {
             return {
                 ...state,
                 ...action.poll
             };
         }
-    case SAVE_POLL_SUCCESS:
-        {
+        case SAVE_POLL_SUCCESS: {
             return {
                 ...state,
-                isFormLocked : false,
+                isFormLocked: false,
                 modifications: {}
             };
         }
-    case SAVE_POLL_FAILED:
-        {
+        case SAVE_POLL_FAILED: {
             return {
                 ...state,
                 successMessage: false,
-                isFormLocked : false
+                isFormLocked: false
             };
         }
-    case SAVE_POLL_START:
-        {
+        case SAVE_POLL_START: {
             return {
                 ...state,
                 successMessage: false,
-                isFormLocked : true
+                isFormLocked: true
             };
         }
-    case CHANGE_POLL_PROPERTY:
-        {
+        case CHANGE_POLL_PROPERTY: {
             var pathLens = R.lensPath(action.propertyPath.split('.'));
             var copy = Object.assign({}, state.modifications);
             var modifications = R.set(pathLens, action.newValue, copy);
 
+            if (modifications.editable && modifications.editable.startDate) {
+                state.isStarted = isStarted({ editable: modifications.editable});
+            }
+
+            if (modifications.editable && modifications.editable.finishDate) {
+                state.isFinished = isFinished({ editable: modifications.editable});
+            }
+
             return {
                 ...state,
-                modifications : modifications
+                modifications: modifications
             };
         }
-    case FETCH_POLL_START:
-        {
-            return { modifications : {}};
+        case FETCH_POLL_START: {
+            return {modifications: {}};
         }
-    case TOGGLE_AUTO_SWITCH:
-        {
+        case TOGGLE_AUTO_SWITCH: {
             return {
                 ...state,
                 autoSwitch: action.value
             };
         }
-    case POLL_RESULTS_NAME_CHANGE:
-        {
+        case POLL_RESULTS_NAME_CHANGE: {
             return {
                 ...state,
                 resultsName: action.value,
-                isSaveResultsNameButtonEnabled : action.value.trim().length > 0
+                isSaveResultsNameButtonEnabled: action.value.trim().length > 0
             }
         }
-    case POLL_RESULTS_NAME_SAVE_START:
-        {
+        case POLL_RESULTS_NAME_SAVE_START: {
             return {
                 ...state,
                 isSaveResultsNameButtonEnabled: false,
@@ -95,9 +96,8 @@ export function poll(state = { modifications : {} }, action = {}) {
                 isClearResultsButtonDisabled: true
             }
         }
-    case POLL_RESULTS_NAME_SAVE_FAILED:
-    case POLL_RESULTS_NAME_SAVE_FINISHED:
-        {
+        case POLL_RESULTS_NAME_SAVE_FAILED:
+        case POLL_RESULTS_NAME_SAVE_FINISHED: {
             return {
                 ...state,
                 isSaveResultsNameButtonEnabled: true,
@@ -106,87 +106,83 @@ export function poll(state = { modifications : {} }, action = {}) {
                 resultsName: ''
             }
         }
-    case POLL_RESULTS_CHANGE: {
-        return {
-            ...state,
-            enableRevertResultsButton: action.value && action.value.length > 0,
-            votes: getVotesForPollResults(state, action.value)
+        case POLL_RESULTS_CHANGE: {
+            return {
+                ...state,
+                enableRevertResultsButton: action.value && action.value.length > 0,
+                votes: getVotesForPollResults(state, action.value)
+            }
         }
-    }
-    case POLL_RESULTS_CLEAR_START: {
-        return {
-            ...state,
-            disableCloseClearResultsModalButton: true
+        case POLL_RESULTS_CLEAR_START: {
+            return {
+                ...state,
+                disableCloseClearResultsModalButton: true
+            }
         }
-    }
-	case DELETE_PREVIOUS_RESULT.START: {
-		return {
-			...state,
-			removingPreviousResultInProgress: true
-		}
-	}
-	case DELETE_PREVIOUS_RESULT.FAIL:
-	case DELETE_PREVIOUS_RESULT.SUCCESS: {
-		return {
-			...state,
-			removingPreviousResultInProgress: false
-		}
-	}
-    case POLL_RESULTS_CLEAR_FINISHED:
-    case POLL_RESULTS_CLEAR_FAILED: {
-        return {
-            ...state,
-            disableCloseClearResultsModalButton : false
+        case DELETE_PREVIOUS_RESULT.START: {
+            return {
+                ...state,
+                removingPreviousResultInProgress: true
+            }
         }
-    }
-    default:
-        {
+        case DELETE_PREVIOUS_RESULT.FAIL:
+        case DELETE_PREVIOUS_RESULT.SUCCESS: {
+            return {
+                ...state,
+                removingPreviousResultInProgress: false
+            }
+        }
+        case POLL_RESULTS_CLEAR_FINISHED:
+        case POLL_RESULTS_CLEAR_FAILED: {
+            return {
+                ...state,
+                disableCloseClearResultsModalButton: false
+            }
+        }
+        default: {
             return state;
         }
     }
 }
 
-function polls(state = { poll : { modifications : {}}}, action = {}) {
+function polls(state = {poll: {modifications: {}}}, action = {}) {
     switch (action.type) {
-    case FETCH_POLL_SUCCESS:
-    case FETCH_POLL_START:
-    case SAVE_POLL_START:
-    case SAVE_POLL_FAILED:
-    case POLL_RESULTS_NAME_CHANGE:
-    case TOGGLE_AUTO_SWITCH:
-    case POLL_RESULTS_CHANGE:
-    case POLL_RESULTS_NAME_SAVE_START:
-    case POLL_RESULTS_NAME_SAVE_FAILED:
-    case POLL_RESULTS_NAME_SAVE_FINISHED:
-    case POLL_RESULTS_CLEAR_START:
-    case POLL_RESULTS_CLEAR_FINISHED:
-    case POLL_RESULTS_CLEAR_FAILED:
-	case DELETE_PREVIOUS_RESULT.START:
-	case DELETE_PREVIOUS_RESULT.SUCCESS:
-	case DELETE_PREVIOUS_RESULT.FAIL:
-    case CHANGE_POLL_PROPERTY: {
-        return {
-            ...state,
-            poll : poll(state.poll, action)
-        };
-    }
-    case NOTIFICATION_DISPLAYED:
-        {
+        case FETCH_POLL_SUCCESS:
+        case FETCH_POLL_START:
+        case SAVE_POLL_START:
+        case SAVE_POLL_FAILED:
+        case POLL_RESULTS_NAME_CHANGE:
+        case TOGGLE_AUTO_SWITCH:
+        case POLL_RESULTS_CHANGE:
+        case POLL_RESULTS_NAME_SAVE_START:
+        case POLL_RESULTS_NAME_SAVE_FAILED:
+        case POLL_RESULTS_NAME_SAVE_FINISHED:
+        case POLL_RESULTS_CLEAR_START:
+        case POLL_RESULTS_CLEAR_FINISHED:
+        case POLL_RESULTS_CLEAR_FAILED:
+        case DELETE_PREVIOUS_RESULT.START:
+        case DELETE_PREVIOUS_RESULT.SUCCESS:
+        case DELETE_PREVIOUS_RESULT.FAIL:
+        case CHANGE_POLL_PROPERTY: {
+            return {
+                ...state,
+                poll: poll(state.poll, action)
+            };
+        }
+        case NOTIFICATION_DISPLAYED: {
             return {
                 ...state,
                 canDeleteNotification: true
             };
         }
-    case SAVE_POLL_SUCCESS:
-        {
+        case SAVE_POLL_SUCCESS: {
             return {
                 ...state,
-                poll : poll(state.poll, action),
+                poll: poll(state.poll, action),
                 successMessage: 'Interaction was saved'
             };
         }
-    case CHANGE_LOCATION:
-        {
+        case CHANGE_LOCATION: {
             let newState = state.isFetching ? polls() : state;
             let successMessage = state.successMessage;
             let canDeleteNotification = state.canDeleteNotification;
@@ -203,31 +199,27 @@ function polls(state = { poll : { modifications : {}}}, action = {}) {
                 ...getPath(action.payload)
             };
         }
-    case FETCH_ANSWER_SUCCESS:
-        {
+        case FETCH_ANSWER_SUCCESS: {
             return {
                 ...state,
                 answers: action.answers
             };
         }
-    case REQUEST_POLLS:
-        {
+        case REQUEST_POLLS: {
             return {
                 ...state,
                 isFetching: true,
                 poll: poll()
             };
         }
-    case RECEIVE_POLLS:
-        {
+        case RECEIVE_POLLS: {
             return {
                 ...state,
                 isFetching: false,
                 polls: action.polls
             };
         }
-    default:
-        {
+        default: {
             return state;
         }
     }

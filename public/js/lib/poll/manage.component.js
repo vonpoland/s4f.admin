@@ -10,12 +10,21 @@ const ManagePoll = React.createClass({
         var height;
         var width;
         var iframe = $(arg.currentTarget);
+        var panelWidth = $('.panel-body.overflow--scroll').width();
+
         setTimeout(() => {
             try {
                 var content = iframe.contents();
 
                 height = content.height();
                 width = content.width();
+
+                if(panelWidth < width) {
+                    iframe.css({
+                        zoom:  panelWidth / width
+                    });
+                }
+
             } catch(e) {
                 console.error(e);
                 width = 1920;
@@ -87,7 +96,7 @@ const mapStateToProps = state => {
         pollId: state.polls.poll.id,
         selectedStep: state.step.selectedStep,
         poll: state.polls.poll.data || {stepTemplates: []},
-        initialAddress: getInitialAddress(state)
+        initialAddress: 'http://localhost:3000/partials/test.html' //getInitialAddress(state)
     };
 };
 
