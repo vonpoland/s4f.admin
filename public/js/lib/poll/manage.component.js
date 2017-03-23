@@ -96,7 +96,7 @@ const mapStateToProps = state => {
         pollId: state.polls.poll.id,
         selectedStep: state.step.selectedStep,
         poll: state.polls.poll.data || {stepTemplates: []},
-        initialAddress: 'http://localhost:3000/partials/test.html' //getInitialAddress(state)
+        initialAddress: getInitialAddress(state)
     };
 };
 
