@@ -2,10 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {fetchPoll, propertyChange, savePoll} from './actions';
 import Editor from '../editor/editor.component';
+import ReactToggle from 'react-toggle';
+
+var showAdvancedControls = false;
 
 const EditPoll = React.createClass({
     setNowDate(selector) {
         $(selector).data('DateTimePicker').date(moment());
+    },
+    setMaxDate(selector) {
+        // If this code is live in 2050 call me :) I'll give you 1000 EUR :) Marcin Krawczyk.
+        $(selector).data('DateTimePicker').date(moment('2050', 'YYYY'));
+    },
+    setMinDate(selector) {
+        $(selector).data('DateTimePicker').date(moment('2000', 'YYYY'));
+    },
+    toggleStartDate(value) {
+        var selector = '#datetimepicker1';
+        value.target.checked ? this.setMinDate(selector) : this.setMaxDate(selector);
+    },
+    toggleFinishDate(value) {
+        var selector = '#datetimepicker2';
+        value.target.checked ? this.setMinDate(selector) : this.setMaxDate(selector);
     },
     pollDataEditor(pollData) {
         if (!pollData || !pollData.options) {
@@ -26,7 +44,10 @@ const EditPoll = React.createClass({
     getPollStartDateField() {
         return <div>
             <div className="form-group">
-                <label htmlFor="datetimepicker1">Start</label>
+                <label className="block" htmlFor="datetimepicker1">
+                    Started
+                    <ReactToggle onChange={this.toggleStartDate} checked={this.props.isStarted} className="pull-right simple-date"/>
+                </label>
                 <div className='input-group date' id='datetimepicker1'>
                     <div className="flex-row">
                         <input className="form-control" type='text'/>
@@ -67,7 +88,7 @@ const EditPoll = React.createClass({
             </div>
         </div>;
 
-        return <div>
+        return <div className={ showAdvancedControls ? 'show' : 'hide' }>
             <div className="form-group">
                 {topDiv}
                 {leftDiv}
@@ -78,7 +99,10 @@ const EditPoll = React.createClass({
     getPollFinishDateField() {
         return <div>
             <div className="form-group">
-                <label htmlFor="datetimepicker2">Finish</label>
+                <label className="block" htmlFor="datetimepicker2">
+                    Finished
+                    <ReactToggle onChange={this.toggleFinishDate} checked={this.props.isFinished} className="pull-right simple-date"/>
+                </label>
                 <div className='input-group date' id='datetimepicker2'>
                     <div className="flex-row">
                         <input className="form-control" type='text'/>
@@ -95,18 +119,26 @@ const EditPoll = React.createClass({
         return <button onClick={this.props.savePoll} disabled={!this.props.isSaveButtonEnabled  || this.props.isFormLocked} className="btn btn-primary">
                 Save</button>;
     },
+    toggleControls () {
+        showAdvancedControls = !showAdvancedControls;
+
+        this.forceUpdate();
+    },
     render() {
         return <div className="component--editor">
             <div className='col-sm-12'>
                 <div className="form-group">
-                    <label>Name</label>
-                    <input className="form-control" value={this.props.pollName} disabled/>
+                    <h2><label>Name</label> {this.props.pollName}
+                        <div className="pull-right" onClick={this.toggleControls}>
+                            <i className="fa fa-cog" aria-hidden="true"></i>
+                        </div>
+                    </h2>
                 </div>
                 <div className='container-fluid'>
                     <div className='row'>
                         <div className='col-lg-6'>
                             <div className='panel panel-default'>
-                                <div className='panel-body'>
+                                <div className={ showAdvancedControls ? 'advanced-edit-controls panel-body' : 'panel-body'}>
                                     {this.getPollStartDateField()}
                                     {this.getPollFinishDateField()}
                                     {this.getPositionComponent()}
@@ -122,7 +154,7 @@ const EditPoll = React.createClass({
             </div>
         </div>;
     },
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         if(this.props.startDate) {
             $('#datetimepicker1')
                 .data('DateTimePicker')
@@ -166,6 +198,8 @@ const mapStateToProps = state => {
         pollData: state.polls.poll.data,
         startDate: editable.startDate,
         finishDate: editable.finishDate,
+        isStarted: state.polls.poll.isStarted || false,
+        isFinished: state.polls.poll.isFinished || false,
         position: state.polls.poll.name ? editable.position : null,
         isSaveButtonEnabled: Object.keys(state.polls.poll.modifications).length > 0,
         isFormLocked: state.polls.poll.isFormLocked

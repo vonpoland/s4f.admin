@@ -57,11 +57,11 @@ function getPage(pathname) {
         return nestedPathInfo(...nestedPath);
     }
 
-    if (pathname.indexOf('/login') > 0) {
+    if (pathname.indexOf('/login') >= 0) {
         return pageInfo['login'];
-    } else if (pathname.indexOf('/interaction') > 0) {
+    } else if (pathname.indexOf('/interaction') >= 0) {
         return pageInfo['interaction'];
-    } else if(pathname.indexOf('/dashboard') > 0) {
+    } else if(pathname.indexOf('/dashboard') >= 0) {
         return pageInfo['dashboard'];
     } else if(pathname.indexOf('/') === 0) {
         return pageInfo['dashboard'];

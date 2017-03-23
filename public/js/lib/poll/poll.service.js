@@ -26,6 +26,22 @@ function isLive(poll) {
     }
 }
 
+export function isStarted(poll) {
+    if (typeof poll.editable === 'undefined' || typeof poll.editable.startDate === 'undefined') {
+        return false;
+    }
+
+    return moment() > moment(poll.editable.startDate);
+}
+
+export function isFinished(poll) {
+    if (typeof poll.editable === 'undefined' || typeof poll.editable.finishDate === 'undefined') {
+        return false;
+    }
+
+    return moment() > moment(poll.editable.finishDate);
+}
+
 function calculateData(data) {
 	if(!data) {
 		return;
@@ -63,6 +79,8 @@ export function livePollCount(polls) {
 export function mapPropertiesForSinglePoll(poll) {
     poll.votes = calculateVotes(poll);
     poll.data = calculateData(poll.data);
+    poll.isStarted = isStarted(poll);
+    poll.isFinished = isFinished(poll);
 
     return poll;
 }
