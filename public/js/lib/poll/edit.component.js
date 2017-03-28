@@ -12,10 +12,10 @@ const EditPoll = React.createClass({
     },
     setMaxDate(selector) {
         // If this code is live in 2050 call me :) I'll give you 1000 EUR :) Marcin Krawczyk.
-        $(selector).data('DateTimePicker').date(moment('2050', 'YYYY'));
+        $(selector).data('DateTimePicker').date(moment().add('2', 'years'));
     },
     setMinDate(selector) {
-        $(selector).data('DateTimePicker').date(moment('2000', 'YYYY'));
+        $(selector).data('DateTimePicker').date(moment().subtract('2', 'years'));
     },
     toggleStartDate(value) {
         var selector = '#datetimepicker1';
