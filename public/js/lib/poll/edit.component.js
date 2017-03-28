@@ -46,7 +46,7 @@ const EditPoll = React.createClass({
             <div className="form-group">
                 <label className="block" htmlFor="datetimepicker1">
                     Started
-                    <ReactToggle onChange={this.toggleStartDate} checked={this.props.isStarted} className="pull-right simple-date"/>
+                    {typeof this.props.isStarted === 'undefined' ? null : (<ReactToggle onChange={this.toggleStartDate} defaultChecked={this.props.isStarted}  className="pull-right simple-date"/>)}
                 </label>
                 <div className='input-group date' id='datetimepicker1'>
                     <div className="flex-row">
@@ -101,7 +101,7 @@ const EditPoll = React.createClass({
             <div className="form-group">
                 <label className="block" htmlFor="datetimepicker2">
                     Finished
-                    <ReactToggle onChange={this.toggleFinishDate} checked={this.props.isFinished} className="pull-right simple-date"/>
+                    {typeof this.props.isFinished === 'undefined' ? null : (<ReactToggle onChange={this.toggleFinishDate} defaultChecked={this.props.isFinished} className="pull-right simple-date"/>)}
                 </label>
                 <div className='input-group date' id='datetimepicker2'>
                     <div className="flex-row">
@@ -198,8 +198,8 @@ const mapStateToProps = state => {
         pollData: state.polls.poll.data,
         startDate: editable.startDate,
         finishDate: editable.finishDate,
-        isStarted: state.polls.poll.isStarted || false,
-        isFinished: state.polls.poll.isFinished || false,
+        isStarted: state.polls.poll.isStarted,
+        isFinished: state.polls.poll.isFinished,
         position: state.polls.poll.name ? editable.position : null,
         isSaveButtonEnabled: Object.keys(state.polls.poll.modifications).length > 0,
         isFormLocked: state.polls.poll.isFormLocked
