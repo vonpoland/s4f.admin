@@ -8,6 +8,11 @@ Nodejs 6.x
 #Run
 `NODE_ENV=development node app`
 
+#Demo:
+
+user: test@s4f.pl
+pass: test
+
 #How to run browser sync?
 `gulp browser-sync`
 
