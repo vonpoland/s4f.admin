@@ -86,7 +86,7 @@
     "isomorphic-fetch": "^2.2.1",
     "js-yaml": "^3.4.6",
     "jsonwebtoken": "^7.0.1",
-    "mongoose": "^4.3.4",
+    "mongoose": "^5.9.14",
     "ramda": "^0.21.0",
     "socket.io-client": "^1.4.5"
   }
