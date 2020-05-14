@@ -1,6 +1,9 @@
 {
   "name": "bigscreen-admin",
   "version": "1.0.5",
+  "engines": {
+    "node": "^6"
+  },
   "description": "Screen4fans admin app",
   "main": "app.js",
   "scripts": {

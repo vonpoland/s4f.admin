@@ -1,7 +1,18 @@
+#Prequestites
+Nodejs 6.x
+
+#Install
+`npm install`
+`npm run jspm install`
+
+#Run
+`NODE_ENV=development node app`
+
 #How to run browser sync?
 `gulp browser-sync`
 
-#Run frontend tests
+#Run tests
+`gulp test:unit:backend`
 `gulp test:unit:frontend:dev`
 
 #Run e2e test with spec
