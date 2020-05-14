@@ -12,7 +12,7 @@ Nodejs 6.x
 `NODE_ENV=development node app`
 
 ## Demo:
-http://admin.hooper.pl/login
+https://admin.hooper.pl/login
 user: test@s4f.pl
 pass: test
 
